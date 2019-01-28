@@ -4,6 +4,6 @@ node_js:
 install:
   - cd client && yarn install
 script:
-  - cd client && yarn run test
-  - cd client && yarn run build
+  - yarn run test
+  - yarn run build
 
