@@ -1,2 +1,9 @@
 language: node_js
+node_js:
+  - "node"
+install:
+  - cd client && yarn install
+script:
+  - cd client && yarn run test
+  - cd client && yarn run build
 
