@@ -25,6 +25,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "react-router-dom": "^4.3.1"
   }
 }
