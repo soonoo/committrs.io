@@ -25,7 +25,7 @@ GitCommitItem.propTypes = {
       added: positiveNumberValidator,
       deleted: positiveNumberValidator,
     }),
-  }),
+  }).isRequired,
 };
 
 export default GitCommitItem;
