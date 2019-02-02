@@ -10,16 +10,16 @@ const commits = [
     hash: 'c509aaced86fc120a2521b40303a88692dee8104',
     message: 'fix: this is test commit!!!!',
     stat: {
-      added: 123,
-      deleted: 234,
+      addition: 123,
+      deletion: 234,
     },
   },
   {
     hash: 'c23rwerlkgjndfl4n4534534303a88692dee8104',
     message: 'fix: this is test commit!!!!',
     stat: {
-      added: 123,
-      deleted: 234,
+      addition: 123,
+      deletion: 234,
     },
   },
 ];

@@ -2,13 +2,19 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 
 const GitCommitItem = ({ commitInfo }) => {
-  const { hash, message, repoPath } = commitInfo;
+  const { hash, message, repoPath, stat } = commitInfo;
   const commitLink = `https://github.com/${repoPath}/commit/${hash}`;
 
   return (
     <div>
-      <a className='commit-link' href={commitLink}><p className='commit-hash'>{hash}</p></a>
+      <p className='commit-hash'>
+        <a className='commit-link' href={commitLink}>{hash}</a>
+      </p>
       <p className='commit-message'>{message}</p>
+      <p>
+        <span className='commit-addition'>{stat.addition}</span>
+        <span className='commit-deletion'>{stat.deletion}</span>
+      </p>
     </div>
   );
 };
@@ -26,8 +32,8 @@ GitCommitItem.propTypes = {
     hash: string.isRequired,
     message: string.isRequired,
     stat: shape({
-      added: positiveNumberValidator,
-      deleted: positiveNumberValidator,
+      addition: positiveNumberValidator,
+      deletion: positiveNumberValidator,
     }),
   }).isRequired,
 };

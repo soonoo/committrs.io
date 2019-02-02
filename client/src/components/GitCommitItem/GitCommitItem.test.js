@@ -22,6 +22,9 @@ describe('GitCommitItem.js', () => {
     expect(wrap.find('.commit-link').prop('href')).toEqual(`https://github.com/${commitInfo.repoPath}/commit/${commitInfo.hash}`);
     expect(wrap.find('.commit-hash').text()).toEqual(commitInfo.hash);
     expect(wrap.find('.commit-message').text()).toEqual(commitInfo.message);
+
+    expect(Number(wrap.find('.commit-addition').text())).toEqual(commitInfo.stat.addition);
+    expect(Number(wrap.find('.commit-deletion').text())).toEqual(commitInfo.stat.deletion);
   });
 });
 
