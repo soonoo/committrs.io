@@ -1,11 +1,14 @@
 import React from 'react';
-import { shape, string, nonNegativeNumber } from 'prop-types';
+import { shape, string } from 'prop-types';
 
 const GitCommitItem = ({ commitInfo }) => {
+  const { hash, message, repoPath } = commitInfo;
+  const commitLink = `https://github.com/${repoPath}/commit/${hash}`;
+
   return (
     <div>
-      <p className='commit-hash'>{commitInfo.hash}</p>
-      <p className='commit-message'>{commitInfo.message}</p>
+      <a className='commit-link' href={commitLink}><p className='commit-hash'>{hash}</p></a>
+      <p className='commit-message'>{message}</p>
     </div>
   );
 };
@@ -19,6 +22,7 @@ const positiveNumberValidator = (props, propName, componentName) => {
 
 GitCommitItem.propTypes = {
   commitInfo: shape ({
+    repoPath: string.isRequired,
     hash: string.isRequired,
     message: string.isRequired,
     stat: shape({
