@@ -1,9 +1,10 @@
 import React from 'react';
+import LandingPage from 'pages/landing';
 
 export default [
   {
     path: '/',
-    component: () => <div />,
+    component: LandingPage,
   },
   {
     path: '/dashboard',
