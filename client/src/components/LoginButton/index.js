@@ -1,14 +1,16 @@
 import React from 'react';
+import { withLocale } from 'context';
+import languagePack from 'constants/languagePack';
 
-const LoginButton = () => {
+const LoginButton = ({ locale }) => {
   return (
     <a
       href='https://github.com/login/oauth/authorize?client_id=435deb42a14081c0a9bf&redirect_uri=https://committrs.io/login'
     >
-      GitHub으로 시작하기
+      {languagePack[locale]['loginButton']}
     </a>
   );
 };
 
-export default LoginButton;
+export default withLocale(LoginButton);
 

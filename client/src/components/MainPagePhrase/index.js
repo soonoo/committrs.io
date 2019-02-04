@@ -1,15 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { withLocale } from 'context';
+import languagePack from 'constants/languagePack';
 
-const MainPagePhrase = ({ text }) => {
+const MainPagePhrase = ({ locale }) => {
   return (
-    <h1>{text}</h1>
+    <h1>{languagePack[locale]['landingPage']}</h1>
   );
 };
 
-MainPagePhrase.propTypes = {
-  text: PropTypes.string.isRequired,
-};
-
-export default MainPagePhrase;
+export default withLocale(MainPagePhrase);
 

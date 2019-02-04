@@ -5,7 +5,7 @@ import LoginButton from 'components/LoginButton';
 const LandingPage = () => {
   return (
     <div>
-      <MainPagePhrase text='Collect your commits scattered over open sources.'/>
+      <MainPagePhrase/>
       <LoginButton />
     </div>
   );
