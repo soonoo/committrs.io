@@ -1,17 +1,24 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
-const Koa = require('koa');
-const Router = require('koa-router');
-const fetch = require('node-fetch');
-const jwt = require('jsonwebtoken');
-const logger = require('koa-logger');
+import Koa from 'koa';
+import fetch from 'node-fetch';
+import jwt from 'jsonwebtoken';
+import logger from 'koa-logger';
+import router from './routes/api';
 
 const app = new Koa();
-const router = new Router();
 
-router.get('/auth/github', async (ctx) => {
+const customTokenName = 'committrs_token';
+
+// route for static files
+//router.get('*', async (ctx) => {
+  //  ctx.body = '22';
+//});
+
+app.use(logger());
+app.use(async (ctx, next) => {
   const { code } = ctx.query;
-  const customTokenName = 'committrs_token';
   const tokenFromCookie = ctx.cookies.get(customTokenName);
   const { GITHUB_ID: client_id, GITHUB_SECRET: client_secret, JWT_SECRET } = process.env;
 
@@ -51,18 +58,10 @@ router.get('/auth/github', async (ctx) => {
     console.log(e)
     ctx.cookies.set(customTokenName, '');
   } finally {
-    ctx.redirect('/');
+    if(ctx.path === '/auth/github') ctx.redirect('/');
+    else await next();
   }
 });
-
-const routes = ['/', '/dashboard/:username?'];
-router.get(routes, async (ctx) => {
-  const customTokenName = 'committrs_token';
-  const tokenFromCookie = ctx.cookies.get(customTokenName);
-  ctx.body = tokenFromCookie;
-});
-
-app.use(logger());
 app.use(router.routes());
 app.listen(8000);
 
