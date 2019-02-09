@@ -1,0 +1,16 @@
+{
+  "name": "nodegit-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "fetch": "rm -rf repos && node index.js"
+  },
+  "dependencies": {
+    "@octokit/rest": "^16.13.1",
+    "amqplib": "^0.5.3",
+    "aws-sdk": "^2.395.0",
+    "mysql": "^2.16.0",
+    "nodegit": "^0.24.0"
+  }
+}
