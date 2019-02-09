@@ -1,21 +1,25 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../');
 
-const Commit = sequelize.define('commit', {
+const User = sequelize.define('user', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
   },
-  hash: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: true,
+  },
+  email: {
+    type: Sequelize.STRING,
   },
   token: {
     type: Sequelize.STRING,
   },
 });
 
-module.exports = Commit;
+module.exports = User;
 

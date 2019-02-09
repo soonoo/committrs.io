@@ -1,21 +1,23 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../');
 
-const Commit = sequelize.define('commit', {
+// TODO: unique key constraint should be added(owner, name)
+const Repo = sequelize.define('repo', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
   },
-  hash: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  token: {
+  owner: {
     type: Sequelize.STRING,
+    allowNull: false,
   },
 });
 
-module.exports = Commit;
+module.exports = Repo;
 
