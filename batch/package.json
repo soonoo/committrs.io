@@ -7,6 +7,7 @@
     "fetch": "rm -rf repos && node index.js"
   },
   "dependencies": {
+    "@google-cloud/pubsub": "^0.24.1",
     "@octokit/rest": "^16.13.1",
     "amqplib": "^0.5.3",
     "aws-sdk": "^2.395.0",
