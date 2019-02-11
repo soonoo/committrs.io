@@ -4,7 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "fetch": "rm -rf repos && node index.js"
   },
   "dependencies": {
     "@google-cloud/pubsub": "^0.24.1",
