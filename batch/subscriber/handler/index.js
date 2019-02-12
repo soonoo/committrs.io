@@ -6,11 +6,10 @@ const handler = (message) => {
 
   switch(type) {
     case 'NEW_USER':
-      return newUserHandler();
+      return newUserHandler(message);
     case 'SYNC_UESR':
-      return syncUserHandler();
+      return syncUserHandler(message);
     default:
-      console.log(id);
       message.ack();
   }
 };
