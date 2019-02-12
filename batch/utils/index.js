@@ -7,5 +7,9 @@ const execPromise = (command) => new Promise((resolve, reject) => {
   });
 });
 
-exports.execPromise = execPromise;
+module.exports = {
+  pull: async () => execPromise(`git pull --all`),
+  clone: async (path) => execPromise(`git clone --no-checkout https://github.com/${path} repos/${path}`),
+  log: async (username) => execPromise(`git log --author='${username}' --all --stat --pretty=format:'---committrs/sep---%n---committrs/hash---%n%H%n---committrs/date---%n%aI%n---committrs/subject---%n%s%n---committrs/body---%n%b---committrs/files_changed---'`),
+};
 

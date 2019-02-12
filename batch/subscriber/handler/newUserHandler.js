@@ -17,6 +17,8 @@ Repo.hasMany(Commit);
 const octokit = require('../../connections/octokit');
 const execPromise = require('../../utils/execPromise');
 const { delimiters } = require('../../constants');
+const { pull, clone, log } = require('../../utils');
+const fs = require('fs');
 
 const userRepos = async (username) => {
   let page = 1;
@@ -38,6 +40,17 @@ const validRepos = async (repos, minimumStarCount) => {
     else return octokit.repos.get({ owner: username, repo: repo.name });
   })); 
   repoList = repoList.filter(repo => repo);
+}
+
+const refresh = (cwd, path) => {
+  process.chdir(`${cwd}`)
+  if(await fs.exists(`repos/${repo_path}`)) {
+    process.chdir(`repos/${repo_path}`);
+    await pull();
+  } else {
+    await clone(repo_path);
+  }
+  process.chdir(`${cwd}/repos/${repo_path}`);
 }
 
 const newUserHandler = async (message) => {
@@ -63,12 +76,9 @@ const newUserHandler = async (message) => {
     if((repo.data.source ? repo.data.source.stargazers_count : repo.data.stargazers_count) < minimumStarCount) continue;
 
     try {
-      // TODO: `git clone` exits when directory already exists
-      process.chdir(`${cwd}`)
-      await execPromise(`git clone --no-checkout https://github.com/${repo_path} repos/${repo_path}`);
-      process.chdir(`${cwd}/repos/${repo_path}`);
+      refresh(cwd, path);
 
-      let log = await execPromise(`git log --author='${username}' --all --stat --pretty=format:'---committrs/sep---%n---committrs/hash---%n%H%n---committrs/date---%n%aI%n---committrs/subject---%n%s%n---committrs/body---%n%b---committrs/files_changed---'`);
+      let log = await log(username);
 
       const commits = log.split('---committrs/sep---').slice(1);
       for(commit of commits) {
@@ -80,7 +90,6 @@ const newUserHandler = async (message) => {
         await Commit.create({ hash, userId, repoId });
       }
     } catch(e) {
-      continue;
     }
   }
 };
