@@ -1,10 +1,14 @@
-const sequelize = require('./');
-const Commit = require('./model/Commit');
-//const User = require('./model/User');
+const sync = require('./sync');
 
-Commit.create({ hash: 'sd13gsdfdfbo', })
-  .then(commit => {
-    console.log(commit);
-    sequelize.close();
-  })
+(async function() {
+  await sync(true);
+
+  const user = await User.create({ name: 'soonoo' });
+  const commit = await Commit.create({ hash: 'sd13gsdfdfbo', userId: 1 });
+  const repo = await Repo.create({ name: 'blog', owner: 'soonoo' });
+
+  await user.addRepo(repo)
+
+  sequelize.close();
+})();
 
