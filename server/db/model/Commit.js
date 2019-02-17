@@ -9,11 +9,22 @@ const Commit = sequelize.define('commit', {
     allowNull: false,
   },
   hash: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
+  date: {
+    type: Sequelize.DATETIME,
+    allowNull: false,
+  },
+  subject: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  token: {
-    type: Sequelize.STRING,
+  body: {
+    type: Sequelize.TEXT,
+  },
+  filesChanged: {
+    type: Sequelize.TEXT,
   },
 });
 
