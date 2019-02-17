@@ -3,21 +3,11 @@ const User = require('../../../server/db/model/User');
 const Commit = require('../../../server/db/model/Commit');
 const Repo = require('../../../server/db/model/Repo');
 
-// repo - user
-Repo.belongsToMany(User, { through: 'UserRepo' });
-User.belongsToMany(Repo, { through: 'UserRepo' });
-
-// user - commit
-User.hasMany(Commit);
-
-// repo - commit
-Repo.hasMany(Commit);
-
 // github api client
 const octokit = require('../../connections/octokit');
 const execPromise = require('../../utils/execPromise');
 const { delimiters } = require('../../constants');
-const { pull, clone, log } = require('../../utils');
+const { pull, clone, log, splitCommits } = require('../../utils');
 const fs = require('fs');
 
 const userRepos = async (username) => {
@@ -60,7 +50,7 @@ const newUserHandler = async (message) => {
   const cwd = process.cwd();
 
   // sync db
-  await sequelize.sync({ force: true });
+  await sequelize.sync();
 
   const userRepos = await userRepos(username);
   const validRepose = await validRepos(userRepos, minimumStarCount);
@@ -78,17 +68,11 @@ const newUserHandler = async (message) => {
     try {
       refresh(cwd, path);
 
-      let log = await log(username);
-
-      const commits = log.split('---committrs/sep---').slice(1);
-      for(commit of commits) {
-        const commitData = commit.split(new RegExp(delimiters.join('|'), 'g')).slice(1);
-        const hash = commitData[0];
-        const userId = user.get('id');
-        const repoId = createdRepo.get('id');
-
-        await Commit.create({ hash, userId, repoId });
-      }
+      const gitLog = await log(username);
+      const rawCommits = splitCommits(gitLog);
+      const commits = await Commit.bulkCreate(commits);
+      user.addCommits(commits);
+      repo.addCommits(commits);
     } catch(e) {
     }
   }
