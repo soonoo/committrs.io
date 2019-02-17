@@ -3,7 +3,7 @@ const User = require('./model/User');
 const Commit = require('./model/Commit');
 const Repo = require('./model/Repo');
 
-module.exports = async (force) => {
+module.exports = async (force = false) => {
   Repo.belongsToMany(User, { through: 'UserRepo' });
   User.belongsToMany(Repo, { through: 'UserRepo' });
 
@@ -11,6 +11,6 @@ module.exports = async (force) => {
 
   Repo.hasMany(Commit);
 
-  await sequelize.sync({ force } = { force: false });
+  await sequelize.sync({ force });
 };
 
