@@ -1,9 +1,9 @@
-const sequelize = require('./');
-const User = require('./model/User');
-const Commit = require('./model/Commit');
-const Repo = require('./model/Repo');
+import sequelize from './';
+import User from './model/User';
+import Commit from './model/Commit';
+import Repo from './model/Repo';
 
-module.exports = async (force = false) => {
+const sync = async (force = false) => {
   Repo.belongsToMany(User, { through: 'UserRepo' });
   User.belongsToMany(Repo, { through: 'UserRepo' });
 
@@ -13,4 +13,6 @@ module.exports = async (force = false) => {
 
   await sequelize.sync({ force });
 };
+
+export default sync;
 

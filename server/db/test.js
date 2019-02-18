@@ -1,16 +1,16 @@
-const sync = require('./sync');
-const sequelize = require('./');
-const User = require('./model/User');
-const Repo = require('./model/Repo');
-const Commit = require('./model/Commit');
-const random = require('randomstring');
+import sync from './sync';
+import sequelize from './';
+import User from './model/User';
+import Repo from './model/Repo';
+import Commit from './model/Commit';
+import random from 'randomstring';
 
 (async function() {
   await sync(true);
 
   const users = (new Array(100)).fill('user').map((user, index) => `user${index}`);
 
-  for(user of users) {
+  for(const user of users) {
     const tempUser = await User.create({ name: user });
     const repos = [];
 
@@ -19,7 +19,7 @@ const random = require('randomstring');
       const tempRepo = await Repo.create({ owner: user, name: (date + i).toString() });
       await tempUser.addRepo(tempRepo);
       for(let j = 0; j < 10; j ++) {
-        await Commit.create({ hash: (date + 1e8 + j).toString(), userId: tempUser.id, repoId: tempRepo.id });
+        await Commit.create({ hash: (date + 1e8 + j).toString(), userId: tempUser.id, repoId: tempRepo.id, subject: '' });
       }
     }
   }
