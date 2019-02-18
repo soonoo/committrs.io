@@ -1,9 +1,9 @@
-const { homedir } = require('os');
-const { pull, logSince, log, splitCommits } = require('../../utils');
-const User = require('../../../server/db/model/User');
-const Repo = require('../../../server/db/model/Repo');
-const Commit = require('../../../server/db/model/Commit');
-const sync = require('../../../server/db/sync');
+import { homedir } from 'os';
+import { pull, logSince, log, splitCommits } from '../../utils';
+import User from '../../../server/db/model/User';
+import Repo from '../../../server/db/model/Repo';
+import Commit from '../../../server/db/model/Commit';
+import sync from '../../../server/db/sync';
 
 const syncUserHandler = async (message) => {
   await sync();
@@ -42,5 +42,5 @@ const syncUserHandler = async (message) => {
   }
 };
 
-module.exports = syncUserHandler;
+export default syncUserHandler;
 

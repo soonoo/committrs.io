@@ -1,5 +1,5 @@
-const newUserHandler = require('./newUserHandler');
-const syncUserHandler = require('./syncUserHandler');
+import newUserHandler from './newUserHandler';
+import syncUserHandler from './syncUserHandler';
 
 const handler = (message) => {
   const { type, id } = message.attributes;
@@ -14,5 +14,5 @@ const handler = (message) => {
   }
 };
 
-module.exports = handler;
+export default handler;
 

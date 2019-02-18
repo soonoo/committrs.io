@@ -1,14 +1,13 @@
-const sequelize = require('../../../server/db');
-const User = require('../../../server/db/model/User');
-const Commit = require('../../../server/db/model/Commit');
-const Repo = require('../../../server/db/model/Repo');
+import sequelize from '../../../server/db';
+import User from '../../../server/db/model/User';
+import Commit from '../../../server/db/model/Commit';
+import Repo from '../../../server/db/model/Repo';
 
 // github api client
-const octokit = require('../../connections/octokit');
-const execPromise = require('../../utils/execPromise');
-const { delimiters } = require('../../constants');
-const { pull, clone, log, splitCommits } = require('../../utils');
-const fs = require('fs');
+import octokit from '../../connections/octokit';
+import { delimiters } from '../../constants';
+import { pull, clone, log, splitCommits } from '../../utils';
+import fs from 'fs';
 
 const userRepos = async (username) => {
   let page = 1;
@@ -32,7 +31,7 @@ const validRepos = async (repos, minimumStarCount) => {
   repoList = repoList.filter(repo => repo);
 }
 
-const refresh = (cwd, path) => {
+const refresh = async (cwd, path) => {
   process.chdir(`${cwd}`)
   if(await fs.exists(`repos/${repo_path}`)) {
     process.chdir(`repos/${repo_path}`);
@@ -78,5 +77,5 @@ const newUserHandler = async (message) => {
   }
 };
 
-module.exports = newUserHandler;
+export default newUserHandler;
 

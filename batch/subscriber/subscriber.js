@@ -1,6 +1,7 @@
-const { PubSub } = require('@google-cloud/pubsub');
+import { PubSub } from '@google-cloud/pubsub';
+import handler from './handler';
+
 const pubsub = new PubSub();
-const handler = require('./handler');
 
 const subscriptionName = 'committrs-sub';
 const subscription = pubsub.subscription(subscriptionName);
