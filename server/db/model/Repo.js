@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../');
+import Sequelize from 'sequelize';
+import sequelize from '../';
 
 // TODO: unique key constraint should be added(owner, name)
 const Repo = sequelize.define('repo', {
@@ -19,5 +19,5 @@ const Repo = sequelize.define('repo', {
   },
 });
 
-module.exports = Repo;
+export default Repo;
 

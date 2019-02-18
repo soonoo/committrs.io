@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../');
+import Sequelize from 'sequelize';
+import sequelize from '../';
 
 const Commit = sequelize.define('commit', {
   id: {
@@ -29,5 +29,5 @@ const Commit = sequelize.define('commit', {
   },
 });
 
-module.exports = Commit;
+export default Commit;
 
