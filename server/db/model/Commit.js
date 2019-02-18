@@ -13,8 +13,9 @@ const Commit = sequelize.define('commit', {
     allowNull: false,
   },
   date: {
-    type: Sequelize.DATETIME,
+    type: Sequelize.DATE,
     allowNull: false,
+    defaultValue: Sequelize.NOW,
   },
   subject: {
     type: Sequelize.STRING,
