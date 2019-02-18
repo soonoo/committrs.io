@@ -1,5 +1,5 @@
 // github api client
-const Octokit = require('@octokit/rest');
+import Octokit from '@octokit/rest';
 const octokit = new Octokit({
   auth: {
     username: 'soonoo',
@@ -12,5 +12,5 @@ const octokit = new Octokit({
   }
 });
 
-module.exports = octokit;
+export default octokit;
 

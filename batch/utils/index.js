@@ -7,14 +7,13 @@ const execPromise = (command) => new Promise((resolve, reject) => {
   });
 });
 
+export const pull = async () => execPromise(`git pull --all`);
+export const clone = async (path) => execPromise(`git clone --no-checkout https://github.com/${path} repos/${path}`);
+export const log = async (username) => execPromise(`git log --author='${username}' --all --stat --pretty=format:'---committrs/sep---%n---committrs/hash---%n%H%n---committrs/date---%n%aI%n---committrs/subject---%n%s%n---committrs/body---%n%b---committrs/files_changed---'`);
 
-const pull = async () => execPromise(`git pull --all`);
-const clone = async (path) => execPromise(`git clone --no-checkout https://github.com/${path} repos/${path}`);
-const log = async (username) => execPromise(`git log --author='${username}' --all --stat --pretty=format:'---committrs/sep---%n---committrs/hash---%n%H%n---committrs/date---%n%aI%n---committrs/subject---%n%s%n---committrs/body---%n%b---committrs/files_changed---'`);
+export const logSince = async (username, since) => execPromise(`git log --author='${username}' --all --stat --since=${since} --pretty=format:'---committrs/sep---%n---committrs/hash---%n%H%n---committrs/date---%n%aI%n---committrs/subject---%n%s%n---committrs/body---%n%b---committrs/files_changed---'`);
 
-const logSince = async (username, since) => execPromise(`git log --author='${username}' --all --stat --since=${since} --pretty=format:'---committrs/sep---%n---committrs/hash---%n%H%n---committrs/date---%n%aI%n---committrs/subject---%n%s%n---committrs/body---%n%b---committrs/files_changed---'`);
-
-const splitCommits = (gitLog) => {
+export const splitCommits = (gitLog) =>  {
   const re = /---committrs\/(?:sep|hash|date|subject|body|files_changed)---\n/g;
   const commits = gitLog.split(/---committrs\/sep---/g).slice(1);
 
@@ -30,5 +29,5 @@ const splitCommits = (gitLog) => {
   });
 
   return commitList;
-}
+};
 
