@@ -1,5 +1,6 @@
 import React from 'react';
 import LandingPage from 'pages/landing';
+import DashboardPage from 'pages/dashboard';
 
 export default [
   {
@@ -8,7 +9,7 @@ export default [
   },
   {
     path: '/dashboard',
-    component: () => <div />,
+    component: DashboardPage,
   },
   {
     path: '/rank',
