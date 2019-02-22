@@ -8,8 +8,10 @@ const sync = async (force = false) => {
   User.belongsToMany(Repo, { through: 'UserRepo' });
 
   User.hasMany(Commit);
+  Commit.belongsTo(User);
 
   Repo.hasMany(Commit);
+  Commit.belongsTo(Repo);
 
   await sequelize.sync({ force });
 };
