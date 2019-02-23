@@ -8,7 +8,6 @@ import sequelize from '../../db/index';
 const router = new Router();
 
 router.get('/commits/:userId/:repoId', async (ctx) => {
-  await sync();
   const { userId, repoId } = ctx.params;
   const { Op } = sequelize;
 
@@ -29,7 +28,6 @@ router.get('/commits/:userId/:repoId', async (ctx) => {
 });
 
 router.get('/repos/:userId', async (ctx) => {
-  await sync();
   const { userId } = ctx.params;
 
   ctx.body = await Commit.findAll({

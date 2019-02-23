@@ -6,6 +6,7 @@ import fetch from 'node-fetch';
 import jwt from 'jsonwebtoken';
 import logger from 'koa-logger';
 import router from './routes';
+import sync from '../db/sync';
 
 const app = new Koa();
 
@@ -60,5 +61,10 @@ app.use(async (ctx, next) => {
 });
 
 app.use(router.routes());
-app.listen(8000);
+
+// sync db and start server
+sync()
+  .then(() =>{
+    app.listen(8000);
+  })
 
