@@ -5,16 +5,11 @@ import Koa from 'koa';
 import fetch from 'node-fetch';
 import jwt from 'jsonwebtoken';
 import logger from 'koa-logger';
-import router from './routes/api';
+import router from './routes';
 
 const app = new Koa();
 
 const customTokenName = 'committrs_token';
-
-// route for static files
-//router.get('*', async (ctx) => {
-  //  ctx.body = '22';
-//});
 
 app.use(logger());
 app.use(async (ctx, next) => {
@@ -40,8 +35,9 @@ app.use(async (ctx, next) => {
           'Content-Type': 'application/json',
         },
       });
-      const { access_token } = await oAuthResponse.json();
 
+      const { access_token } = await oAuthResponse.json();
+      console.log(access_token)
       const userInfoResponse = await fetch(`https://api.github.com/user?access_token=${access_token}`, {
         headers: {
           'Accept': 'application/json'
@@ -62,6 +58,7 @@ app.use(async (ctx, next) => {
     else await next();
   }
 });
+
 app.use(router.routes());
 app.listen(8000);
 
