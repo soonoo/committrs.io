@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon ./src/index.js",
+    "dev": "nodemon ./dist/main.bundle.js",
     "build": "webpack --config webpack.config.js",
     "build:watch": "webpack --watch --config webpack.config.js"
   },
