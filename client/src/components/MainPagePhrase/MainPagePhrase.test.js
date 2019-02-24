@@ -1,12 +1,15 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'enzyme';
 import MainPagePhrase from './';
-
-let wrap;
+import { LocaleContext } from 'context';
 
 describe('MainPagePhrase.js', () => {
   it('renders without crashing', () => {
-    wrap = shallow(<MainPagePhrase />);
+    const { getByText } = render(
+      <LocaleContext.Provider value='en'>
+        <MainPagePhrase />
+      </LocaleContext.Provider>
+    );
   });
 });
 

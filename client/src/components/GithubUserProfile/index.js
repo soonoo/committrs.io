@@ -6,8 +6,8 @@ const GithubUserProfile = ({ profileInfo }) => {
 
   return (
     <div>
-      <img className='profile-img' src={profileImgSrc} />
-      <p className='profile-user'>{userName}</p>
+      <img alt='github user profile image' src={profileImgSrc} />
+      <p>{userName}</p>
     </div>
   );
 };

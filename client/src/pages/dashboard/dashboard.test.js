@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'react-testing-library';
 import DashboardPage from './';
 
 let wrap;
 describe('dashboard page', () => {
   it('renders without crashing', () => {
-    wrap = shallow(<DashboardPage />);
+    wrap = render(<DashboardPage />);
   });
 });
 

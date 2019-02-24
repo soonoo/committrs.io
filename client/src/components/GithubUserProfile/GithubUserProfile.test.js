@@ -1,25 +1,22 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'react-testing-library';
 import GithubUserProfile from './';
 
-let wrap;
 const githubProfileProp = {
   profileImgSrc: 'https://github.com/abc/def',
   userName: 'soonoo',
 };
 
 describe('GithubUserProfile.js', () => {
-  it('renders without crashing', () => {
-    wrap = shallow(<GithubUserProfile profileInfo={githubProfileProp} />);
-  });
+  const { getByText, getByAltText } = render(<GithubUserProfile profileInfo={githubProfileProp} />);
 
   it('renders profile image', () => {
-    expect(wrap.find('.profile-img').prop('src')).toEqual(githubProfileProp.profileImgSrc);
-  })
+    expect(getByAltText('github user profile image').getAttribute('src')).toEqual(githubProfileProp.profileImgSrc);
+  });
 
   it('renders user name', () => {
-    expect(wrap.find('.profile-user').text()).toEqual(githubProfileProp.userName);
-  })
+    expect(getByText(githubProfileProp.userName)).toBeDefined();
+  });
 });
 
 

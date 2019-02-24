@@ -1,7 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'react-testing-library';
 import UserRepoList from './';
-import UserRepoItem from '../UserRepoItem';
 
 const repoList= [
   {
@@ -23,15 +22,16 @@ const repoList= [
     id: 333,
   },
 ];
-let wrap;
 
 describe('UserRepoList.js', () => {
-  it('renders without crashing', () => {
-    wrap = shallow(<UserRepoList repos={repoList} />);
-  });
+  const { getByText } = render(<UserRepoList repos={repoList} />);
 
   it('renders three UserRepoItem component', () => {
-    expect(wrap.find(UserRepoItem)).toHaveLength(3);
+    for(const repo of repoList) {
+      const { owner, name, commitsCount } = repo;
+      expect(getByText(`${owner}/${name}`)).toBeDefined();
+      expect(getByText(commitsCount.toString())).toBeDefined();
+    }
   });
 });
 

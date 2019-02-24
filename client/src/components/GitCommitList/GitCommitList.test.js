@@ -1,9 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'react-testing-library';
 import GitCommitList from './';
-import GitCommitItem from '../GitCommitItem';
 
-let wrap;
 const repoPath = 'soonoo/blogggg';
 const commits = [
   {
@@ -24,21 +22,17 @@ const commits = [
   },
 ];
 
-describe('GitCommitItemList.js', () => {
-  it('renders without crashing', () => {
-    wrap = shallow(<GitCommitList repoPath={repoPath} commits={commits} />);
-  });
-
-  it('renders repoPath', () => {
-    expect(wrap.find('.repo-path').text()).toEqual(repoPath);
-  });
-
-  it('title element has a link to GitHub repo', () => {
-    expect(wrap.find('.repo-link').prop('href')).toEqual(`https://github.com/${repoPath}`);
-  });
+describe('GitCommitList.js', () => {
+  const { getByText } = render(<GitCommitList repoPath={repoPath} commits={commits} />);
 
   it('renders commits', () => {
-    expect(wrap.find(GitCommitItem)).toHaveLength(commits.length);
+    for(const commit of commits) {
+      const link = `https://github.com/${commit.repoPath}/commit/${commit.hash}`;
+      expect(getByText(commit.hash).getAttribute('href')).toEqual(link);
+      expect(getByText(commit.message)).toBeDefined();
+      expect(getByText(commit.stat.addition.toString())).toBeDefined();
+      expect(getByText(commit.stat.deletion.toString())).toBeDefined();
+    }
   });
 });
 

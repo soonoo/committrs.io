@@ -7,21 +7,17 @@ const props = {
   name: 'committrs',
   commitsCount: 123,
 };
-let wrap;
 
 describe('UserRepoItem.js', () => {
-  it('renders without crashing', () => {
-    wrap = render(<UserRepoItem {...props} />);
-  });
+  const { getByText } = render(<UserRepoItem {...props} />);
+  const { owner, name, commitsCount } = props;
 
   it('renders repo owner and name in `owner/name` form', () => {
-    const { owner, name } = props;
-    expect(wrap.getByText(`${owner}/${name}`)).not.toBeNull();
+    expect(getByText(`${owner}/${name}`)).toBeDefined();
   });
 
   it('renders total count of commits in repo', () => {
-    const { commitsCount } = props;
-    expect(wrap.getByText(`${commitsCount}`)).not.toBeNull();
+    expect(getByText(commitsCount.toString())).toBeDefined();
   });
 });
 

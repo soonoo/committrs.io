@@ -1,8 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'react-testing-library';
 import GitCommitItem from './';
 
-let wrap;
 const commitInfo = {
   repoPath: 'soonoo/blogggg',
   hash: 'f7973c884ccfd03446218b9e5ec731e319a1c9c2',
@@ -14,17 +13,14 @@ const commitInfo = {
 };
 
 describe('GitCommitItem.js', () => {
-  it('renders without crashing', () => {
-    wrap = shallow(<GitCommitItem commitInfo={commitInfo} />);
-  });
+  const { getByText } = render(<GitCommitItem commitInfo={commitInfo} />);
 
   it('renders prop', () => {
-    expect(wrap.find('.commit-link').prop('href')).toEqual(`https://github.com/${commitInfo.repoPath}/commit/${commitInfo.hash}`);
-    expect(wrap.find('.commit-hash').text()).toEqual(commitInfo.hash);
-    expect(wrap.find('.commit-message').text()).toEqual(commitInfo.message);
-
-    expect(Number(wrap.find('.commit-addition').text())).toEqual(commitInfo.stat.addition);
-    expect(Number(wrap.find('.commit-deletion').text())).toEqual(commitInfo.stat.deletion);
+    const link = `https://github.com/${commitInfo.repoPath}/commit/${commitInfo.hash}`;
+    expect(getByText(commitInfo.hash).getAttribute('href')).toEqual(link);
+    expect(getByText(commitInfo.message)).toBeDefined();
+    expect(getByText(commitInfo.stat.addition.toString())).toBeDefined();
+    expect(getByText(commitInfo.stat.deletion.toString())).toBeDefined();
   });
 });
 

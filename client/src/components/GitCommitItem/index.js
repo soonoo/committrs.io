@@ -7,13 +7,13 @@ const GitCommitItem = ({ commitInfo }) => {
 
   return (
     <div>
-      <p className='commit-hash'>
-        <a className='commit-link' href={commitLink}>{hash}</a>
-      </p>
-      <p className='commit-message'>{message}</p>
       <p>
-        <span className='commit-addition'>{stat.addition}</span>
-        <span className='commit-deletion'>{stat.deletion}</span>
+        <a href={commitLink}>{hash}</a>
+      </p>
+      <p>{message}</p>
+      <p>
+        <span>{stat.addition}</span>
+        <span>{stat.deletion}</span>
       </p>
     </div>
   );
