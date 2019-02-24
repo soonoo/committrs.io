@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducers from './reducers';
 import routes from './constants/routes';
 import { LocaleContext } from 'context';
-
-const store = createStore(reducers);
 
 class App extends Component {
   state = {
@@ -15,7 +10,6 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={store}>
         <Router>
           <LocaleContext.Provider value={this.state.locale}>
             <div className="App">
@@ -25,7 +19,6 @@ class App extends Component {
             </div>
           </LocaleContext.Provider>
         </Router>
-      </Provider>
     );
   }
 }
