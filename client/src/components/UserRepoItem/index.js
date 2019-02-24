@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const UserRepoItem = ({ owner, name, commitsCount }) => {
   return (
@@ -8,6 +9,15 @@ const UserRepoItem = ({ owner, name, commitsCount }) => {
     </div>
   );
 };
+
+const { number, string } = PropTypes;
+export const repoShape = {
+  owner: string.isRequired,
+  name: string.isRequired,
+  commitsCount: number.isRequired,
+};
+
+UserRepoItem.propTypes = repoShape;
 
 export default UserRepoItem;
 
