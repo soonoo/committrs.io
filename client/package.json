@@ -1,6 +1,7 @@
 {
-  "name": "committrs",
+  "name": "committrs-client",
   "version": "0.1.0",
+  "homepage": "https://github.com/soonoo/committrs",
   "private": true,
   "dependencies": {
     "enzyme": "^3.8.0",

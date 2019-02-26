@@ -1,6 +1,7 @@
 {
-  "name": "nodegit-test",
+  "name": "comittrs-batch",
   "version": "1.0.0",
+  "homepage": "https://github.com/soonoo/committrs",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
