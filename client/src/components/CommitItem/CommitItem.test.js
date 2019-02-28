@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-testing-library';
-import GitCommitItem from './';
+import CommitItem from './';
 
 const commitInfo = {
   repoPath: 'soonoo/blogggg',
@@ -12,8 +12,8 @@ const commitInfo = {
   },
 };
 
-describe('GitCommitItem.js', () => {
-  const { getByText } = render(<GitCommitItem commitInfo={commitInfo} />);
+describe('CommitItem.js', () => {
+  const { getByText } = render(<CommitItem commitInfo={commitInfo} />);
 
   it('renders prop', () => {
     const link = `https://github.com/${commitInfo.repoPath}/commit/${commitInfo.hash}`;

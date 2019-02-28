@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from 'react-testing-library';
-import UserRepoItem from './';
+import RepoItem from './';
 
 const props = {
   owner: 'soonoo',
@@ -26,8 +26,8 @@ const props = {
   ],
 }
 
-describe('UserRepoItem.js', () => {
-  const { getByText, container, queryByText } = render(<UserRepoItem {...props} />);
+describe('RepoItem.js', () => {
+  const { getByText, container, queryByText } = render(<RepoItem {...props} />);
   const { owner, name, commitsCount } = props;
 
   it('renders repo owner and name in `owner/name` form', () => {

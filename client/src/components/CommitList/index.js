@@ -1,24 +1,24 @@
 import React from 'react';
-import GitCommitItem from '../GitCommitItem';
+import CommitItem from '../CommitItem';
 import PropTypes from 'prop-types';
 
-const GitCommitList = ({ repoPath, commits }) => {
+const CommitList = ({ repoPath, commits }) => {
   return (
     <div>
       {commits.map((commit) => {
         commit.repoPath = repoPath;
         return (
-          <GitCommitItem key={commit.hash} commitInfo={commit} />
+          <CommitItem key={commit.hash} commitInfo={commit} />
         );
       })}
     </div>
   );
 };
 
-GitCommitList.propTypes = {
+CommitList.propTypes = {
   // TODO: reuse commitInfo prop type.
   repoPath: PropTypes.string.isRequired,
 };
 
-export default GitCommitList;
+export default CommitList;
 

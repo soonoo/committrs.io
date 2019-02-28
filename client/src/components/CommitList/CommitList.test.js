@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-testing-library';
-import GitCommitList from './';
+import CommitList from './';
 
 const repoPath = 'soonoo/blogggg';
 const commits = [
@@ -23,7 +23,7 @@ const commits = [
 ];
 
 describe('GitCommitList.js', () => {
-  const { getByText } = render(<GitCommitList repoPath={repoPath} commits={commits} />);
+  const { getByText } = render(<CommitList repoPath={repoPath} commits={commits} />);
 
   it('renders commits', () => {
     for(const commit of commits) {

@@ -1,14 +1,14 @@
 import React from 'react';
-import UserRepoItem from '../UserRepoItem';
+import RepoItem from '../RepoItem';
 import PropTypes from 'prop-types';
-import { repoShape } from '../UserRepoItem';
+import { repoShape } from '../RepoItem';
 
-const UserRepoList = ({ repos }) => {
+const RepoList = ({ repos }) => {
   return (
     <div>
       {repos.map((repo) => {
         return (
-          <UserRepoItem key={repo.id} {...repo} />
+          <RepoItem key={repo.id} {...repo} />
         );
       })}
     </div>
@@ -16,9 +16,9 @@ const UserRepoList = ({ repos }) => {
 };
 
 const { shape, arrayOf } = PropTypes;
-UserRepoList.propTypes = {
+RepoList.propTypes = {
   repos: arrayOf(shape(repoShape)),
 };
 
-export default UserRepoList;
+export default RepoList;
 

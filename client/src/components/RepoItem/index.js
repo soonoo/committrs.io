@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GitCommitList from '../GitCommitList';
+import CommitList from '../CommitList';
 
-class UserRepoItem extends React.Component {
+class RepoItem extends React.Component {
   state = {
     commitListVisibility: false,
   }
@@ -23,7 +23,7 @@ class UserRepoItem extends React.Component {
         <div>{`${owner}/${name}`}</div>
         <div>{commitsCount}</div>
         {this.state.commitListVisibility &&
-            <GitCommitList commits={commits} repoPath={repoPath} />}
+            <CommitList commits={commits} repoPath={repoPath} />}
       </div>
     );
   }
@@ -36,7 +36,7 @@ export const repoShape = {
   commitsCount: number.isRequired,
 };
 
-UserRepoItem.propTypes = repoShape;
+RepoItem.propTypes = repoShape;
 
-export default UserRepoItem;
+export default RepoItem;
 

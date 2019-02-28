@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-testing-library';
-import UserRepoList from './';
+import RepoList from './';
 
 const repoList= [
   {
@@ -23,10 +23,10 @@ const repoList= [
   },
 ];
 
-describe('UserRepoList.js', () => {
-  const { getByText } = render(<UserRepoList repos={repoList} />);
+describe('RepoList.js', () => {
+  const { getByText } = render(<RepoList repos={repoList} />);
 
-  it('renders three UserRepoItem component', () => {
+  it('renders three RepoItem component', () => {
     for(const repo of repoList) {
       const { owner, name, commitsCount } = repo;
       expect(getByText(`${owner}/${name}`)).toBeDefined();

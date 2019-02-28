@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 
-const GitCommitItem = ({ commitInfo }) => {
+const CommitItem = ({ commitInfo }) => {
   const { hash, message, repoPath, stat } = commitInfo;
   const commitLink = `https://github.com/${repoPath}/commit/${hash}`;
 
@@ -26,7 +26,7 @@ const positiveNumberValidator = (props, propName, componentName) => {
   }
 };
 
-GitCommitItem.propTypes = {
+CommitItem.propTypes = {
   commitInfo: shape ({
     repoPath: string.isRequired,
     hash: string.isRequired,
@@ -38,5 +38,5 @@ GitCommitItem.propTypes = {
   }).isRequired,
 };
 
-export default GitCommitItem;
+export default CommitItem;
 
