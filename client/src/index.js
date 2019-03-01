@@ -6,10 +6,11 @@ import createSagaMiddleware from 'redux-saga';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import reducer from './store/reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  () => ({}),
+  reducer,
   applyMiddleware(sagaMiddleware),
 );
 
