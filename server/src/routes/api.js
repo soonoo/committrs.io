@@ -1,7 +1,6 @@
 import User from '../../db/model/User';
 import Repo from '../../db/model/Repo';
 import Commit from '../../db/model/Commit';
-import sync from '../../db/sync';
 import Router from 'koa-router';
 import sequelize from '../../db/index';
 
