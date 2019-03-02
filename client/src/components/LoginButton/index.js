@@ -6,7 +6,7 @@ import { SERVER_HOST } from 'constants/urls';
 const LoginButton = ({ locale }) => {
   return (
     <a
-      href={`https://github.com/login/oauth/authorize?client_id=435deb42a14081c0a9bf&redirect_uri=${SERVER_HOST}/auth/github`}
+      href={`https://github.com/login/oauth/authorize?client_id=435deb42a14081c0a9bf&redirect_uri=${SERVER_HOST}/auth/github/token`}
     >
       {languagePack[locale]['loginButton']}
     </a>
