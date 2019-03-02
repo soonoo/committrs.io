@@ -19,6 +19,9 @@ const User = sequelize.define('user', {
   token: {
     type: Sequelize.STRING,
   },
+  avatarUrl: {
+    type: Sequelize.STRING,
+  },
 });
 
 export default User;
