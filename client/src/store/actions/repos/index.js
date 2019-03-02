@@ -8,7 +8,7 @@ export const fetchReposSuccess = (repos) => ({
   },
 });
 
-export const fetchReposRequest = (repos) => ({
+export const fetchReposRequest = () => ({
   type: FETCH_REPOS_REQUEST,
 });
 
