@@ -37,7 +37,9 @@ router.get('/github/token', async (ctx) => {
     avatarUrl: avatar_url,
   });
 
-  ctx.body = jwt.sign({ name: login, avatarUrl: avatar_url }, JWT_SECRET);
+  const token = jwt.sign({ name: login, avatarUrl: avatar_url }, JWT_SECRET);
+  ctx.cookies.set('cmtrs-token', token);
+  ctx.redirect(`/${login}`)
 });
 
 export default router;
