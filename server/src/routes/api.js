@@ -40,19 +40,21 @@ router.get('/repos/:userId', async (ctx) => {
     }],
     group: ['repoId'],
   });
+});
 
-  // const query = `
-  //   SELECT repoId, COUNT(commitId) AS commitsCount FROM users JOIN
-  //   (SELECT cㅏㅏㅓommits.id AS commitId, repos.id AS repoId, commits.userId AS userId
-  //   FROM commits JOIN repos ON commits.repoId = repos.id) AS bb 
-  //   ON users.id = bb.userId WHERE users.name = $username GROUP BY repoId;
-  // `;
-  // const options = {
-  //   type: sequelize.QueryTypes.SELECT,
-  //   bind: {
-  //     username,
-  //   },
-  // };
+router.get('/user/:userName', async (ctx) => {
+  const { userName } = ctx.params;
+  const user = await User.findOne({
+    where: {
+      name: userName,
+    },
+    attributes: {
+      exclude: ['token'],
+    },
+  });
+
+  if(user) ctx.body = user;
+  else ctx.status = 404;
 });
 
 export default router;
