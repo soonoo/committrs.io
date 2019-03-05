@@ -28,8 +28,8 @@ router.get('/commits/:userId/:repoId', async (ctx) => {
 
 router.get('/repos/:userId', async (ctx) => {
   const { userId } = ctx.params;
-
-  ctx.body = await Commit.findAll({
+  const result = await Commit.findAll({
+    raw: true,
     where: {
       userId,
     },
@@ -39,6 +39,15 @@ router.get('/repos/:userId', async (ctx) => {
       attributes: ['id', 'name', 'owner'],
     }],
     group: ['repoId'],
+  });
+
+  ctx.body = result.map((commit) => {
+    return {
+      id: commit['repo.id'],
+      name: commit['repo.name'],
+      owner: commit['repo.owner'],
+      totalCommits: commit['totalCommits'],
+    };
   });
 });
 
