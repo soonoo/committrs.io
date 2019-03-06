@@ -8,7 +8,7 @@ export default [
     component: LandingPage,
   },
   {
-    path: '/dashboard',
+    path: '/:userName',
     component: DashboardPage,
   },
   {
