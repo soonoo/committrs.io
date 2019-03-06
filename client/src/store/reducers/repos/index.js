@@ -1,11 +1,13 @@
-const initialState = {
-  repos: [],
-};
+import { FETCH_REPOS_SUCCESS } from 'store/actions/repos';
+
+const initialState = [];
 
 const reposReducer = (state = initialState, action) => {
   switch(action.type) {
+    case FETCH_REPOS_SUCCESS:
+      return action.payload.repos;
     default:
-      return initialState;
+      return state;
   }
 };
 
