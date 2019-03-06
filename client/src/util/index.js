@@ -5,7 +5,6 @@ const fetchWithErrorHandling = ({ url, method, options } = { method: 'GET', opti
       method,
     })
     .then(response => response.json())
-    .catch(e => e)
   );
 };
 
