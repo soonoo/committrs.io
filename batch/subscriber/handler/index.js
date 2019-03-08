@@ -1,14 +1,14 @@
 import newUserHandler from './newUserHandler';
 import syncUserHandler from './syncUserHandler';
 
-const handler = (message) => {
+const handler = async (message) => {
   const { type, id } = message.attributes;
 
   switch(type) {
     case 'NEW_USER':
-      return newUserHandler(message);
+      await newUserHandler(message);
     case 'SYNC_UESR':
-      return syncUserHandler(message);
+      await syncUserHandler(message);
     default:
       message.ack();
   }
