@@ -7,6 +7,10 @@ const execPromise = (command) => new Promise((resolve, reject) => {
   });
 });
 
+export const sleep = async (ms) => new Promise((resolve, reject) => {
+  setTimeout(() => resolve(), ms);
+});
+
 export const pull = async () => execPromise(`git pull --all`);
 export const clone = async (path) => execPromise(`git clone --no-checkout https://github.com/${path} repos/${path}`);
 export const log = async (username) => execPromise(`git log --author='${username}' --all --stat --pretty=format:'---committrs/sep---%n---committrs/hash---%n%H%n---committrs/date---%n%aI%n---committrs/subject---%n%s%n---committrs/body---%n%b---committrs/files_changed---'`);
