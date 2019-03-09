@@ -1,20 +1,20 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 
-const GithubUserProfile = ({ profileInfo }) => {
-  const { profileImgSrc, userName } = profileInfo;
+const GithubUserProfile = React.memo(({ profileInfo }) => {
+  const { avatarUrl, userName } = profileInfo;
 
   return (
     <div>
-      <img alt='github user profile image' src={profileImgSrc} />
+      <img alt='github user profile' src={avatarUrl} />
       <p>{userName}</p>
     </div>
   );
-};
+});
 
 GithubUserProfile.propTypes = {
   profileInfo: shape({
-    profileImgSrc: string.isRequired,
+    avatarUrl: string.isRequired,
     userName: string.isRequired,
   }),
 };

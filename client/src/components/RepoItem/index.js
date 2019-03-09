@@ -1,39 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CommitList from '../CommitList';
 
-class RepoItem extends React.Component {
-  state = {
-    commitListVisibility: false,
-  }
+const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits, userId }) => {
+  const [listVisibility, setListVisibility] = useState(false);
+  const repoPath = `${owner}/${name}`;
+  const dataKey = `${userId}/${repoId}`;
+  const data = commits[dataKey] ? commits[dataKey].commits : [];
 
-  toggleCommitListVisibility = () => {
-    this.setState({
-      ...this.state,
-      commitListVisibility: !this.state.commitListVisibility,
-    });
-  }
+  const onRepoClick = () => {
+    if(!listVisibility) fetchCommits(userId, repoId);
+    setListVisibility(!listVisibility)
+  };
 
-  render = () => {
-    const { owner, name, commitsCount, commits } = this.props;
-    const repoPath = `${owner}/${name}`;
-
-    return (
-      <div onClick={this.toggleCommitListVisibility}>
-        <div>{`${owner}/${name}`}</div>
-        <div>{commitsCount}</div>
-        {this.state.commitListVisibility &&
-            <CommitList commits={commits} repoPath={repoPath} />}
-      </div>
-    );
-  }
+  return (
+    <div onClick={onRepoClick}>
+      <div>{repoPath}</div>
+      <div>{totalCommits}</div>
+      {listVisibility &&
+        <CommitList commits={data} repoPath={repoPath} />
+      }
+    </div>
+  );
 };
 
 const { number, string } = PropTypes;
 export const repoShape = {
   owner: string.isRequired,
   name: string.isRequired,
-  commitsCount: number.isRequired,
+  id: number.isRequired,
+  totalCommits: number.isRequired,
+  userId: number.isRequired,
 };
 
 RepoItem.propTypes = repoShape;

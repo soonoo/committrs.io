@@ -10,15 +10,15 @@ class App extends Component {
 
   render() {
     return (
-        <Router>
-          <LocaleContext.Provider value={this.state.locale}>
-            <div className="App">
-              {routes.map((route) => {
-                return <Route key={route.path} path={route.path} component={route.component} exact />;
-              })}
-            </div>
-          </LocaleContext.Provider>
-        </Router>
+      <Router>
+        <LocaleContext.Provider value={this.state.locale}>
+          <div className="App">
+            {routes.map((route) => {
+              return <Route key={route.path} path={route.path} component={route.component} exact />;
+            })}
+          </div>
+        </LocaleContext.Provider>
+      </Router>
     );
   }
 }

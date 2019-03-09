@@ -12,8 +12,8 @@ const CommitItem = ({ commitInfo }) => {
       </p>
       <p>{message}</p>
       <p>
-        <span>{stat.addition}</span>
-        <span>{stat.deletion}</span>
+        {/*<span>{stat.addition}</span>*/}
+        {/*<span>{stat.addition}</span>*/}
       </p>
     </div>
   );
