@@ -8,12 +8,12 @@ export default [
     component: LandingPage,
   },
   {
-    path: '/:userName',
-    component: DashboardPage,
-  },
-  {
     path: '/rank',
     component: () => <div />,
+  },
+  {
+    path: '/:userName',
+    component: DashboardPage,
   },
 ];
 

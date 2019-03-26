@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 import routes from './constants/routes';
 import { LocaleContext } from 'context';
+import history from './history';
+import NotFound from './pages/notFound';
 
 class App extends Component {
   state = {
@@ -10,12 +12,15 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <LocaleContext.Provider value={this.state.locale}>
           <div className="App">
-            {routes.map((route) => {
-              return <Route key={route.path} path={route.path} component={route.component} exact />;
-            })}
+            <Switch>
+              {routes.map((route) => {
+                return <Route key={route.path} path={route.path} component={route.component} exact />;
+              })}
+              <Route component={NotFound} />
+            </Switch>
           </div>
         </LocaleContext.Provider>
       </Router>
