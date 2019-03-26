@@ -1,15 +1,12 @@
-const fetchWithErrorHandling = ({ url, method = 'GET', options = {}}) => {
-  return (
-    fetch(url, {
-      ...options,
-      method,
-    })
-    .then(response => {
-      if(!response.ok) throw new FetchResponseError(response);
-      return response;
-    })
-    .then(response => response.json())
-  );
+const fetchWithErrorHandling = async ({ url, method = 'GET', options = {}}) => {
+  const response = await fetch(url, {
+    ...options,
+    method,
+  });
+  if(!response.ok) throw new FetchResponseError(response);
+
+  const json = await response.json();
+  return json;
 };
 
 const FetchResponseError = (response) => {
@@ -18,3 +15,4 @@ const FetchResponseError = (response) => {
 
 export const GET = ({ url, options }) => fetchWithErrorHandling({ url, options });
 export const POST = ({ url, options }) => fetchWithErrorHandling({ url, options, method: 'POST' });
+
