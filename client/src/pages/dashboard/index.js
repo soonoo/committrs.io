@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import GithubUserProfile from 'components/GithubUserProfile';
-import RepoList from 'components/RepoList';
+import RepoItem from 'components/RepoItem';
 import { fetchReposRequest } from 'store/actions/repos';
 import { fetchUserRequest } from 'store/actions/user';
 import { fetchCommitsRequest } from 'store/actions/commits';
@@ -23,12 +23,17 @@ const DashboardPage = ({ profileInfo, repos, commits, match, fetchReposRequest, 
       <GithubUserProfile
         profileInfo={profileInfo}
       />
-      <RepoList
-        repos={repos}
-        fetchCommits={fetchCommitsRequest}
-        userId={profileInfo.id}
-        commits={commits}
-      />
+      <div>
+        {repos.map((repo) => (
+          <RepoItem
+            key={repo.id}
+            fetchCommits={fetchCommitsRequest}
+            userId={profileInfo.id}
+            commits={commits}
+            {...repo} 
+          />
+        ))}
+      </div>
     </div>
   );
 };

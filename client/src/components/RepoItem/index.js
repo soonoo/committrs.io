@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import CommitList from '../CommitList';
+import CommitItem from '../CommitItem';
 
 const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits, userId }) => {
   const [listVisibility, setListVisibility] = useState(false);
@@ -18,7 +18,10 @@ const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits
       <div>{repoPath}</div>
       <div>{totalCommits}</div>
       {listVisibility &&
-        <CommitList commits={data} repoPath={repoPath} />
+          data.map((commit) => {
+            commit.repoPath = repoPath;
+            return <CommitItem key={commit.hash} commitInfo={commit} />;
+          })
       }
     </div>
   );
