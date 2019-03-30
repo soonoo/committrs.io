@@ -5,6 +5,8 @@ import { LocaleContext } from 'context';
 import history from './history';
 import NotFound from './pages/notFound';
 
+import 'App.css';
+
 class App extends Component {
   state = {
     locale: window.navigator.language === 'ko-KR' ? 'ko' : 'en',
@@ -14,7 +16,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <LocaleContext.Provider value={this.state.locale}>
-          <div className="App">
+          <div className='app'>
             <Switch>
               {routes.map((route) => {
                 return <Route key={route.path} path={route.path} component={route.component} exact />;
