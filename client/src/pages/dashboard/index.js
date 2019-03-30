@@ -8,6 +8,8 @@ import { fetchReposRequest } from 'store/actions/repos';
 import { fetchUserRequest } from 'store/actions/user';
 import { fetchCommitsRequest } from 'store/actions/commits';
 
+import './dashboard.css';
+
 const DashboardPage = ({ profileInfo, repos, commits, match, fetchReposRequest, fetchUserRequest, fetchCommitsRequest }) => {
   useEffect(() => {
     fetchUserRequest(match.params.userName);
@@ -19,11 +21,11 @@ const DashboardPage = ({ profileInfo, repos, commits, match, fetchReposRequest, 
   }, [profileInfo.id]);
 
   return (
-    <div>
+    <div className='dashboard'>
       <GithubUserProfile
         profileInfo={profileInfo}
       />
-      <div>
+      <div className='repo-container'>
         {repos.map((repo) => (
           <RepoItem
             key={repo.id}

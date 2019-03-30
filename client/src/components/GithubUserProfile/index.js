@@ -1,13 +1,17 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 
+import './GithubUserProfile.css';
+
 const GithubUserProfile = React.memo(({ profileInfo }) => {
-  const { avatarUrl, userName } = profileInfo;
+  const { avatarUrl, name } = profileInfo;
 
   return (
-    <div>
+    <div className='github-profile'>
       <img alt='github user profile' src={avatarUrl} />
-      <p>{userName}</p>
+      <div>
+        <p>{name}</p>
+      </div>
     </div>
   );
 });

@@ -1,0 +1,23 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.repo-container {
+  width: 100%;
+}
+
+@media only screen and (min-width : 600px) {
+  .repo-container {
+    width: 600px;
+  }
+}
+
+@media only screen and (min-width : 1280px) {
+  .repo-container {
+    width: 900px;
+  }
+}
+
