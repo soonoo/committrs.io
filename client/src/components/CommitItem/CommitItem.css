@@ -1,0 +1,23 @@
+.commit {
+  padding: 4px;
+}
+
+.commit a {
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.commit a:hover {
+  background-color: #ccc;
+}
+
+@media only screen and (min-width : 600px) {
+  .commit {
+  }
+}
+
+@media only screen and (min-width : 1280px) {
+  .commit {
+  }
+}
+

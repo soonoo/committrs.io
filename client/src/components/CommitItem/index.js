@@ -1,12 +1,14 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 
+import './CommitItem.css';
+
 const CommitItem = ({ commitInfo }) => {
   const { hash, message, repoPath, stat } = commitInfo;
   const commitLink = `https://github.com/${repoPath}/commit/${hash}`;
 
   return (
-    <div>
+    <div className='commit'>
       <p>
         <a href={commitLink}>{hash}</a>
       </p>

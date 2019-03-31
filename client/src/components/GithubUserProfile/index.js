@@ -9,8 +9,8 @@ const GithubUserProfile = React.memo(({ profileInfo }) => {
   return (
     <div className='github-profile'>
       <img alt='github user profile' src={avatarUrl} />
-      <div>
-        <p>{name}</p>
+      <div className='container'>
+        <div className='name'>{name}</div>
       </div>
     </div>
   );

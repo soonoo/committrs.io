@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CommitItem from '../CommitItem';
 
+import './RepoItem.css';
+
 const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits, userId }) => {
   const [listVisibility, setListVisibility] = useState(false);
   const repoPath = `${owner}/${name}`;
@@ -13,15 +15,22 @@ const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits
     setListVisibility(!listVisibility)
   };
 
+  const repoClassName = 'repo ' + (listVisibility ? 'visible' : '');
+
   return (
-    <div onClick={onRepoClick}>
-      <div>{repoPath}</div>
-      <div>{totalCommits}</div>
+    <div className={repoClassName}>
+      <div className='repo-title' onClick={onRepoClick}>{repoPath}</div>
+      <div className='repo-commits-count'>{`${totalCommits} commits`}</div>
       {listVisibility &&
-          data.map((commit) => {
-            commit.repoPath = repoPath;
-            return <CommitItem key={commit.hash} commitInfo={commit} />;
-          })
+          <div className='commit-container'>
+            <div></div>
+            <div>
+              {data.map((commit) => {
+                commit.repoPath = repoPath;
+                return <CommitItem key={commit.hash} commitInfo={commit} />;
+              })}
+            </div>
+          </div>
       }
     </div>
   );

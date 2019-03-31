@@ -1,0 +1,45 @@
+.repo {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 10px;
+  font-size: 16px;
+  border-left: 4px solid #ccc;
+  padding: 0 10px 0 10px;
+}
+
+.repo.visible {
+  border-left: 4px solid #2d7899;
+}
+
+.repo-title {
+  padding: 8px 3px 8px 3px;
+  border-radius: 4px;
+}
+
+.repo-title:hover {
+  cursor: pointer;
+  background-color: #eee;
+}
+
+.commit-container {
+  display: flex;
+  margin: 10px 0 0 0;
+  background-color: #eee;
+  padding: 14px;
+  border-radius: 4px;
+}
+
+
+@media only screen and (min-width : 600px) {
+  .repo {
+    font-size: 18px;
+    margin: 18px 0 18px;
+  }
+}
+
+@media only screen and (min-width : 1280px) {
+  .repo {
+    font-size: 20px;
+  }
+}
+
