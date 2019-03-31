@@ -1,0 +1,25 @@
+.dashboard-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 500;
+  width: 100%;
+  padding: 12px;
+}
+
+@media only screen and (min-width : 600px) {
+  .dashboard-separator {
+    font-size: 24px;
+    width: 600px;
+    padding: 18px;
+  }
+}
+
+@media only screen and (min-width : 1280px) {
+  .dashboard-separator {
+    font-size: 26px;
+    width: 900px;
+  }
+}
+

@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import GithubUserProfile from 'components/GithubUserProfile';
+import DashboardSeparator from 'components/DashboardSeparator';
 import RepoItem from 'components/RepoItem';
 import { fetchReposRequest } from 'store/actions/repos';
 import { fetchUserRequest } from 'store/actions/user';
@@ -24,6 +25,9 @@ const DashboardPage = ({ profileInfo, repos, commits, match, fetchReposRequest, 
     <div className='dashboard'>
       <GithubUserProfile
         profileInfo={profileInfo}
+      />
+      <DashboardSeparator
+        name={profileInfo.name}
       />
       <div className='repo-container'>
         {repos.map((repo) => (
