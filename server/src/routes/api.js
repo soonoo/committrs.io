@@ -53,16 +53,23 @@ router.get('/repos/:userId', async (ctx) => {
 
 router.get('/user/:userName', async (ctx) => {
   const { userName } = ctx.params;
-  const user = await User.findOne({
-    where: {
-      name: userName,
+  const query = `
+    SELECT u.id AS id, u.name AS name, u.email AS email, u.avatarUrl,
+    COUNT(commits.id) AS totalCommits, COUNT(DISTINCT commits.repoId) AS totalRepos
+    FROM users AS u
+    INNER JOIN commits
+    ON u.id = commits.userId
+    WHERE u.name = :userName;
+  `;
+  const user = await sequelize.query(
+    query,
+    {
+      replacements: { userName },
+      type: sequelize.QueryTypes.SELECT,
     },
-    attributes: {
-      exclude: ['token'],
-    },
-  });
+  );
 
-  if(user) ctx.body = user;
+  if(user[0].id) ctx.body = user[0];
   else ctx.status = 404;
 });
 
