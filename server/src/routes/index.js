@@ -1,10 +1,14 @@
 import Router from 'koa-router';
-import apiRouter from './api';
-import authRouter from './auth';
+import authController from './authController';
+import commitController from './commitController';
+import repoController from './repoController';
+import userController from './userController';
 
 const router = new Router();
-router.use('/api', apiRouter.routes());
-router.use('/auth', authRouter.routes());
+router.use('/auth', authController.routes());
+router.use('/api/commits', commitController.routes());
+router.use('/api/repos', repoController.routes());
+router.use('/api/user', userController.routes());
 
 export default router;
 
