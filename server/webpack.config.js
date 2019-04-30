@@ -25,6 +25,11 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.ts?$/,
+        use: 'ts-loader',
+        exclude: /(node_modules)/,
+      },
     ],
   },
   externals: ['pg', 'sqlite3', 'tedious', 'pg-hstore'],

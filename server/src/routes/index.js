@@ -2,7 +2,7 @@ import Router from 'koa-router';
 import authController from './authController';
 import commitController from './commitController';
 import repoController from './repoController';
-import userController from './userController';
+import userController from './userController.ts';
 
 const router = new Router();
 router.use('/auth', authController.routes());

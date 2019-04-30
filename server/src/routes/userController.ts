@@ -1,12 +1,24 @@
 import User from '../../db/model/User';
 import Repo from '../../db/model/Repo';
 import Commit from '../../db/model/Commit';
-import Router from 'koa-router';
+import * as Router from 'koa-router';
 import sequelize from '../../db/index';
+import { Context } from 'koa';
 
 const router = new Router();
 
-router.get('/:userName', async (ctx) => {
+router.put('/', async (ctx: Context) => {
+  interface UserRequest {
+    name: String;
+    email: String;
+    avatarUrl?: String;
+  }
+
+  const user = await User.create({ ...ctx.request.body });
+  ctx.body = user;
+});
+
+router.get('/:userName', async (ctx: Context) => {
   const { userName } = ctx.params;
   const query = `
     SELECT u.id AS id, u.name AS name, u.email AS email, u.avatarUrl,

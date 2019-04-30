@@ -2,10 +2,12 @@ import Koa from 'koa';
 import logger from 'koa-logger';
 import router from './routes';
 import cors from '@koa/cors';
+import bodyParser from 'koa-bodyparser';
 
 const app = new Koa();
 
 app.use(logger());
+app.use(bodyParser());
 app.use(cors({
   'Access-Control-Allow-Origin': '*',
 }));
