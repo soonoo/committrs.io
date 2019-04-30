@@ -4,6 +4,9 @@ const WebpackShellPlugin = require('webpack-shell-plugin');
 module.exports = {
   mode: 'development',
   target: 'node',
+  node: {
+    __dirname: true,
+  },
   entry: {
     main: './src/index.js',
     test: './db/test.js',
