@@ -1,7 +1,6 @@
 import AWS from 'aws-sdk';
 import handler from './handler';
 import { sleep } from '../utils';
-import handler from './handler';
 import dotenv from 'dotenv';
 dotenv.config();
 
