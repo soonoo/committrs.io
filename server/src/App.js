@@ -4,11 +4,13 @@ import router from './routes';
 import cors from '@koa/cors';
 import serve from 'koa-static';
 import swaggerUi from 'swagger-ui-dist';
+import bodyParser from 'koa-bodyparser';
 
 const app = new Koa();
 const swaggerPath = swaggerUi.getAbsoluteFSPath();
 
 app.use(logger());
+app.use(bodyParser())
 app.use(serve(swaggerPath))
 app.use(cors({
   'Access-Control-Allow-Origin': '*',
