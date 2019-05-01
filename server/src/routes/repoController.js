@@ -3,8 +3,32 @@ import Repo from '../../db/model/Repo';
 import Commit from '../../db/model/Commit';
 import Router from 'koa-router';
 import sequelize from '../../db/index';
+import { string, object } from 'yup';
 
 const router = new Router();
+
+router.put('/', async (ctx) => {
+  const repoRequestSchema = object().shape({
+    name: string().required(),
+    owner: string().required(),
+  });
+
+  const isValid = await repoRequestSchema.isValid(ctx.request.body);
+  if(!isValid) {
+    ctx.status = 400;
+    return;
+  }
+
+  let repo = await Repo.findOne({ where: { ...ctx.request.body } });
+  // resource already exists
+  if(repo !== null) {
+    ctx.body = { id: repo.id };
+    return;
+  }
+
+  repo = await Repo.create(ctx.request.body);
+  ctx.body = { id: repo.id };
+});
 
 router.get('/:userId', async (ctx) => {
   const { userId } = ctx.params;
