@@ -1,4 +1,5 @@
 const path = require('path');
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 module.exports = {
   mode: 'development',
@@ -24,5 +25,8 @@ module.exports = {
     ],
   },
   externals: ['pg', 'sqlite3', 'tedious', 'pg-hstore', 'gcrp'],
+  plugins: [
+    new WebpackShellPlugin({ onBuildStart: 'yarn dev' }),
+  ],
 };
 
