@@ -6,7 +6,31 @@ import sequelize from '../../db/index';
 import { string, object } from 'yup';
 
 const router = new Router();
-
+ 
+/**
+ * @swagger
+ * /repos:
+ *   put:
+ *     summary: Add a new repository
+ *     tags:
+ *       - repo
+ *     responses:
+ *       default:
+ *         - description:
+ *     parameters:
+ *       - name: body
+ *         description: Repository object
+ *         in: body
+ *         required: true
+ *         type: string
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *             owner:
+ *               type: string
+ */
 router.put('/', async (ctx) => {
   const repoRequestSchema = object().shape({
     name: string().required(),
@@ -29,6 +53,32 @@ router.put('/', async (ctx) => {
   ctx.body = await Repo.create(ctx.request.body);
 });
 
+/**
+ * @swagger
+ * /repos/{repoId}/{userId}:
+ *   put:
+ *     summary: Make association between repoId and userid
+ *     tags:
+ *       - repo
+ *     responses:
+ *       default:
+ *         - description:
+ *     parameters:
+ *       - name: repoId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         format: int64
+ *         schema:
+ *           type: integer
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         format: int64
+ *         schema:
+ *           type: integer
+ */
 router.put('/:repoId/:userId', async (ctx) => {
   const { repoId, userId } = ctx.params;
   const repo = await Repo.findOne({ where: { id: repoId } });
@@ -43,6 +93,25 @@ router.put('/:repoId/:userId', async (ctx) => {
   ctx.status = 200;
 });
 
+/**
+ * @swagger
+ * /repos/{userId}:
+ *   get:
+ *     summary: Get a list of user's repository
+ *     tags:
+ *       - repo
+ *     responses:
+ *       default:
+ *         - description:
+ *     parameters:
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         format: int64
+ *         schema:
+ *           type: integer
+ */
 router.get('/:userId', async (ctx) => {
   const { userId } = ctx.params;
   const result = await Commit.findAll({

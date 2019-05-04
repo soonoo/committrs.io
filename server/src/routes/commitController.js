@@ -9,6 +9,51 @@ import _ from 'lodash';
 
 const router = new Router();
 
+/**
+ * @swagger
+ * /commits/bulk/{userId}/{repoId}:
+ *   put:
+ *     summary: Add bulk commits for a user in repo
+ *     tags:
+ *       - commit
+ *     responses:
+ *       default:
+ *         - description:
+ *     parameters:
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         schema:
+ *           type: integer
+ *       - name: repoId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         schema:
+ *           type: integer
+ *       - name: body
+ *         description: Commit object
+ *         in: body
+ *         required: true
+ *         type: string
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               hash:
+ *                 type: string
+ *               date:
+ *                 type: string
+ *               subject:
+ *                 type: string
+ *               body:
+ *                 type: string
+ *               filesChanged:
+ *                 type: string
+ *         
+ */
 router.put('/bulk/:userId/:repoId', async (ctx) => {
   const { userId, repoId } = ctx.params;
   const commitRequestSchema = array().of(
@@ -43,6 +88,30 @@ router.put('/bulk/:userId/:repoId', async (ctx) => {
   ctx.body = 200;
 });
 
+/**
+ * @swagger
+ * /commits/{userId}/{repoId}:
+ *   get:
+ *     summary: Get user's commit list in a repo
+ *     tags:
+ *       - commit
+ *     responses:
+ *       default:
+ *         - description:
+ *     parameters:
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         schema:
+ *           type: integer
+ *       - name: repoId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         schema:
+ *           type: integer
+ */
 router.get('/:userId/:repoId', async (ctx) => {
   const { userId, repoId } = ctx.params;
   const { Op } = sequelize;

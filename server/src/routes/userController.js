@@ -8,6 +8,32 @@ import { sqsNewUser } from '../service/sqs';
 
 const router = new Router();
 
+/**
+ * @swagger
+ * /user:
+ *   put:
+ *     summary: Add a new user
+ *     tags:
+ *       - user
+ *     responses:
+ *       default:
+ *         - description:
+ *     parameters:
+ *       - name: body
+ *         description: User object
+ *         in: body
+ *         required: true
+ *         type: string
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *             email:
+ *               type: string
+ *             avatarUrl:
+ *               type: string
+ */
 router.put('/', async (ctx) => {
   const { body } = ctx.request;
   const userRequestSchema = object().shape({
@@ -34,6 +60,24 @@ router.put('/', async (ctx) => {
   ctx.body = await User.create(ctx.request.body);
 });
 
+/**
+ * @swagger
+ * /user/{userName}:
+ *   get:
+ *     summary: Get a user
+ *     tags:
+ *       - user
+ *     responses:
+ *       default:
+ *         - description:
+ *     parameters:
+ *       - name: userName
+ *         in: path
+ *         required: true
+ *         type: string
+ *         schema:
+ *           type: string
+ */
 router.get('/:userName', async (ctx) => {
   const { userName } = ctx.params;
   const query = `
