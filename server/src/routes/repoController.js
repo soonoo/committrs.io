@@ -19,15 +19,28 @@ router.put('/', async (ctx) => {
     return;
   }
 
-  let repo = await Repo.findOne({ where: { ...ctx.request.body } });
+  let repo = await Repo.findOne({ where: ctx.request.body });
   // resource already exists
   if(repo !== null) {
-    ctx.body = { id: repo.id };
+    ctx.body = repo;
     return;
   }
 
-  repo = await Repo.create(ctx.request.body);
-  ctx.body = { id: repo.id };
+  ctx.body = await Repo.create(ctx.request.body);
+});
+
+router.put('/:repoId/:userId', async (ctx) => {
+  const { repoId, userId } = ctx.params;
+  const repo = await Repo.findOne({ where: { id: repoId } });
+  const user = await User.findOne({ where: { id: userId } });
+
+  if(repo === null || user === null) {
+    ctx.status = 400;
+    return;
+  }
+
+  repo.addUser(user);
+  ctx.status = 200;
 });
 
 router.get('/:userId', async (ctx) => {
