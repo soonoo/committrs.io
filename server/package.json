@@ -27,6 +27,7 @@
     "node-fetch": "^2.3.0",
     "randomstring": "^1.1.5",
     "sequelize": "^4.42.0",
+    "sqs-producer": "^1.6.3",
     "swagger-ui-dist": "^3.22.1",
     "webpack-shell-plugin": "^0.5.0",
     "yup": "^0.27.0"

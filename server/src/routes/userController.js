@@ -4,6 +4,7 @@ import Commit from '../../db/model/Commit';
 import Router from 'koa-router';
 import sequelize from '../../db/index';
 import { object, string } from 'yup';
+import { sqsNewUser } from '../service/sqs';
 
 const router = new Router();
 
@@ -27,6 +28,8 @@ router.put('/', async (ctx) => {
     ctx.status = 409;
     return;
   }
+
+  sqsNewUser(body.name);
 
   ctx.body = await User.create(ctx.request.body);
 });
