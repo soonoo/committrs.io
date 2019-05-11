@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import sequelize from '../';
 
-// TODO: unique key constraint should be added(owner, name)
+const uniqueIndexName = 'repo_unique_key';
 const Repo = sequelize.define('repo', {
   id: {
     type: Sequelize.INTEGER,
@@ -12,10 +12,12 @@ const Repo = sequelize.define('repo', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: uniqueIndexName,
   },
   owner: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: uniqueIndexName,
   },
 });
 

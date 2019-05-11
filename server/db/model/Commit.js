@@ -9,8 +9,9 @@ const Commit = sequelize.define('commit', {
     allowNull: false,
   },
   hash: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING(40),
     allowNull: false,
+    unique: true,
   },
   date: {
     type: Sequelize.DATE,
