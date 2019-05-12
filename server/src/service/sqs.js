@@ -1,4 +1,5 @@
 import Producer from 'sqs-producer';
+import uuid from 'uuid/v4';
 
 const {
   AWS_REGION: region,
@@ -14,18 +15,21 @@ const producer = Producer.create({
   secretAccessKey,
 });
 
-export const sqsNewUser = (username) => producer.send([
-  {
-    id: username + Date.now().toString(),
-    body: 'body',
-    messageAttributes: {
-      type: { DataType: 'String', StringValue: 'NEW_USER' },
-      username: { DataType: 'String', StringValue: username },
-    },
-    groupId: 'newUser',
-    deduplicationId: username + Date.now().toString(),
-  },
-], function(err) {
-  if (err) console.log(err);
-});
+export const sqsNewUser = (username) => {
+  const id = uuid();
 
+  producer.send([
+    {
+      id: username + Date.now().toString(),
+      body: 'body',
+      messageAttributes: {
+        type: { DataType: 'String', StringValue: 'NEW_USER' },
+        username: { DataType: 'String', StringValue: username },
+      },
+      groupId: id,
+      deduplicationId: id,
+    },
+  ], function(err) {
+    if (err) console.log(err);
+  });
+}
