@@ -27,5 +27,8 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/runtime": "^7.3.1",
     "babel-loader": "^8.0.5"
+  },
+  "nodemonConfig": {
+    "ignore": ["repos/*"]
   }
 }
