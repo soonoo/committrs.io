@@ -3,8 +3,7 @@ import Repo from '../../db/model/Repo';
 import Commit from '../../db/model/Commit';
 import Router from 'koa-router';
 import sequelize from '../../db/index';
-import * as yup from 'yup';
-import { object, string, date, array } from 'yup';
+import { paginationSchema, commitRequestSchema } from '../schema';
 import _ from 'lodash';
 
 const router = new Router();
@@ -56,15 +55,6 @@ const router = new Router();
  */
 router.put('/bulk/:userId/:repoId', async (ctx) => {
   const { userId, repoId } = ctx.params;
-  const commitRequestSchema = array().of(
-    object().shape({
-      hash: string().required(),
-      date: date().required(),
-      subject: string().required(),
-      body: string(),
-      filesChanged: string(),
-    }),
-  );
 
   const isValid = await commitRequestSchema.isValid(ctx.request.body);
   if(!isValid) {
@@ -116,18 +106,27 @@ router.get('/:userId/:repoId', async (ctx) => {
   const { userId, repoId } = ctx.params;
   const { Op } = sequelize;
 
+  let pagination;
+  try {
+    pagination = paginationSchema.cast(ctx.query);
+  } catch(e) {
+    pagination = paginationSchema.default();
+  }
+
   ctx.body = await Repo.findOne({
+    where: { id: repoId },
     include:[{
       model: Commit,
       attributes: {
         exclude: [ 'createdAt', 'updatedAt', 'userId', 'repoId', ],
+
+        // `foreignKey` property in association definition should be specified
+        // to use `limit`, `offset` option.
+        // https://github.com/sequelize/sequelize/issues/7514
+        include: ['repoId'],
       },
-      where: {
-        [Op.and]: [
-          { repoId },
-          { userId },
-        ],
-      },
+      where: { userId },
+      ...pagination,
     }],
   });
 });

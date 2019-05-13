@@ -10,8 +10,8 @@ const sync = async (force = false) => {
   User.hasMany(Commit);
   Commit.belongsTo(User);
 
-  Repo.hasMany(Commit);
-  Commit.belongsTo(Repo);
+  Repo.hasMany(Commit, { foreignKey: 'repoId' });
+  Commit.belongsTo(Repo, { foreignKey: 'repoId' });
 
   await sequelize.sync({ force });
 };

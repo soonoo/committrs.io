@@ -3,8 +3,8 @@ import Repo from '../../db/model/Repo';
 import Commit from '../../db/model/Commit';
 import Router from 'koa-router';
 import sequelize from '../../db/index';
-import { object, string } from 'yup';
 import { sqsNewUser } from '../service/sqs';
+import { userRequestSchema } from '../schema';
 
 const router = new Router();
 
@@ -36,11 +36,6 @@ const router = new Router();
  */
 router.put('/', async (ctx) => {
   const { body } = ctx.request;
-  const userRequestSchema = object().shape({
-    name: string().required(),
-    email: string(),
-    avatarUrl: string(),
-  });
 
   const isValid = await userRequestSchema.isValid(body);
   if(!isValid) {

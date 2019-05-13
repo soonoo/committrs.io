@@ -3,7 +3,7 @@ import Repo from '../../db/model/Repo';
 import Commit from '../../db/model/Commit';
 import Router from 'koa-router';
 import sequelize from '../../db/index';
-import { string, object } from 'yup';
+import { commitRequestSchema } from '../schema';
 
 const router = new Router();
  
@@ -32,11 +32,6 @@ const router = new Router();
  *               type: string
  */
 router.put('/', async (ctx) => {
-  const repoRequestSchema = object().shape({
-    name: string().required(),
-    owner: string().required(),
-  });
-
   const isValid = await repoRequestSchema.isValid(ctx.request.body);
   if(!isValid) {
     ctx.status = 400;
