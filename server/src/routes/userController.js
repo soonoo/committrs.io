@@ -1,6 +1,7 @@
 import User from '../../db/model/User';
 import Repo from '../../db/model/Repo';
 import Commit from '../../db/model/Commit';
+import SyncStatus from '../../db/model/SyncStatus';
 import Router from 'koa-router';
 import sequelize from '../../db/index';
 import { sqsNewUser } from '../service/sqs';
@@ -52,7 +53,9 @@ router.put('/', async (ctx) => {
 
   sqsNewUser(body.name);
 
-  ctx.body = await User.create(ctx.request.body);
+  const syncStatus = await SyncStatus.findOne({ where: { name: 'ADDED' } });
+  const syncStatusId = syncStatus ? syncStatus.dataValues.id : null;
+  ctx.body = await User.create({ ...ctx.request.body, syncStatusId  });
 });
 
 /**
@@ -76,11 +79,13 @@ router.put('/', async (ctx) => {
 router.get('/:userName', async (ctx) => {
   const { userName } = ctx.params;
   const query = `
-    SELECT u.id AS id, u.name AS name, u.email AS email, u.avatarUrl,
+    SELECT u.id AS id, u.name AS name, u.email AS email, u.avatarUrl, ss.name AS syncStatus, ss.description AS syncDesc,
     COUNT(commits.id) AS totalCommits, COUNT(DISTINCT commits.repoId) AS totalRepos
     FROM users AS u
     INNER JOIN commits
     ON u.id = commits.userId
+    INNER JOIN syncStatuses AS ss
+    ON u.syncStatusId = ss.id
     WHERE u.name = :userName;
   `;
   const user = await sequelize.query(
