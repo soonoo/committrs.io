@@ -4,6 +4,7 @@ import Commit from '../../db/model/Commit';
 import Router from 'koa-router';
 import sequelize from '../../db/index';
 import { commitRequestSchema } from '../schema';
+import { repoRequestSchema } from '../schema';
 
 const router = new Router();
  
