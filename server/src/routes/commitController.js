@@ -113,7 +113,7 @@ router.get('/:userId/:repoId', async (ctx) => {
     pagination = paginationSchema.default();
   }
 
-  ctx.body = await Repo.findOne({
+  const data = await Repo.findOne({
     where: { id: repoId },
     include:[{
       model: Commit,
@@ -129,6 +129,12 @@ router.get('/:userId/:repoId', async (ctx) => {
       ...pagination,
     }],
   });
+
+  if(data === null) {
+    ctx.status = 404;
+  } else {
+    ctx.body = data;
+  }
 });
 
 export default router;
