@@ -1,0 +1,20 @@
+service: committrs
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: prod
+  # region: us-east-1
+  region: ap-northeast-2
+
+# package:
+#   exclude:
+#     - node_modules/**
+
+functions:
+  app:
+    handler: dist/app.app
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+

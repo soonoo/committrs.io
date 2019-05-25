@@ -2,10 +2,16 @@ import Sequelize from 'sequelize';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const { DB_USERNAME, DB_PASSWORD, DB_NAME } = process.env;
+const { env } = process;
+const postfix = env.NODE_ENV === 'production' ? '_DEV' : '';
 
-const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
-  host: 'localhost',
+const name = env[`DB_NAME${postfix}`];
+const username = env[`DB_USERNAME${postfix}`];
+const password = env[`DB_PASSWORD${postfix}`];
+const host = env[`DB_HOST${postfix}`];
+
+const sequelize = new Sequelize(name, username, password, {
+  host,
   dialect: 'mysql',
   operatorsAliases: false,
 });

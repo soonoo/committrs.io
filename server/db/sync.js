@@ -4,7 +4,7 @@ import Commit from './model/Commit';
 import Repo from './model/Repo';
 import SyncStatus from './model/SyncStatus';
 
-const sync = async (force = false) => {
+const sync = async (ctx, next, force = false) => {
   Repo.belongsToMany(User, { through: 'UserRepo' });
   User.belongsToMany(Repo, { through: 'UserRepo' });
 
@@ -16,12 +16,16 @@ const sync = async (force = false) => {
 
   SyncStatus.hasOne(User);
 
-  await sequelize.sync({ force });
-  await SyncStatus.findOrCreate({ where: { name: 'ADDED', description: 'User is created and information will be synchronized soon.' }});
-  await SyncStatus.findOrCreate({ where: { name: 'SYNCING', description: 'User is waiting for update. Contributions will be synchonized soon.' }});
-  await SyncStatus.findOrCreate({ where: { name: 'DEFAULT' }});
+  // await sequelize.sync({ force });
+  // await SyncStatus.findOrCreate({ where: { name: 'ADDED', description: 'User is created and information will be synchronized soon.' }});
+  // await SyncStatus.findOrCreate({ where: { name: 'SYNCING', description: 'User is waiting for update. Contributions will be synchonized soon.' }});
+  // await SyncStatus.findOrCreate({ where: { name: 'DEFAULT' }});
 
+  if(next){
+    await next();
+  }
 };
 
 export default sync;
+
 
