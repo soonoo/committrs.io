@@ -4,6 +4,8 @@ import Commit from './model/Commit';
 import Repo from './model/Repo';
 import SyncStatus from './model/SyncStatus';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const sync = async (ctx, next, force = false) => {
   Repo.belongsToMany(User, { through: 'UserRepo' });
   User.belongsToMany(Repo, { through: 'UserRepo' });
@@ -21,9 +23,7 @@ const sync = async (ctx, next, force = false) => {
   // await SyncStatus.findOrCreate({ where: { name: 'SYNCING', description: 'User is waiting for update. Contributions will be synchonized soon.' }});
   // await SyncStatus.findOrCreate({ where: { name: 'DEFAULT' }});
 
-  if(next){
-    await next();
-  }
+  await next();
 };
 
 export default sync;
