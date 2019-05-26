@@ -6,9 +6,12 @@ import userController from './userController';
 
 const router = new Router();
 router.use('/auth', authController.routes());
-router.use('/api/commits', commitController.routes());
-router.use('/api/repos', repoController.routes());
-router.use('/api/user', userController.routes());
+router.use('/commits', commitController.routes());
+router.use('/repos', repoController.routes());
+router.use('/users', userController.routes());
 
-export default router;
+const v1 = new Router();
+v1.use('/v1', router.routes());
+
+export default v1;
 
