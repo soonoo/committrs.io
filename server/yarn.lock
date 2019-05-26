@@ -1011,6 +1011,21 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
 
+aws-sdk@^2.177.0:
+  version "2.463.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.463.0.tgz#57562a95aa9b071ee16bb9e18ddd5c6c27c6eda6"
+  integrity sha512-bl0S6mxA2o8Hpy9LsMcPC9kVnrL4+B4qayiMlNMrp+8gcEMzJSMzfrUDX4SCWsqGYT25sZn8TDqTGJp7XIh3yw==
+  dependencies:
+    buffer "4.9.1"
+    events "1.1.1"
+    ieee754 "1.1.8"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.3.2"
+    xml2js "0.4.19"
+
 aws-sdk@^2.393.0:
   version "2.446.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.446.0.tgz#91e0da0d216d0d540b34541df88d02d8605adc6d"
@@ -3952,6 +3967,14 @@ sequelize@^4.42.0:
 serialize-javascript@^1.4.0:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.6.1.tgz#4d1f697ec49429a847ca6f442a2a755126c4d879"
+
+serverless-domain-manager@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/serverless-domain-manager/-/serverless-domain-manager-3.2.2.tgz#35a1497b517f5d6946ecb26fa3e587d4c19c3775"
+  integrity sha512-UIKupK/XDhkTyOm7p8GJrkkFa8XSzfeOyuoNScjZIKyA+w5XIxFOMRtmJG1nFqJ/8zq3YMn9J0Hw/I5EvBrPWQ==
+  dependencies:
+    aws-sdk "^2.177.0"
+    chalk "^2.4.1"
 
 serverless-http@^2.0.2:
   version "2.0.2"

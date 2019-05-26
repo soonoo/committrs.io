@@ -11,6 +11,17 @@ provider:
 #   exclude:
 #     - node_modules/**
 
+plugins:
+  - serverless-domain-manager
+
+custom:
+  customDomain:
+    domainName: api.committrs.io
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    certificateName: '*.committrs.io'
+
 functions:
   app:
     handler: dist/app.app
