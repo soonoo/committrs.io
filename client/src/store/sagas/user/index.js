@@ -5,7 +5,7 @@ import { SERVER_HOST } from 'constants/urls';
 
 export function* fetchUser(action) {
   try {
-    const user = yield call(GET, { url: `${SERVER_HOST}/api/user/${action.payload.userName}` });
+    const user = yield call(GET, { url: `${SERVER_HOST}/v1/users/${action.payload.userName}` });
     yield put(fetchUserSuccess(user));
   } catch(e) {
     yield put(fetchUserFail());
