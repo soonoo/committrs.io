@@ -4,7 +4,7 @@ import { GET } from '../../../util';
 import { SERVER_HOST } from 'constants/urls';
 
 export function* fetchRepos(action) {
-  const url = `${SERVER_HOST}/api/repos/${action.payload.userId}`;
+  const url = `${SERVER_HOST}/v1/repos/${action.payload.userId}`;
   try {
     const repos = yield call(GET, { url });
     yield put(fetchReposSuccess(repos));

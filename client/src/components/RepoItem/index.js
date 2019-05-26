@@ -8,7 +8,7 @@ const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits
   const [listVisibility, setListVisibility] = useState(false);
   const repoPath = `${owner}/${name}`;
   const dataKey = `${userId}/${repoId}`;
-  const data = commits[dataKey] ? commits[dataKey].commits : [];
+  const data = commits[dataKey] || [];
 
   const onRepoClick = () => {
     if(!listVisibility) fetchCommits(userId, repoId);

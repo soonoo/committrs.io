@@ -5,7 +5,7 @@ import { SERVER_HOST } from 'constants/urls';
 
 export function* fetchCommits(action) {
   const { userId, repoId } = action.payload;
-  const url = `${SERVER_HOST}/api/commits/${userId}/${repoId}`;
+  const url = `${SERVER_HOST}/v1/commits/${userId}/${repoId}`;
 
   try {
     const commits = yield call(GET, { url });
