@@ -113,22 +113,26 @@ router.get('/:userId/:repoId', async (ctx) => {
     pagination = paginationSchema.default();
   }
 
-  const data = await Repo.findOne({
-    where: { id: repoId },
-    include:[{
-      model: Commit,
-      attributes: {
-        exclude: [ 'createdAt', 'updatedAt', 'userId', 'repoId', ],
-
-        // `foreignKey` property in association definition should be specified
-        // to use `limit`, `offset` option.
-        // https://github.com/sequelize/sequelize/issues/7514
-        include: ['repoId'],
-      },
-      where: { userId },
-      ...pagination,
-    }],
+  const data = await Commit.findAll({
+    where: { repoId, userId }
   });
+  // console.log(data)
+  // const data = await Repo.findOne({
+  //   where: { id: repoId },
+  //   include:[{
+  //     model: Commit,
+  //     attributes: {
+  //       exclude: [ 'createdAt', 'updatedAt', 'userId', 'repoId', ],
+
+  //       // `foreignKey` property in association definition should be specified
+  //       // to use `limit`, `offset` option.
+  //       // https://github.com/sequelize/sequelize/issues/7514
+  //       include: ['repoId'],
+  //     },
+  //     where: { userId },
+  //     ...pagination,
+  //   }],
+  // });
 
   if(data === null) {
     ctx.status = 404;
