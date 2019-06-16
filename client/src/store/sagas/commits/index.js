@@ -1,7 +1,7 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { FETCH_COMMITS_REQUEST, fetchCommitsFail, fetchCommitsSuccess } from 'store/actions/commits';
 import { GET } from '../../../util';
-import { SERVER_HOST } from 'constants/urls';
+import { SERVER_HOST } from 'constants/index';
 
 export function* fetchCommits(action) {
   const { userId, repoId } = action.payload;

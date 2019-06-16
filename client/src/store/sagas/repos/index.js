@@ -1,7 +1,7 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { FETCH_REPOS_REQUEST, fetchReposFail, fetchReposSuccess } from 'store/actions/repos';
 import { GET } from '../../../util';
-import { SERVER_HOST } from 'constants/urls';
+import { SERVER_HOST } from 'constants/index';
 
 export function* fetchRepos(action) {
   const url = `${SERVER_HOST}/v1/repos/${action.payload.userId}`;

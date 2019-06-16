@@ -1,7 +1,7 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { FETCH_USER_REQUEST, fetchUserSuccess, fetchUserFail } from 'store/actions/user';
 import { GET } from '../../../util';
-import { SERVER_HOST } from 'constants/urls';
+import { SERVER_HOST } from 'constants/index';
 
 export function* fetchUser(action) {
   try {
