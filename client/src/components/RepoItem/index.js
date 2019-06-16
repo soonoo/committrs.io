@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CommitItem from '../CommitItem';
+import ContentLoader from 'react-content-loader';
 
 import './RepoItem.css';
 

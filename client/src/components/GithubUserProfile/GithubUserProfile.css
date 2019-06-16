@@ -1,12 +1,12 @@
 .github-profile {
   width: 100%;
+  height: 100px;
   display: flex;
 }
 
-.github-profile img {
+.github-profile .img {
   width: 100px;
   height: 100px;
-  border: 1px solid black;
 }
 
 .github-profile .container {
@@ -21,8 +21,9 @@
 @media only screen and (min-width : 600px) {
   .github-profile {
     width: 600px;
+    height: 130px;
   }
-  .github-profile img {
+  .github-profile .img { 
     width: 130px;
     height: 130px;
   }
@@ -37,8 +38,9 @@
 @media only screen and (min-width : 1280px) {
   .github-profile {
     width: 900px;
+    height: 190px;
   }
-  .github-profile img {
+  .github-profile .img {
     width: 190px;
     height: 190px;
   }

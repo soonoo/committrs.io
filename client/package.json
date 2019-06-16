@@ -1,13 +1,14 @@
 {
   "name": "committrs-client",
   "version": "0.1.0",
-  "homepage": "https://github.com/soonoo/committrs",
+  "homepage": "https://committrs.io",
   "private": true,
   "dependencies": {
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.8.0",
     "history": "^4.9.0",
     "react": "^16.8.3",
+    "react-content-loader": "^4.2.1",
     "react-dom": "^16.8.3",
     "react-redux": "^6.0.0",
     "react-scripts": "2.1.3",
