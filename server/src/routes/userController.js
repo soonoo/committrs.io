@@ -82,9 +82,9 @@ router.get('/:userName', async (ctx) => {
     SELECT u.id AS id, u.name AS name, u.email AS email, u.avatarUrl, ss.name AS syncStatus, ss.description AS syncDesc,
     COUNT(commits.id) AS totalCommits, COUNT(DISTINCT commits.repoId) AS totalRepos
     FROM users AS u
-    INNER JOIN commits
+    JOIN commits
     ON u.id = commits.userId
-    INNER JOIN syncStatuses AS ss
+    LEFT JOIN syncStatuses AS ss
     ON u.syncStatusId = ss.id
     WHERE u.name = :userName;
   `;
