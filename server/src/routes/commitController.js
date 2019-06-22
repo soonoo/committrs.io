@@ -70,12 +70,17 @@ router.put('/bulk/:userId/:repoId', async (ctx) => {
   }
 
   const chunks = _.chunk(ctx.request.body, 500);
+  ctx.status = 200;
+
   for(const chunk of chunks) {
-    const commits = await Commit.bulkCreate(chunk);
-    await user.addCommits(commits);
-    await repo.addCommits(commits);
+    try{ 
+      const commits = await Commit.bulkCreate(chunk);
+      await user.addCommits(commits);
+      await repo.addCommits(commits);
+    } catch(e) {
+      ctx.status = 202;
+    }
   }
-  ctx.body = 200;
 });
 
 /**
