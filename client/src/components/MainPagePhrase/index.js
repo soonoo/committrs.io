@@ -1,12 +1,10 @@
 import React from 'react';
-import { withLocale } from 'context';
-import languagePack from 'constants/languagePack';
 
-const MainPagePhrase = ({ locale }) => {
+const MainPagePhrase = () => {
   return (
-    <h1>{languagePack[locale]['landingPage']}</h1>
+    <h1>Collect your commits scattered over open source projects.</h1>
   );
 };
 
-export default withLocale(MainPagePhrase);
+export default MainPagePhrase;
 
