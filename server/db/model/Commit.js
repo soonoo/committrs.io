@@ -9,7 +9,7 @@ const Commit = sequelize.define('commit', {
     allowNull: false,
   },
   hash: {
-    type: Sequelize.STRING(40),
+    type: Sequelize.STRING,
     allowNull: false,
     unique: true,
   },
