@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CommitItem from '../CommitItem';
-import ContentLoader from 'react-content-loader';
 
 import './RepoItem.css';
 
@@ -24,12 +23,11 @@ const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits
       <div className='repo-commits-count'>{`${totalCommits} commits`}</div>
       {listVisibility &&
           <div className='commit-container'>
-            <div></div>
             <div>
-              {data.map((commit) => {
+              {data.length ? data.map((commit) => {
                 commit.repoPath = repoPath;
                 return <CommitItem key={commit.hash} commitInfo={commit} />;
-              })}
+              }) : 'Loading ...'}
             </div>
           </div>
       }

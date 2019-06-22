@@ -3,8 +3,13 @@ import RepoItem from 'components/RepoItem';
 import ContentLoader from 'react-content-loader';
 
 const RepoList = React.memo(({ repos, fetchCommits, userId, commits  }) => {
+  const reposCount = repos ? repos.length : 0;
+  const commitsCount = repos ? repos.reduce(((acc, cur) => acc + cur.totalCommits), 0) : 0;
+
   return repos ? 
-    <div className='repo-container'>
+    <div>
+      <div>Found total {commitsCount} commits in {reposCount} repositories</div>
+      <div className='repo-container'>
         {repos.map((repo) => (
           <RepoItem
             key={repo.id}
@@ -14,6 +19,7 @@ const RepoList = React.memo(({ repos, fetchCommits, userId, commits  }) => {
             {...repo} 
           />
         ))} 
+      </div>
     </div> : 
     <ContentLoader width='900' height='420' className='repo-container'>
       <rect y='100' width='900' height='25' />

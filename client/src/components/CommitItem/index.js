@@ -10,7 +10,7 @@ const CommitItem = ({ commitInfo }) => {
   return (
     <div className='commit'>
       <p>
-        <a href={commitLink}>{hash}</a>
+        <a href={commitLink}>{hash.slice(0, 25)}</a>
       </p>
       <p>{message}</p>
       <p>
