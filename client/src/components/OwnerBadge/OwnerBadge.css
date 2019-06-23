@@ -1,0 +1,10 @@
+.badge-owner {
+  display: inline-block;
+  padding: 4px;
+  background-color: darkorange;
+  color: white;
+  font-weight: 700;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
