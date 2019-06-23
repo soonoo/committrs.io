@@ -19,6 +19,12 @@ const Repo = sequelize.define('repo', {
     allowNull: false,
     unique: uniqueIndexName,
   },
+  starsCount: {
+    type: Sequelize.INTEGER,
+  },
+  description: {
+    type: Sequelize.STRING,
+  },
 });
 
 export default Repo;
