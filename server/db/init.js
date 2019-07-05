@@ -1,21 +1,20 @@
-const dotenv = require('dotenv');
 const mysql = require('mysql');
-
-dotenv.config();
+const info = require('./connectionInfo');
 
 const dbCreationFailed = () => {
   process.exit(1);
 };
+const isProduction = process.env.NODE_ENV === 'production';
+const { name, username, password, host } = info;
 
-const { DB_USERNAME: user, DB_PASSWORD: password, DB_NAME } = process.env;
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user,
+  host,
+  user: username,
   password,
 });
 
-console.log(`Creating database ${DB_NAME} ...`);
-connection.query(`CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;`, (err) => {
+console.log(`Creating database ${name} ...`);
+connection.query(`CREATE DATABASE IF NOT EXISTS \`${name}\`;`, (err) => {
   connection.end();
 
   if(err) {
