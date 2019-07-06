@@ -35,6 +35,7 @@
   width: 100%;
   border: 1px solid #777;
   align-self: center;
+  cursor: pointer;
 }
 
 .github-login .logo {
