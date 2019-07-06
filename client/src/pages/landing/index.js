@@ -1,12 +1,16 @@
 import React from 'react';
 import MainPagePhrase from 'components/MainPagePhrase';
-import LoginButton from 'components/LoginButton';
+import GithubLoginButton from 'components/GithubLoginButton';
+
+import './landing.css';
 
 const LandingPage = () => {
   return (
-    <div>
-      <MainPagePhrase/>
-      <LoginButton />
+    <div className='landing'>
+      <div className='wrapper'>
+        <MainPagePhrase/>
+        <GithubLoginButton />
+      </div>
     </div>
   );
 };

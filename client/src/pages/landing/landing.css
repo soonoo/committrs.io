@@ -1,0 +1,75 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing .wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.landing .title {
+  margin: 5px 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.landing .sample-link {
+  margin: 5px 0 20px 0;
+  font-size: 18px;
+}
+
+.landing .title-sub {
+  padding: 5px 0;
+  margin: 10px 0 8px 0;
+}
+
+.github-login {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  background-color: #bbb;
+  padding: 10px 10px;
+  width: 100%;
+  border: 1px solid #777;
+  align-self: center;
+}
+
+.github-login .logo {
+  width: 20px;
+  margin: 0 20px;
+  box-sizing: border-box;
+}
+
+@media only screen and (min-width : 600px) {
+  .landing .wrapper {
+    width: 600px;
+  }
+  .github-login {
+    width: 300px;
+  }
+  .github-login .logo {
+    width: 25px;
+  }
+  .landing .title {
+    font-size: 28px;
+  }
+  .github-login > .desc {
+    padding: 0 20px;
+  }
+}
+
+@media only screen and (min-width : 1280px) {
+  .landing .wrapper {
+    width: 900px;
+  }
+  .landing .title {
+    font-size: 32px;
+  }
+  .landing > .desc {
+    font-size: 18px;
+  }
+}
+
