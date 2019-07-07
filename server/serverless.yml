@@ -4,12 +4,8 @@ provider:
   name: aws
   runtime: nodejs10.x
   stage: prod
-  # region: us-east-1
-  region: ap-northeast-2
-
-# package:
-#   exclude:
-#     - node_modules/**
+  region: us-east-1
+  memorySize: 1024
 
 plugins:
   - serverless-domain-manager
