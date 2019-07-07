@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 const MainPagePhrase = () => {
   return (
@@ -23,7 +24,7 @@ const MainPagePhrase = () => {
         </span>
       </div>
       <span className='sample-link'>
-          You can see the sample profile page before getting started in <a href='https://committrs.io/soonoo'>committrs.io/soonoo</a>
+          You can see the sample profile page before getting started in <Link to='/soonoo'>committrs.io/soonoo</Link>
       </span>
     </Fragment>
   );
