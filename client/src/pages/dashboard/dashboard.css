@@ -5,18 +5,18 @@
   padding: 10px;
 }
 
-.repo-container {
-  width: 100%;
+.contributions {
+   width: 100%;
 }
 
 @media only screen and (min-width : 600px) {
-  .repo-container {
+  .contributions {
     width: 600px;
   }
 }
 
 @media only screen and (min-width : 1280px) {
-  .repo-container {
+  .contributions {
     width: 900px;
   }
 }

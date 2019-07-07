@@ -5,9 +5,10 @@ import ContentLoader from 'react-content-loader';
 const RepoList = React.memo(({ repos, fetchCommits, userId, commits  }) => {
   const reposCount = repos ? repos.length : 0;
   const commitsCount = repos ? repos.reduce(((acc, cur) => acc + cur.totalCommits), 0) : 0;
+  const className = 'contributions';
 
   return repos ? 
-    <div>
+    <div className={className}>
       <div>Found total {commitsCount} commits in {reposCount} repositories</div>
       <div className='repo-container'>
         {repos.map((repo) => (
@@ -21,7 +22,7 @@ const RepoList = React.memo(({ repos, fetchCommits, userId, commits  }) => {
         ))} 
       </div>
     </div> : 
-    <ContentLoader width='900' height='420' className='repo-container'>
+    <ContentLoader width='900' height='420' className={className}>
       <rect y='100' width='900' height='25' />
       <rect y='135' width='650' height='25' />
       <rect y='205' width='900' height='25' />
