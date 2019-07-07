@@ -13,17 +13,26 @@
 .landing .title {
   margin: 5px 0;
   font-size: 24px;
-  font-weight: 600;
+  padding: 15px 0 0;
 }
 
 .landing .sample-link {
-  margin: 5px 0 20px 0;
+  margin: 45px 0 10px 0;
   font-size: 18px;
 }
 
-.landing .title-sub {
+.landing .title-sub-wrapper {
   padding: 5px 0;
-  margin: 10px 0 8px 0;
+  margin: 30px 0 8px 0;
+}
+
+.landing .title-sub {
+  font-size: 18px;
+  color: #2a4cde;
+}
+
+.landing .title-sub-desc {
+  font-weight: 300;
 }
 
 .github-login {
@@ -36,6 +45,7 @@
   border: 1px solid #777;
   align-self: center;
   cursor: pointer;
+  margin: 10px 0;
 }
 
 .github-login .logo {
