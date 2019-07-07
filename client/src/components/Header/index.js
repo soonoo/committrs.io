@@ -9,9 +9,9 @@ const Header = () => (
   <div className='layout-header'>
     <div className='layout-header-link'><Link to='/'><CmtrsLogo /></Link></div>
     <div className='right-pane'>
-      <Link className='repo-link' to='https://github.com/soonoo/committrs.io' target='_blank' rel='noopener noreferrer'>
+      <a className='repo-link' href='https://github.com/soonoo/committrs.io' target='_blank' rel='noopener noreferrer'>
         <GithubLogo />
-      </Link>
+      </a>
     </div>
   </div>
 );
