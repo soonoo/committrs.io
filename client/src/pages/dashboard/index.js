@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import GithubUserProfile from 'components/GithubUserProfile';
 import DashboardSeparator from 'components/DashboardSeparator';
 import RepoList from 'components/RepoList';
+import Header from 'components/Header';
 import { fetchReposRequest } from 'store/actions/repos';
 import { fetchUserRequest } from 'store/actions/user';
 import { fetchCommitsRequest } from 'store/actions/commits';
@@ -22,19 +23,23 @@ const DashboardPage = ({ profileInfo, repos, commits, match, fetchReposRequest, 
   }, [profileInfo.id]);
 
   return (
-    <div className='dashboard'>
-      <GithubUserProfile
-        profileInfo={profileInfo}
-      />
-      <DashboardSeparator
-        name={profileInfo.name}
-      />
-      <RepoList
-        repos={repos}
-        userId={profileInfo.id}
-        commits={commits}
-        fetchCommits={fetchCommitsRequest}
-      />
+    <div>
+      <Header />
+      <div className='dashboard'>
+        <GithubUserProfile
+          profileInfo={profileInfo}
+        />
+        <DashboardSeparator
+          name={profileInfo.name}
+        />
+          <RepoList
+            repos={repos}
+            userId={profileInfo.id}
+            commits={commits}
+            fetchCommits={fetchCommitsRequest}
+            userName={profileInfo.name}
+          />
+      </div>
     </div>
   );
 };
