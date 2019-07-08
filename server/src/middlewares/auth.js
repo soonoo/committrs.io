@@ -1,7 +1,12 @@
 import jwt from 'jsonwebtoken';
 import { isAdminRoute } from '../permissions';
 
+const isProduction = process.env.NODE_ENV === 'production';
 const authMiddleware = (ctx, next) => {
+  if(!isProduction) {
+    return next();
+  }
+
   const { method, url, header } = ctx;
   const { authorization } = header;
 
