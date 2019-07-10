@@ -20,7 +20,7 @@ const MainPagePhrase = () => {
         </h2>
         <span className='title-sub-desc'>
           committrs.io now only collects your commits in GitHub repository with over 30 stars. 
-            Support for other platforms(e.g. Gitlab, MDN) will be added in the future.
+            Support for other platforms will be added in the future.(e.g. Gitlab, MDN, Wikipedia ... Whatever it is!) Issues and PRs are welcome.
         </span>
       </div>
       <span className='sample-link'>
