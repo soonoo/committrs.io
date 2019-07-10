@@ -39,7 +39,14 @@ router.put('/', async (ctx) => {
     return;
   }
 
-  let repo = await Repo.findOne({ where: ctx.request.body });
+  const { owner, name } = ctx.request.body;
+  const repo = await Repo.findOne({
+    where: {
+      owner,
+      name,
+    },
+  });
+
   // resource already exists
   if(repo !== null) {
     ctx.body = repo;
@@ -118,7 +125,7 @@ router.get('/:userId', async (ctx) => {
     attributes: [[sequelize.fn('COUNT', sequelize.col('commit.id')), 'totalCommits']],
     include: [{
       model: Repo,
-      attributes: ['id', 'name', 'owner'],
+      attributes: ['id', 'name', 'owner', 'starsCount', 'description'],
     }],
     group: ['repoId'],
   });
@@ -128,6 +135,8 @@ router.get('/:userId', async (ctx) => {
       id: commit['repo.id'],
       name: commit['repo.name'],
       owner: commit['repo.owner'],
+      starsCount: commit['repo.starsCount'],
+      description: commit['repo.description'],
       totalCommits: commit['totalCommits'],
     };
   });

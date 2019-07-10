@@ -1,5 +1,5 @@
 import React from 'react';
-import GithubLogo from 'images/github-logo.svg';
+import { ReactComponent as GithubLogo } from 'images/github-logo.svg';
 import { SERVER_HOST, GITHUB_ID } from 'constants/index';
 
 const GithubLoginButton = () => {
@@ -10,7 +10,7 @@ const GithubLoginButton = () => {
 
   return (
     <div onClick={login} className='github-login'>
-      <img className='logo' src={GithubLogo} alt='octocat' />
+      <GithubLogo className='logo' />
       <span className='desc'>Continue with GitHub</span>
     </div>
   );
