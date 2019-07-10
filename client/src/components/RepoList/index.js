@@ -2,7 +2,7 @@ import React from 'react';
 import RepoItem from 'components/RepoItem';
 import ContentLoader from 'react-content-loader';
 
-const RepoList = React.memo(({ repos, fetchCommits, userId, commits  }) => {
+const RepoList = React.memo(({ repos, fetchCommits, userId, commits, userName }) => {
   const reposCount = repos ? repos.length : 0;
   const commitsCount = repos ? repos.reduce(((acc, cur) => acc + cur.totalCommits), 0) : 0;
   const className = 'contributions';
@@ -17,6 +17,7 @@ const RepoList = React.memo(({ repos, fetchCommits, userId, commits  }) => {
             fetchCommits={fetchCommits}
             userId={userId}
             commits={commits}
+            userName={userName}
             {...repo} 
           />
         ))} 
