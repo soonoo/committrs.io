@@ -50,10 +50,11 @@ router.put('/', async (ctx) => {
   // resource already exists
   if(repo !== null) {
     ctx.body = repo;
+    ctx.status = 409;
     return;
   }
 
-  ctx.body = await Repo.create(ctx.request.body);
+  ctx.body = await Repo.create(...ctx.request.body);
 });
 
 /**
