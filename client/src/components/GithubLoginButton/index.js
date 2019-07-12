@@ -9,10 +9,10 @@ const GithubLoginButton = () => {
   }
 
   return (
-    <div onClick={login} className='github-login'>
+    <button onClick={login} className='github-login'>
       <GithubLogo className='logo' />
       <span className='desc'>Continue with GitHub</span>
-    </div>
+    </button>
   );
 };
 
