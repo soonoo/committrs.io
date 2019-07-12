@@ -9,7 +9,7 @@ const GithubUserProfile = React.memo(({ profileInfo }) => {
 
   return name ?
     <div className='github-profile'>
-      <img className='img' alt='github user profile' src={avatarUrl} />
+      <span className='img'><img className='img' alt='github user profile' src={avatarUrl} /></span>
       <div>
         <div className='container'>
           <div className='name'>{name}</div>
