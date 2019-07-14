@@ -54,7 +54,7 @@ router.put('/', async (ctx) => {
     return;
   }
 
-  ctx.body = await Repo.create(...ctx.request.body);
+  ctx.body = await Repo.create(ctx.request.body);
 });
 
 /**

@@ -29,6 +29,8 @@
     "lodash": "^4.17.11",
     "mysql": "^2.17.1",
     "mysql2": "^1.6.5",
+    "nodemailer": "^6.2.1",
+    "nodemailer-smtp-transport": "^2.7.4",
     "randomstring": "^1.1.5",
     "sequelize": "^4.42.0",
     "serverless-http": "^2.0.2",

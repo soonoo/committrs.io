@@ -16,7 +16,8 @@ const sync = async (ctx, next, force = false) => {
   Repo.hasMany(Commit, { foreignKey: 'repoId' });
   Commit.belongsTo(Repo, { foreignKey: 'repoId' });
 
-  SyncStatus.hasOne(User);
+  SyncStatus.hasMany(User);
+  User.belongsTo(SyncStatus);
 
   // await sequelize.sync({ force });
   // await SyncStatus.findOrCreate({ where: { name: 'ADDED', description: 'User is created and information will be synchronized soon.' }});

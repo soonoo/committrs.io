@@ -4,8 +4,9 @@ import Commit from '../../db/model/Commit';
 import SyncStatus from '../../db/model/SyncStatus';
 import Router from 'koa-router';
 import sequelize from '../../db/index';
-import { sqsNewUser } from '../service/sqs';
-import { userRequestSchema } from '../schema';
+import { userPutRequestSchema, userPostRequestSchema, userSyncStatusSchema } from '../schema';
+import { createUser, updateUser } from '../service/userService';
+import mc, { body } from '../service/mail';
 
 const router = new Router();
 
@@ -38,24 +39,68 @@ const router = new Router();
 router.put('/', async (ctx) => {
   const { body } = ctx.request;
 
-  const isValid = await userRequestSchema.isValid(body);
+  const isValid = await userPutRequestSchema.isValid(body);
   if(!isValid) {
     ctx.status = 400;
     return;
   }
 
+  // check if user exists
   const user = await User.findOne({ where: { name: body.name } });
-  // resource already exists
   if(user !== null) {
     ctx.status = 409;
     return;
   }
 
-  sqsNewUser(body.name);
+  ctx.body = await createUser(body);
+});
 
-  const syncStatus = await SyncStatus.findOne({ where: { name: 'ADDED' } });
-  const syncStatusId = syncStatus ? syncStatus.dataValues.id : null;
-  ctx.body = await User.create({ ...ctx.request.body, syncStatusId  });
+// update user
+router.post('/:id', async (ctx) => {
+  const { id } = ctx.params;
+  const { body } = ctx.request;
+
+  const isValid = await userPostRequestSchema.isValid(body);
+  if(!isValid) {
+    ctx.status = 400;
+    return;
+  }
+
+  // const syncStatus = await SyncStatus.findOne({ where: { name: 'ADDED' } });
+  // const syncStatusId = syncStatus ? syncStatus.dataValues.id : null;
+  const affected  = await updateUser({ id, ...body });
+  if(affected[0] === 0) {
+    ctx.status = 404;
+  } else {
+    ctx.status = 200;
+  }
+});
+
+// update user sync status
+router.post('/:id/syncStatus', async (ctx) => {
+  const { id: userId } = ctx.params;
+  const { name } = ctx.request.body;
+  const isValid = await userSyncStatusSchema.isValid({ name });
+  if(!isValid) {
+    ctx.status = 400;
+    return;
+  }
+
+  const status = await SyncStatus.findOne({ where: { name }});
+  if(!status) {
+    ctx.status = 400;
+    return;
+  }
+
+  const user = await User.findByPk(userId);
+  user.syncStatusId = status.get().id;
+  user.save();
+  ctx.status = 200;
+
+  if(name === 'UPDATED') {
+    const { name, email } = user.get();
+    await mc.update(name, email);
+  }
 });
 
 /**

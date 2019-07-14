@@ -3,7 +3,7 @@ import { sqsNewUser } from '../service/sqs';
 import Router from 'koa-router';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
-import { createUser } from '../service/userService';
+import { createUser, findUser } from '../service/userService';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const router = new Router();
@@ -30,14 +30,18 @@ router.get('/github/token', async (ctx) => {
 
   const { data: { access_token } } = await axios.post(githubLoginUrl, body, options);
   const { data: { avatar_url, login, email } } = await axios.get(`${githubTokenUrl}?access_token=${access_token}`);
-  await createUser({
-    name: login,
-    token: access_token,
-    email,
-    avatarUrl: avatar_url,
-  });
+  const user = await findUser(login);
 
-  sqsNewUser(login);
+  if(!user) {
+    await createUser({
+      name: login,
+      token: access_token,
+      email,
+      avatarUrl: avatar_url,
+    });
+
+    sqsNewUser(login);
+  }
 
   const token = jwt.sign({ name: login, avatarUrl: avatar_url }, JWT_SECRET);
   ctx.cookies.set('cmtrs-token', token);

@@ -20,9 +20,19 @@ export const repoRequestSchema = object().shape({
   owner: string().required(),
 });
 
-export const userRequestSchema = object().shape({
+export const userPutRequestSchema = object().shape({
   name: string().required(),
   email: string(),
   avatarUrl: string(),
+});
+
+export const userPostRequestSchema = object().shape({
+  name: string(),
+  email: string(),
+  avatarUrl: string(),
+});
+
+export const userSyncStatusSchema = object().shape({
+  name: string().required(),
 });
 

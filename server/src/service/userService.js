@@ -9,6 +9,19 @@ export const createUser = async (body) => {
   const syncStatus = await SyncStatus.findOne({ where: { name: 'ADDED' } });
   const syncStatusId = syncStatus ? syncStatus.dataValues.id : null;
 
-  return await User.create({ ...body, syncStatusId  });
+  return await User.create({
+    ...body,
+    syncStatusId,
+  });
 };
+
+export const findUser = async (name) => {
+  if(typeof name !== 'string') return null;
+
+  return await User.findOne({
+    where: {
+      name,
+    },
+  });
+}
 
