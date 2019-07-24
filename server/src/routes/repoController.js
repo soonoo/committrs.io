@@ -143,6 +143,5 @@ router.get('/:userId', async (ctx) => {
   });
 });
 
-
 export default router;
 

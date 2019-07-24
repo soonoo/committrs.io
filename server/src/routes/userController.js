@@ -145,5 +145,34 @@ router.get('/:userName', async (ctx) => {
   else ctx.status = 404;
 });
 
+router.get('/:userName/repos', async (ctx) => {
+  const { userName } = ctx.params;
+  const result = await Commit.findAll({
+    raw: true,
+    attributes: [[sequelize.fn('COUNT', sequelize.col('commit.id')), 'totalCommits']],
+    include: [{
+      model: Repo,
+      attributes: ['id', 'name', 'owner', 'starsCount', 'description'],
+    }, {
+      model: User,
+      where: {
+        name: userName,
+      },
+    }],
+    group: ['repoId'],
+  });
+
+  ctx.body = result.map((commit) => {
+    return {
+      id: commit['repo.id'],
+      name: commit['repo.name'],
+      owner: commit['repo.owner'],
+      starsCount: commit['repo.starsCount'],
+      description: commit['repo.description'],
+      totalCommits: commit['totalCommits'],
+    };
+  });
+});
+
 export default router;
 
