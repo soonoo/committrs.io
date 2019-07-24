@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -9,21 +9,44 @@ import Header from 'components/Header';
 import { fetchReposRequest } from 'store/actions/repos';
 import { fetchUserRequest } from 'store/actions/user';
 import { fetchCommitsRequest } from 'store/actions/commits';
+import NotFound from 'pages/notFound';
+import { USER_NOT_FOUND, USER_INITIAL } from 'store/actions/user';
+import { Helmet } from 'react-helmet';
 
 import './dashboard.css';
 
-const DashboardPage = ({ profileInfo, repos, commits, match, fetchReposRequest, fetchUserRequest, fetchCommitsRequest }) => {
+const DashboardPage = ({ profileInfo, repos, commits, match, fetchReposRequest, fetchUserRequest, fetchCommitsRequest, staticContext = {} }) => {
   useEffect(() => {
+    if(profileInfo.id !== USER_INITIAL) return;
     fetchUserRequest(match.params.userName);
   }, []);
 
-  useEffect(() => {
-    if(profileInfo.id === 0) return;
-    fetchReposRequest(profileInfo.id);
-  }, [profileInfo.id]);
+  // useEffect(() => {
+  //   if(profileInfo.id === 0) return;
+  //   fetchReposRequest(profileInfo.id);
+  // }, [profileInfo.id]);
+
+  if(profileInfo.id === USER_NOT_FOUND) {
+    return <NotFound staticContext={staticContext} />;
+  }
 
   return (
     <div>
+        {profileInfo.name && 
+      <Helmet>
+            <title>{`${profileInfo.name} - committrs.io`}</title>
+            <meta
+              name='description'
+              content={`Check out ${profileInfo.name}'s open source contributions!`}
+            />
+            <meta property='og:title' content={`${profileInfo.name} - committrs.io`} />
+            <meta property='og:site_name' content='committrs.io' />
+            <meta property='og:type' content='profile' />
+            <meta property='og:image' content={profileInfo.avatarUrl} />
+            <meta property='og:url' content={`https://committrs.io/${profileInfo.name}`} />
+            <meta property='og:description' content={`Check out ${profileInfo.name}'s open source contributions!`} />
+      </Helmet>
+        }
       <Header />
       <div className='dashboard'>
         <GithubUserProfile

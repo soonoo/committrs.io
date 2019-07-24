@@ -1,6 +1,6 @@
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 import { FETCH_COMMITS_REQUEST, fetchCommitsFail, fetchCommitsSuccess } from 'store/actions/commits';
-import { GET } from '../../../util';
+import axios from 'axios';
 import { SERVER_HOST } from 'constants/index';
 
 export function* fetchCommits(action) {
@@ -8,14 +8,14 @@ export function* fetchCommits(action) {
   const url = `${SERVER_HOST}/v1/commits/${userId}/${repoId}`;
 
   try {
-    const commits = yield call(GET, { url });
-    yield put(fetchCommitsSuccess(userId, repoId, commits));
+    const { data } = yield call(axios.get, url);
+    yield put(fetchCommitsSuccess(userId, repoId, data));
   } catch(e) {
     yield put(fetchCommitsFail());
   }
 };
 
 export function* watchCommitsFetch() {
-  yield takeEvery(FETCH_COMMITS_REQUEST, fetchCommits);
+  yield takeLatest(FETCH_COMMITS_REQUEST, fetchCommits);
 };
 

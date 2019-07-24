@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ReactComponent as GithubLogo } from 'images/github-logo.svg';
-import { ReactComponent as CmtrsLogo } from 'images/cmtrs-logo.svg';
+import CmtrsLogo from 'components/CmtrsLogo';
+import GoMarkGithub from 'react-icons/lib/go/mark-github';
 
 import './Header.css';
 
 const Header = () => (
   <div className='layout-header'>
-    <div className='layout-header-link'><Link to='/'><CmtrsLogo /></Link></div>
+    <div className='layout-header-link'><Link to='/'><CmtrsLogo className='cmtrs-logo' /></Link></div>
     <div className='right-pane'>
       <a className='repo-link' href='https://github.com/soonoo/committrs.io' target='_blank' rel='noopener noreferrer'>
-        <GithubLogo />
+        <GoMarkGithub color='white' />
       </a>
     </div>
   </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 
-const NotFound = () => {
+const NotFound = ({ staticContext = {} }) => {
+  staticContext.status = 404;
   return (
     <div>
       NOT FOUND
