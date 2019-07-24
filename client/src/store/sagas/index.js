@@ -12,5 +12,5 @@ export function* rootSaga() {
   ]);
 };
 
-export default createSagaMiddleware();
+export default createSagaMiddleware;
 

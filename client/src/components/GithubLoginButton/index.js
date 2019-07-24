@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactComponent as GithubLogo } from 'images/github-logo.svg';
 import { SERVER_HOST, GITHUB_ID } from 'constants/index';
+import GoMarkGithub from 'react-icons/lib/go/mark-github';
 
 const GithubLoginButton = () => {
   const url = `https://github.com/login/oauth/authorize?client_id=${GITHUB_ID}&redirect_uri=${SERVER_HOST}/v1/auth/github/token`;
@@ -10,7 +10,7 @@ const GithubLoginButton = () => {
 
   return (
     <button onClick={login} className='github-login'>
-      <GithubLogo className='logo' />
+      <GoMarkGithub className='logo' size={20} />
       <span className='desc'>Continue with GitHub</span>
     </button>
   );

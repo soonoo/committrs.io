@@ -24,3 +24,7 @@ yarn-error.log*
 
 # vim swap file
 *.swp
+
+/src/ssr/dist
+.serverless
+

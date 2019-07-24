@@ -1,7 +1,7 @@
-import { FETCH_USER_SUCCESS } from 'store/actions/user';
+import { FETCH_USER_SUCCESS, USER_INITIAL, FETCH_USER_NOT_FOUND } from 'store/actions/user';
 
 const initialState = {
-  id: 0,
+  id: USER_INITIAL,
   name: '',
   email: '',
   token: '',
@@ -11,6 +11,7 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_USER_SUCCESS:
+    case FETCH_USER_NOT_FOUND:
       return {
         ...state,
         ...action.payload.user,

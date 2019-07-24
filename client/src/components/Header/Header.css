@@ -14,7 +14,7 @@
   font-weight: 600;
 }
 
-.layout-header-link svg {
+.layout-header-link .cmtrs-logo {
   width: 160px;
 }
 
@@ -33,7 +33,7 @@
 
 .right-pane svg {
   width: 100%;
-  color: white;
+  height: 100%;
 }
 
 .layout-header .repo-link {

@@ -4,18 +4,27 @@
   "homepage": "https://committrs.io",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.8.0",
     "history": "^4.9.0",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "pg": "^7.11.0",
+    "pg-native": "^3.0.0",
     "react": "^16.8.3",
     "react-content-loader": "^4.2.1",
     "react-dom": "^16.8.3",
+    "react-helmet": "^5.2.1",
+    "react-icons": "^2",
     "react-redux": "^6.0.0",
     "react-scripts": "2.1.3",
     "react-testing-library": "^5.4.4",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",
-    "redux-saga": "^1.0.2"
+    "redux-saga": "^1.0.2",
+    "serverless": "^1.47.0",
+    "serverless-http": "^2.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,7 +32,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "yarn build && aws s3 cp build s3://$COMMITTRS_S3_URL/ --recursive",
-    "invalidate": "aws cloudfront create-invalidation --distribution-id $COMMITTRS_CLOUDFRONT_DIST_ID --paths '/*'"
+    "invalidate": "aws cloudfront create-invalidation --distribution-id $COMMITTRS_CLOUDFRONT_DIST_ID --paths '/*'",
+    "ssr": "webpack --config src/ssr/webpack.config.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,7 +45,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "babel-loader": "^8.0.6",
+    "circular-dependency-plugin": "^5.0.2",
+    "isomorphic-style-loader": "^5.1.0",
     "prop-types": "^15.6.2",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "serverless-api-compression": "^1.0.1",
+    "serverless-domain-manager": "^3.2.6",
+    "svg-inline-loader": "^0.8.0",
+    "webpack-cli": "^3.3.6"
   }
 }
