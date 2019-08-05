@@ -5,6 +5,7 @@ import Router from 'koa-router';
 import sequelize from '../../db/index';
 import { commitRequestSchema } from '../schema';
 import { repoRequestSchema } from '../schema';
+import roles from '../middlewares/roles';
 
 const router = new Router();
  
@@ -32,6 +33,7 @@ const router = new Router();
  *             owner:
  *               type: string
  */
+router.put('/', roles('admin'));
 router.put('/', async (ctx) => {
   const isValid = await repoRequestSchema.isValid(ctx.request.body);
   if(!isValid) {
@@ -83,6 +85,7 @@ router.put('/', async (ctx) => {
  *         schema:
  *           type: integer
  */
+router.put('/:repoid/:userId', roles('admin'));
 router.put('/:repoId/:userId', async (ctx) => {
   const { repoId, userId } = ctx.params;
   const repo = await Repo.findOne({ where: { id: repoId } });

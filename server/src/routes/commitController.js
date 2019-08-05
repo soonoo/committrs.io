@@ -5,6 +5,7 @@ import Router from 'koa-router';
 import sequelize from '../../db/index';
 import { paginationSchema, commitRequestSchema } from '../schema';
 import _ from 'lodash';
+import roles from '../middlewares/roles';
 
 const router = new Router();
 
@@ -53,6 +54,7 @@ const router = new Router();
  *                 type: string
  *         
  */
+router.put('/bulk/:userId/:repoId', roles('admin'));
 router.put('/bulk/:userId/:repoId', async (ctx) => {
   const { userId, repoId } = ctx.params;
 

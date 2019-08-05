@@ -7,13 +7,11 @@ import bodyParser from 'koa-bodyparser';
 import { koaSwaggerMiddleware, swaggerJsonMiddleware } from './service/swagger';
 import sync from '../db/sync';
 import serverless from 'serverless-http';
-import { authMiddleware } from './middlewares';
 
 let app = new Koa();
 const isProduction = process.env.NODE_ENV === 'production';
 
 app.use(logger());
-app.use(authMiddleware);
 app.use(bodyParser())
 app.use(koaSwaggerMiddleware);
 app.use(swaggerJsonMiddleware);

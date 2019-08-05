@@ -6,6 +6,8 @@ const rolesMiddleware = (roles) => async (ctx, next) => {
   const { authorization } = header;
 
   try {
+    if(!authorization.startsWith('Bearer ')) throw new Error('token parse error');
+
     const token = jwt.verify(authorization.split(' ')[1], process.env.JWT_SECRET);
     const userRoles = token.roles.map(r => r.toLowerCase());
 

@@ -7,6 +7,7 @@ import sequelize from '../../db/index';
 import { userPutRequestSchema, userPostRequestSchema, userSyncStatusSchema } from '../schema';
 import { createUser, updateUser } from '../service/userService';
 import mc, { body } from '../service/mail';
+import roles from '../middlewares/roles';
 
 const router = new Router();
 
@@ -36,6 +37,7 @@ const router = new Router();
  *             avatarUrl:
  *               type: string
  */
+router.put('/', roles('admin'));
 router.put('/', async (ctx) => {
   const { body } = ctx.request;
 
@@ -56,6 +58,7 @@ router.put('/', async (ctx) => {
 });
 
 // update user
+router.post('/:id', roles('admin'));
 router.post('/:id', async (ctx) => {
   const { id } = ctx.params;
   const { body } = ctx.request;
@@ -77,6 +80,7 @@ router.post('/:id', async (ctx) => {
 });
 
 // update user sync status
+router.post('/:id/syncStatus', roles('admin'));
 router.post('/:id/syncStatus', async (ctx) => {
   const { id: userId } = ctx.params;
   const { name } = ctx.request.body;
