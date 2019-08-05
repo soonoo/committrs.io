@@ -1,5 +1,6 @@
 import _ from '../env';
 import AWS from 'aws-sdk';
+import { Consumer } from 'sqs-consumer';
 import handler from './handler';
 import { sleep } from '../utils';
 
@@ -7,7 +8,7 @@ const {
   AWS_REGION: region,
   AWS_ACCESS_KEY: accessKeyId,
   AWS_SECRET_KEY: secretAccessKey,
-  AWS_SQS_QUEUE_URL: QueueUrl,
+  AWS_SQS_QUEUE_URL: queueUrl,
 } = process.env;
 
 const sqsConfig = {
@@ -15,42 +16,33 @@ const sqsConfig = {
   accessKeyId,
   secretAccessKey,
 };
-const sqs = new AWS.SQS(sqsConfig);
 
-const receptionConfig = {
-  QueueUrl,
-  MaxNumberOfMessages: 1,
-};
+AWS.config.update(sqsConfig);
 
-(async () => {
-  while(true) {
-    // receive message from queue
-    sqs.receiveMessage(
-      receptionConfig,
-      async (err, data) => {
-        if(err) {
-          console.log(err);
-          return;
-        }
-        if(!data.Messages) {
-          return;
-        }
+const app = Consumer.create({
+  queueUrl,
+  messageAttributeNames: ['All'],
+  visibilityTimeout: 60 * 60 * 12,
+  handleMessage: async (message) => {
+    console.log(message);
+    await handler(message);
+  },
+  sqs: new AWS.SQS(),
+});
 
-        // handle message
-        await handler(message);
+app.on('error', (err) => {
+  console.error(err.message);
+});
 
-        // delete handled message from queue
-        sqs.deleteMessage({
-          QueueUrl,
-          ReceiptHandle: message.ReceiptHandle,
-        }, (err, data) => {
-          if(err) console.log(err)
-          else console.log(data)
-        });
-      }
-    );
+app.on('processing_error', (err) => {
+  console.error(err.message);
+});
 
-    await sleep(3000);
-  }
-})();
+app.on('timeout_error', (err) => {
+ console.error(err.message);
+});
+
+setTimeout(() => {
+  app.start();
+}, 3000);
 

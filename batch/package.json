@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon dist/subscriber.bundle.js",
-    "build": "webpack --mode=production --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
     "build:watch": "webpack --watch --mode=development --config webpack.config.js"
   },
   "dependencies": {
@@ -15,8 +15,10 @@
     "aws-sdk": "^2.416.0",
     "axios": "^0.18.0",
     "dotenv": "^6.2.0",
+    "lodash": "^4.17.11",
     "mysql": "^2.16.0",
     "nodegit": "^0.24.0",
+    "sqs-consumer": "^5.2.0",
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3",
     "webpack-shell-plugin": "^0.5.0"

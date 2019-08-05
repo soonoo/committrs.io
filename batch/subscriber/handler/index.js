@@ -2,15 +2,21 @@ import newUserHandler from './newUserHandler';
 import syncUserHandler from './syncUserHandler';
 
 const handler = async (message) => {
-  const { type, id } = message.attributes;
+  try {
+    const { type } = message.MessageAttributes;
 
-  switch(type) {
-    case 'NEW_USER':
-      await newUserHandler(message);
-    case 'SYNC_UESR':
-      await syncUserHandler(message);
-    default:
-      message.ack();
+    switch(type.StringValue) {
+      case 'NEW_USER':
+        await newUserHandler(message);
+        return;
+      case 'SYNC_UESR':
+        await syncUserHandler(message);
+        return;
+      default:
+        return;
+    }
+  } catch(e) {
+    console.error(e)
   }
 };
 

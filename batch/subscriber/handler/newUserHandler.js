@@ -1,7 +1,6 @@
-import sequelize from '../../../server/db';
-import User from '../../../server/db/model/User';
-import Commit from '../../../server/db/model/Commit';
-import Repo from '../../../server/db/model/Repo';
+import { BACKEND_HOST } from '../../constants';
+import axios from 'axios';
+import _ from 'lodash';
 
 // github api client
 import octokit from '../../connections/octokit';
@@ -9,72 +8,129 @@ import { delimiters } from '../../constants';
 import { pull, clone, log, splitCommits } from '../../utils';
 import fs from 'fs';
 
-const userRepos = async (username) => {
+const getUserRepos = async (username) => {
   let page = 1;
   let repoData = [];
   let tempRepoList;
+  let orgsData = [];
+  let tempOrgsList;
+  const per_page = 100;
 
   do {
-    tempRepoList = await octokit.repos.listForUser({ username, per_page: 100, page })
-    repoData = repoData.concat(tempRepoList.data);
-    page++;
+    try {
+      tempRepoList = await octokit.repos.listForUser({ username, per_page, page: page++ })
+      repoData = repoData.concat(tempRepoList.data);
+    } catch(e) {
+      console.error(e);
+    }
   } while(tempRepoList.data.length === 100);
+
+  page = 1;
+  do {
+    try {
+      tempOrgsList = await octokit.orgs.listForUser({ username, per_page, page: page++ })
+      orgsData = orgsData.concat(tempOrgsList.data);
+    } catch(e) {
+      console.error(e);
+    }
+  } while(tempOrgsList.data.length === 100);
+
+  let rr;
+  for(const org of orgsData) {
+    page = 1;
+    do {
+      rr = await octokit.repos.listForOrg({ org: org.login, per_page, page: page++ });
+      repoData = repoData.concat(rr.data);
+    } while(rr.data.length === 100);
+  }
+
+  for(const n of repoData) {
+    console.log(n.full_name)
+  }
+
+  return repoData;
 }
 
-const validRepos = async (repos, minimumStarCount) => {
+const getValidRepos = async (repos, minimumStarCount) => {
   let i = 0;
+  const repoList = [];
 
-  let repoList = await Promise.all(repos.map((repo) => {
-    if(repo.fork === false && repo.stargazers_count < minimumStarCount) return;
-    else return octokit.repos.get({ owner: username, repo: repo.name });
-  })); 
-  repoList = repoList.filter(repo => repo);
+  for(const repo of repos) {
+    try {
+      if(repo.stargazers_count >= minimumStarCount) {
+        const rr = await octokit.repos.get({ owner: repo.owner.login, repo: repo.name });
+        console.log((rr.data.size / 1024) + 'MB');
+        if((rr.data.size / 1024) > 3000) {
+          console.log(repo.owner.login, repo.name)
+          continue;
+        }
+        repoList.push({ owner: repo.owner.login, name: repo.name, starsCount: repo.stargazers_count, description: repo.description });
+      }
+      if(repo.fork) {
+        const r = await octokit.repos.get({ owner: repo.owner.login, repo: repo.name });
+        const rrr = await octokit.repos.get({ owner: r.data.parent.owner.login, repo: r.data.parent.name });
+        console.log((rrr.data.size / 1024) + 'MB');
+        if((rrr.data.size / 1024) > 3000) {
+          console.log(r.data.parent.owner.login, repo.name)
+          continue;
+        }
+        if(r.data.parent.stargazers_count >= minimumStarCount) {
+          repoList.push({ owner: r.data.parent.owner.login, name: r.data.parent.name, starsCount: r.data.parent.stargazers_count, description: r.data.parent.description });
+        }
+      }
+    } catch(e) {
+      console.error(e);
+    }
+  }
+
+  return repoList;
 }
 
 const refresh = async (cwd, path) => {
-  process.chdir(`${cwd}`)
-  if(await fs.exists(`repos/${repo_path}`)) {
-    process.chdir(`repos/${repo_path}`);
-    await pull();
-  } else {
-    await clone(repo_path);
+  const fullPath = `${cwd}/repos/${path}`;
+  try {
+    if(fs.existsSync(fullPath)) {
+      await pull(fullPath);
+    } else {
+      await clone(path, fullPath);
+    }
+  } catch(e) {
+    console.error(e);
   }
-  process.chdir(`${cwd}/repos/${repo_path}`);
 }
 
 const newUserHandler = async (message) => {
-  message.ack();
-  const { username } = message.attributes;
+  const username = message.MessageAttributes.username.StringValue;
   const minimumStarCount = 30;
   const cwd = process.cwd();
 
-  // sync db
-  await sequelize.sync();
+  const userRepos = await getUserRepos(username);
+  const validRepos = await getValidRepos(userRepos, minimumStarCount);
 
-  const userRepos = await userRepos(username);
-  const validRepose = await validRepos(userRepos, minimumStarCount);
+  const { data: { id: userId } } = await axios.get(`${BACKEND_HOST}/v1/users/${username}`);
 
-  const user = await User.create({ name: username, });
-
-  // TODO: check repo validity(ex. stargazers_count)
-  for(repo of validRepos) {
-    const repo_path = repo.data.fork ? repo.data.parent.full_name : repo.data.full_name;
-    const createdRepo = await Repo.create({ name: repo_path, owner: repo_path });
-    await user.addRepo(createdRepo);
-
-    if((repo.data.source ? repo.data.source.stargazers_count : repo.data.stargazers_count) < minimumStarCount) continue;
-
+  for(const repo of validRepos) {
     try {
-      refresh(cwd, path);
+      console.log(repo)
+      const { data: { id: repoId }} = await axios.put(`${BACKEND_HOST}/v1/repos`, { ...repo });
+      await axios.put(`${BACKEND_HOST}/v1/repos/${repoId}/${userId}`);
 
-      const gitLog = await log(username);
-      const rawCommits = splitCommits(gitLog);
-      const commits = await Commit.bulkCreate(commits);
-      user.addCommits(commits);
-      repo.addCommits(commits);
+      const path = `${repo.owner}/${repo.name}`;
+      const fullPath = `${cwd}/repos/${path}`;
+      await refresh(cwd, path);
+
+      const gitLog = await log(username, fullPath);
+      const commits = splitCommits(gitLog);
+
+      for(const bulk of _.chunk(commits, 500)) {
+        await axios.put(`${BACKEND_HOST}/v1/commits/bulk/${userId}/${repoId}`, bulk);
+      }
     } catch(e) {
+      console.error(e);
     }
   }
+
+  await axios.post(`${BACKEND_HOST}/v1/users/${userId}/syncStatus`, { name: 'UPDATED' });
 };
 
 export default newUserHandler;

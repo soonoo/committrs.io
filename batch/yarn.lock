@@ -850,6 +850,21 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
 
+aws-sdk@^2.393.0:
+  version "2.448.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.448.0.tgz#1afa8bc1616aa6bacba393d70923e4294febe430"
+  integrity sha512-RMmdxP0VgI8eq7SehOHINULL6BL84wy9jOngQwJnxCPT/3/5jUuexKjzeFpdXTS4+dVToqj8q9THAbqzuXZ9dQ==
+  dependencies:
+    buffer "4.9.1"
+    events "1.1.1"
+    ieee754 "1.1.8"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.3.2"
+    xml2js "0.4.19"
+
 aws-sdk@^2.416.0:
   version "2.416.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.416.0.tgz#19cbc2d4b142deb585d1e0fa85260751d04b1aa1"
@@ -1367,7 +1382,7 @@ debug@^3.2.6:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.1.0:
+debug@^4.1.0, debug@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   dependencies:
@@ -3382,6 +3397,14 @@ split-string@^3.0.1, split-string@^3.0.2:
 sqlstring@2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/sqlstring/-/sqlstring-2.3.1.tgz#475393ff9e91479aea62dcaf0ca3d14983a7fb40"
+
+sqs-consumer@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/sqs-consumer/-/sqs-consumer-5.2.0.tgz#859c99533d6e06fb231b43739feb4a4feacc80ce"
+  integrity sha512-kcx19KuO4jFrye61O19Dqnho0p1GPRinU1DYQnsNygKyHXpiFs63ORW6AxJt+kSdfHzEg/jeLlGha+lGAzGz9g==
+  dependencies:
+    aws-sdk "^2.393.0"
+    debug "^4.1.1"
 
 sshpk@^1.7.0:
   version "1.16.1"
