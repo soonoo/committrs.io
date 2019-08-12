@@ -4,6 +4,7 @@ import Router from 'koa-router';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
 import { createUser, findUser } from '../service/userService';
+import { adminTokenRequestSchema } from '../schema';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const router = new Router();
@@ -45,6 +46,24 @@ router.get('/github/token', async (ctx) => {
   const token = jwt.sign({ name: login, avatarUrl: avatar_url, roles: ['user'] }, JWT_SECRET);
   ctx.cookies.set('cmtrs-token', token, { domain: client_host });
   ctx.redirect(`${client_host}/${login}`);
+});
+
+router.post('/admin/token', async (ctx) => {
+  const isValid = await adminTokenRequestSchema.isValid(ctx.request.body);
+  if(!isValid) {
+    ctx.status = 400;
+    return;
+  }
+
+  const { ADMIN_SECRET_CODE, JWT_SECRET } = process.env;
+  const { code } = ctx.request.body;
+
+  if(ADMIN_SECRET_CODE !== code) {
+    ctx.status = 401;
+    return;
+  }
+
+  ctx.body = jwt.sign({ name: 'admin', roles: ['amin'] }, JWT_SECRET);
 });
 
 export default router;

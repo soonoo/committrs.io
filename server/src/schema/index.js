@@ -36,3 +36,7 @@ export const userSyncStatusSchema = object().shape({
   name: string().required(),
 });
 
+export const adminTokenRequestSchema = object().shape({
+  code: string().required(),
+});
+
