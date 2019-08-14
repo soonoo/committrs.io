@@ -6,10 +6,11 @@ const {
   AWS_ACCESS_KEY: accessKeyId,
   AWS_SECRET_KEY: secretAccessKey,
   AWS_SQS_QUEUE_URL: queueUrl,
+  AWS_SQS_QUEUE_URL_DEV: queueUrlDev,
 } = process.env;
 
 const producer = Producer.create({
-  queueUrl,
+  queueUrl: process.env.NODE_ENV === 'production' ? queueUrl : queueUrlDev,
   region,
   accessKeyId,
   secretAccessKey,
