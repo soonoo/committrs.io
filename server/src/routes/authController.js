@@ -63,7 +63,7 @@ router.post('/admin/token', async (ctx) => {
     return;
   }
 
-  ctx.body = jwt.sign({ name: 'admin', roles: ['amin'] }, JWT_SECRET);
+  ctx.body = jwt.sign({ name: 'admin', roles: ['admin'] }, JWT_SECRET);
 });
 
 export default router;
