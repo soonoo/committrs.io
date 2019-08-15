@@ -5,7 +5,7 @@ import Repo from '../../../server/db/model/Repo';
 import Commit from '../../../server/db/model/Commit';
 import sync from '../../../server/db/sync';
 
-const syncUserHandler = async (message) => {
+const syncUserHandler = async ({ message, token }) => {
   await sync();
   const repos = await Repo.findAll({
     limit: 50,
