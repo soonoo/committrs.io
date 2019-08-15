@@ -103,7 +103,7 @@ router.post('/:id/syncStatus', async (ctx) => {
 
   if(name === 'UPDATED') {
     const { name, email } = user.get();
-    await mc.update(name, email);
+    mc.update(name, email);
   }
 });
 
