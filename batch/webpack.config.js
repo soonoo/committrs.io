@@ -29,6 +29,9 @@ module.exports = (env, argv) => {
       ],
     },
     externals: ['pg', 'sqlite3', 'tedious', 'pg-hstore', 'gcrp'],
+    optimization: {
+      minimize: false,
+    },
     plugins: [
       new DefinePlugin({
         'NODE_ENV': argv || 'development',
