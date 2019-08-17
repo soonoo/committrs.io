@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon dist/subscriber.bundle.js",
-    "build": "webpack --config --mode production webpack.config.js",
+    "build": "webpack --mode production --config webpack.config.js",
     "build:watch": "webpack --watch --mode development --config webpack.config.js"
   },
   "dependencies": {
