@@ -103,7 +103,9 @@ router.post('/:id/syncStatus', async (ctx) => {
 
   if(name === 'UPDATED') {
     const { name, email } = user.get();
-    mc.update(name, email);
+    mc.update(name, email).catch((e) => {
+      console.error('failed to send mail: ' + e);
+    });
   }
 });
 

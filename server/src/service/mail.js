@@ -11,6 +11,13 @@ const sampleOptions = {
   `,
 };
 
+const shouldSendMail = (to) => {
+  const isProduction = process.env.NODE_ENV === 'production';
+  const soonoo = 'qpseh2m7@gmail.com';
+
+  return (isProduction) || (!isProduction && to === soonoo);
+};
+
 class MailClient {
   constructor() {
     this.optionsList = {
@@ -44,11 +51,11 @@ class MailClient {
   }
 
   send(options) {
-    if(options.to !== 'qpseh2m7@gmail.com') return;
+    if(!shouldSendMail(options.to)) return;
 
     options.from = options.from || 'committrs.io <soonoo@committrs.io>'
 
-    return new Promise((resolve, rejet) => {
+    return new Promise((resolve, reject) => {
       this.transporter.sendMail(options, function(error, info){
         if (error) {
           reject(error)
