@@ -17,3 +17,9 @@ committrs.io now only collects your commits in GitHub repository with over 30 st
 - [`/client`](https://github.com/soonoo/committrs.io/tree/master/client): front-end app made with React
 - [`/server`](https://github.com/soonoo/committrs.io/tree/master/server): api server made with Node.js  
 
+<br />
+
+## Todos
+- Support for other platforms.(Gitlab, MDN ...)
+- Make committrs.io solid software with test code.
+
