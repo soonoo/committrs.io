@@ -11,6 +11,11 @@ export const sleep = async (ms) => new Promise((resolve, reject) => {
   setTimeout(() => resolve(), ms);
 });
 
+export const rmGitDirectory = (path) => {
+  const command = `rm -rf ${path}`
+  return execPromise(command);
+};
+
 export const pull = async (fullPath) => {
   const command = `git -C ${fullPath} pull --all`;
   return execPromise(command);

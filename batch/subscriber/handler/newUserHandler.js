@@ -5,7 +5,7 @@ import _ from 'lodash';
 // github api client
 import octokit from '../../connections/octokit';
 import { delimiters } from '../../constants';
-import { pull, clone, log, splitCommits } from '../../utils';
+import { pull, clone, log, splitCommits, rmGitDirectory } from '../../utils';
 import fs from 'fs';
 
 const getUserRepos = async (username) => {
@@ -130,6 +130,8 @@ const newUserHandler = async ({ message, token }) => {
       for(const bulk of _.chunk(commits, 500)) {
         await instance.put(`/v1/commits/bulk/${userId}/${repoId}`, bulk);
       }
+
+      await rmGitDirectory(fullPath);
     } catch(e) {
       console.error(e);
     }
