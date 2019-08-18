@@ -9,6 +9,9 @@ import reducer from './store/reducers';
 import sagaMiddleware, { rootSaga } from './store/sagas';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import GA from 'ga';
+
+GA.init();
 
 const preloadedState = window.__STATE__;
 delete window.__STATE__;

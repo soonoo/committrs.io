@@ -15,6 +15,7 @@
     "react": "^16.8.3",
     "react-content-loader": "^4.2.1",
     "react-dom": "^16.8.3",
+    "react-ga": "^2.6.0",
     "react-helmet": "^5.2.1",
     "react-icons": "^2",
     "react-redux": "^6.0.0",
@@ -24,9 +25,11 @@
     "redux-actions": "^2.6.4",
     "redux-saga": "^1.0.2",
     "serverless": "^1.47.0",
-    "serverless-http": "^2.0.2"
+    "serverless-http": "^2.0.2",
+    "source-map-explorer": "^2.0.1"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
