@@ -1,9 +1,14 @@
 const path = require('path');
 const WebpackShellPlugin = require('webpack-shell-plugin');
+const { DefinePlugin } = require('webpack');
 
 module.exports = (env, argv) => {
-  const mode = argv.mode;
-  const plugins = [];
+  const mode = argv.mode || 'development';
+  const plugins = [
+    new DefinePlugin({
+      'NODE_ENV': mode,
+    }),
+  ];
   const entry = {
     test: './db/test.js',
   };
@@ -16,7 +21,7 @@ module.exports = (env, argv) => {
   }
 
   return {
-    mode: mode || 'development',
+    mode: mode,
     target: 'node',
     node: {
       __dirname: true,

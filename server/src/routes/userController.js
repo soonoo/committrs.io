@@ -97,15 +97,21 @@ router.post('/:id/syncStatus', async (ctx) => {
   }
 
   const user = await User.findByPk(userId);
+  if(!user) {
+    ctx.status = 404;
+    return;
+  }
   user.syncStatusId = status.get().id;
   user.save();
   ctx.status = 200;
 
   if(name === 'UPDATED') {
     const { name, email } = user.get();
-    mc.update(name, email).catch((e) => {
-      console.error('failed to send mail: ' + e);
-    });
+    try {
+      await mc.update(name, email)
+    } catch(e) {
+      ctx.status  = 500;
+    }
   }
 });
 
