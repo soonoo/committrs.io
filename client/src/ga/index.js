@@ -10,7 +10,7 @@ export default {
 
   pageView: (page = '') => {
     if(!isProduction) return;
-    ReactGA.pageView(page);
+    ReactGA.pageview(page);
   },
 };
 
