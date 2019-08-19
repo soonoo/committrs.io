@@ -1,11 +1,13 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import ContentLoader from 'react-content-loader';
+import SnsShareButtons from 'components/SnsShareButtons';
 
 import './GithubUserProfile.css';
 
 const GithubUserProfile = React.memo(({ profileInfo }) => {
   const { avatarUrl, name, syncDesc } = profileInfo;
+  const url = `${window.location.href}`;
 
   return name ?
     <div className='github-profile'>
@@ -13,6 +15,9 @@ const GithubUserProfile = React.memo(({ profileInfo }) => {
       <div>
         <div className='container'>
           <div className='name'>{name}</div>
+          <SnsShareButtons url={url} />
+          <div>
+          </div>
           {syncDesc && 
             <div>{syncDesc}</div>
           }

@@ -1,0 +1,7 @@
+.shareButtonsContainer {
+  display: flex;
+}
+.shareButtonsContainer div {
+  margin-right: 3px;
+  cursor: pointer;
+}
