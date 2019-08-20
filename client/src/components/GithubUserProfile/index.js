@@ -2,12 +2,13 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 import ContentLoader from 'react-content-loader';
 import SnsShareButtons from 'components/SnsShareButtons';
+import { CLIENT_HOST } from '../../constants';
 
 import './GithubUserProfile.css';
 
 const GithubUserProfile = React.memo(({ profileInfo }) => {
   const { avatarUrl, name, syncDesc } = profileInfo;
-  const url = `${window.location.href}`;
+  const url = `${CLIENT_HOST}/${name}`;
 
   return name ?
     <div className='github-profile'>

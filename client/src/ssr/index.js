@@ -27,7 +27,7 @@ router.get('/*', async (ctx, next) => {
 
   let match;
   const currentRouter = routes.find(r => {
-    match = matchPath(ctx.url, { path: r.path, exact: true });
+    match = matchPath(ctx.path, { path: r.path, exact: true });
     return match;
   });
 
