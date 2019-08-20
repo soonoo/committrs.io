@@ -35,9 +35,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && aws s3 cp build s3://$COMMITTRS_S3_URL/ --recursive",
-    "invalidate": "aws cloudfront create-invalidation --distribution-id $COMMITTRS_CLOUDFRONT_DIST_ID --paths '/*'",
-    "ssr": "webpack --config src/ssr/webpack.config.js"
+    "deploy:static": "yarn build && aws s3 cp build s3://$COMMITTRS_S3_URL/ --recursive",
+    "invalidate:static": "aws cloudfront create-invalidation --distribution-id $COMMITTRS_CLOUDFRONT_DIST_ID --paths '/*'",
+    "deploy:ssr": "webpack --config src/ssr/webpack.config.js && sls deploy",
+    "deploy:all": "yarn deploy:static && yarn invalidate:static && yarn deploy:ssr"
   },
   "eslintConfig": {
     "extends": "react-app"
