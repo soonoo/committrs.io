@@ -20,5 +20,14 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      function loadPolyfill() {
+        let script = document.createElement('script');
+        script.src = "https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.4.4/polyfill.min.js";
+        document.querySelector("body").appendChild(script);
+      }
+      const isIE = /Trident|MSIE/.test(navigator.userAgent);
+       loadPolyfill();
+    </script>
   </body>
 </html>
