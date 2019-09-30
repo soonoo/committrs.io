@@ -1,10 +1,11 @@
 # committrs.io
-[![Build Status](https://travis-ci.com/soonoo/committrs.svg?branch=master)](https://travis-ci.com/soonoo/committrs)
+[![Build Status](https://travis-ci.com/soonoo/committrs.svg?branch=master)](https://travis-ci.com/soonoo/committrs)  
+* [한국어](README-kr.md)  
 
 <br />
 
 ## What is commitrrs.io?
-People contibute to various open source projects. However it is difficult to see actual contributions in one place. committrs finds your contributions scattered over open source projects and provides a profile page.  
+People contibute to various open source projects. However it is difficult to see actual contributions in one place. Suppose that your code is included in famous open source project like Linux. To find your commit, you have to clone Linux repository and type command `git log --author=blahblah`. committrs finds your contributions scattered over open source projects automatically and provides a profile page.  
  <br />
 ## What platform does committrs support?
 committrs.io now only collects your commits in GitHub repository with over 30 stars. Support for other platforms will be added in the future.(e.g. Gitlab, MDN, Wikipedia ... Whatever it is!) Issues and PRs are welcome.  
@@ -20,8 +21,8 @@ committrs.io now only collects your commits in GitHub repository with over 30 st
 <br />
 
 ## How to contribute
-PRs and issues are always welcome. Please feel free to open PRs and issues! Make sure that LTS version of `Node.js` is installed in your system before start.
-Please refer to [this guide]().
+PRs and issues are always welcome. Please feel free to open PRs and issues! Make sure that LTS version of [Node.js](https://github.com/cocos2d/cocos2d-x) is installed in your system before start.
+Please refer to [this guide](CONTRIBUTING.md).
 
 <br />
 
