@@ -1,4 +1,4 @@
-# [committrs.io](https://committrs.io)
+# committrs.io
 [![Build Status](https://travis-ci.com/soonoo/committrs.svg?branch=master)](https://travis-ci.com/soonoo/committrs)
 
 <br />
@@ -19,7 +19,18 @@ committrs.io now only collects your commits in GitHub repository with over 30 st
 
 <br />
 
+## How to contribute
+PRs and issues are always welcome. Please feel free to open PRs and issues! Make sure that LTS version of `Node.js` is installed in your system before start.
+Please refer to [this guide]().
+
+<br />
+
 ## Todos
 - Support for other platforms.(Gitlab, MDN ...)
 - Make committrs.io solid software with test code.
+
+<br />
+
+## License
+committrs.io is licensed under MIT license. Please see the [LICENSE](LICENSE.md) file.
 
