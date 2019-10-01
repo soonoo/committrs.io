@@ -4,7 +4,7 @@ PRs and issues are always welcome. Please feel free to open PRs and issues! Make
 
 ## Development setup
 
-I recomment you to use [Yarn](https://yarnpkg.com) as a package manager. You can use npm if you want.
+I recommend you to use [Yarn](https://yarnpkg.com) as a package manager. You can use npm if you want.
 
 
 ## Reporting bugs

@@ -1,4 +1,6 @@
-# committrs.io
+![soonoo's profile](soonoo-profile.png)
+<br />
+# committrs.io - A profile page for open source project developers
 [![Build Status](https://travis-ci.com/soonoo/committrs.svg?branch=master)](https://travis-ci.com/soonoo/committrs)  
 * [한국어](README-kr.md)  
 
@@ -21,8 +23,9 @@ committrs.io now only collects your commits in GitHub repository with over 30 st
 <br />
 
 ## How to contribute
-PRs and issues are always welcome. Please feel free to open PRs and issues! Make sure that LTS version of [Node.js](https://github.com/cocos2d/cocos2d-x) is installed in your system before start.
-Please refer to [this guide](CONTRIBUTING.md).
+PRs and issues are always welcome. Please feel free to open PRs and issues! Make sure that LTS version of [Node.js](https://github.com/cocos2d/cocos2d-x) is installed in your system before start.  
+- [Contribution guide](CONTRIBUTING.md).
+- [Swagger documentaion](https://api.committrs.io/swagger)
 
 <br />
 

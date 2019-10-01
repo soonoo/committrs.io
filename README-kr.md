@@ -1,7 +1,8 @@
-# committrs.io
+![soonoo's profile](soonoo-profile.png)
+<br />
+# committrs.io - 오픈 소스 프로젝트 개발자들을 위한 프로필 페이지
 [![Build Status](https://travis-ci.com/soonoo/committrs.svg?branch=master)](https://travis-ci.com/soonoo/committrs)  
 * [English](README.md)  
-
 <br />
 
 ## commitrrs.io란?
@@ -21,8 +22,9 @@ committrs.io는 현재 30개 이상의 star를 받은 GitHub 저장소에 대한
 <br />
 
 ## 프로젝트에 기여하는 법
-PR과 Issue는 언제나 환영입니다. 개발을 시작하기 전에 LTS 버전의 [Node.js](https://nodejs.org/)를 설치해 주세요.
-`Node.js`를 설치했다면 다음 [가이드를](CONTRIBUTING.md) 따라주세요.
+PR과 Issue는 언제나 환영입니다. 개발을 시작하기 전에 LTS 버전의 [Node.js](https://nodejs.org/)를 설치해 주세요.  
+- [개발 시작하기](CONTRIBUTING.md).
+- [Swagger 문서](https://api.committrs.io/swagger)
 
 <br />
 
