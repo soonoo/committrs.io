@@ -7,15 +7,15 @@ import { CLIENT_HOST } from '../../constants';
 import './GithubUserProfile.css';
 
 const GithubUserProfile = React.memo(({ profileInfo }) => {
-  const { avatarUrl, name, syncDesc } = profileInfo;
-  const url = `${CLIENT_HOST}/${name}`;
+  const { avatarUrl, github_login, syncDesc } = profileInfo;
+  const url = `${CLIENT_HOST}/${github_login}`;
 
-  return name ?
+  return github_login ?
     <div className='github-profile'>
       <span className='img'><img className='img' alt='github user profile' src={avatarUrl} /></span>
       <div>
         <div className='container'>
-          <div className='name'>{name}</div>
+          <div className='name'>{github_login}</div>
           <SnsShareButtons url={url} />
           <div>
           </div>
