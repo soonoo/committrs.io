@@ -16,7 +16,7 @@ const producer = Producer.create({
   secretAccessKey,
 });
 
-export const sqsNewUser = (username) => {
+export const sqsNewUser = ({ github_login, github_name }) => {
   const id = uuid();
 
   producer.send([
@@ -25,7 +25,8 @@ export const sqsNewUser = (username) => {
       body: 'body',
       messageAttributes: {
         type: { DataType: 'String', StringValue: 'NEW_USER' },
-        username: { DataType: 'String', StringValue: username },
+        github_login: { DataType: 'String', StringValue: github_login },
+        github_name: { DataType: 'String', StringValue: github_name },
       },
       groupId: id,
       deduplicationId: id,

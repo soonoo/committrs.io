@@ -21,13 +21,15 @@ export const repoRequestSchema = object().shape({
 });
 
 export const userPutRequestSchema = object().shape({
-  name: string().required(),
+  github_login: string().required(),
+  github_name: string().required(),
   email: string(),
   avatarUrl: string(),
 });
 
 export const userPostRequestSchema = object().shape({
-  name: string(),
+  github_login: string(),
+  github_name: string(),
   email: string(),
   avatarUrl: string(),
 });

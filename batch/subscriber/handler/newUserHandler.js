@@ -98,7 +98,8 @@ const refresh = async (cwd, path) => {
 }
 
 const newUserHandler = async ({ message, token }) => {
-  const username = message.MessageAttributes.username.StringValue;
+  const github_login = message.MessageAttributes.github_login.StringValue;
+  const github_name = message.MessageAttributes.github_name.StringValue;
   const minimumStarCount = 30;
   const cwd = process.cwd();
   const instance = axios.create({
@@ -108,10 +109,13 @@ const newUserHandler = async ({ message, token }) => {
     },
   });
 
-  const userRepos = await getUserRepos(username);
-  const validRepos = await getValidRepos(userRepos, minimumStarCount);
+  const userRepos = await getUserRepos(github_login);
+  let validRepos = await getValidRepos(userRepos, minimumStarCount);
+  validRepos = validRepos.filter((repo, i) => {
+    return validRepos.findIndex(r => r.owner === repo.owner && r.name === r.name) === i;
+  });
 
-  const { data: { id: userId } } = await instance.get(`/v1/users/${username}`);
+  const { data: { id: userId } } = await instance.get(`/v1/users/${github_login}`);
 
   for(const repo of validRepos) {
     try {
@@ -122,14 +126,14 @@ const newUserHandler = async ({ message, token }) => {
       const fullPath = `${cwd}/repos/${path}`;
       await refresh(cwd, path);
 
-      const gitLog = await log(username, fullPath);
+      const gitLog = await log([github_login, github_name].join('|'), fullPath);
       const commits = splitCommits(gitLog);
 
       for(const bulk of _.chunk(commits, 500)) {
         await instance.put(`/v1/commits/bulk/${userId}/${repoId}`, bulk);
       }
 
-      await rmGitDirectory(fullPath);
+      await rmGitDirectory(`${cwd}/repos`);
     } catch(e) {
       console.error(e);
     }

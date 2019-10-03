@@ -11,6 +11,7 @@ export const sleep = async (ms) => new Promise((resolve, reject) => {
   setTimeout(() => resolve(), ms);
 });
 
+
 export const rmGitDirectory = (path) => {
   const command = `rm -rf ${path}`
   return execPromise(command);
@@ -27,7 +28,7 @@ export const clone = async (path, fullPath) => {
 };
 
 export const log = async (username, fullPath) => {
-  const command = `git -C ${fullPath} log \
+  const command = `git -C ${fullPath} log -E -i \
     --author='${username}' --all --stat --pretty=format:'\
     ---committrs/sep---%n---committrs/hash---%n%H%n---committrs/date---%n%aI%n\
     ---committrs/subject---%n%s%n---committrs/body---%n%b---committrs/files_changed---'`;

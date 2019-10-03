@@ -1,6 +1,6 @@
 const path = require('path');
 const WebpackShellPlugin = require('webpack-shell-plugin');
-const { DefinePlugin } = require('webpack');
+const { DefinePlugin, SourceMapDevToolPlugin } = require('webpack');
 
 module.exports = (env, argv) => {
   const { mode } = argv;
@@ -13,6 +13,7 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, "dist"),
       filename: 'subscriber.bundle.js',
     },
+    devtool: 'eval-source-map',
     module: {
       rules: [
         {
@@ -26,6 +27,11 @@ module.exports = (env, argv) => {
             },
           },
         },
+        {
+          test: /\.js$/,
+          use: ['source-map-loader'],
+          enforce: 'pre',
+        }
       ],
     },
     externals: ['pg', 'sqlite3', 'tedious', 'pg-hstore', 'gcrp'],

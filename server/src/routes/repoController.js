@@ -49,6 +49,7 @@ router.put('/', async (ctx) => {
     },
   });
 
+  console.log(repo)
   // resource already exists
   if(repo !== null) {
     ctx.body = repo;

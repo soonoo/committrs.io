@@ -30,7 +30,7 @@ const router = new Router();
  *         schema:
  *           type: object
  *           properties:
- *             name:
+ *             github_login:
  *               type: string
  *             email:
  *               type: string
@@ -48,7 +48,7 @@ router.put('/', async (ctx) => {
   }
 
   // check if user exists
-  const user = await User.findOne({ where: { name: body.name } });
+  const user = await User.findOne({ where: { github_login: body.github_login } });
   if(user !== null) {
     ctx.status = 409;
     return;
@@ -106,9 +106,9 @@ router.post('/:id/syncStatus', async (ctx) => {
   ctx.status = 200;
 
   if(name === 'UPDATED') {
-    const { name, email } = user.get();
+    const { github_login, email } = user.get();
     try {
-      await mc.update(name, email)
+      await mc.update(github_login, email)
     } catch(e) {
       ctx.status  = 500;
     }
@@ -136,14 +136,14 @@ router.post('/:id/syncStatus', async (ctx) => {
 router.get('/:userName', async (ctx) => {
   const { userName } = ctx.params;
   const query = `
-    SELECT u.id AS id, u.name AS name, u.email AS email, u.avatarUrl, ss.name AS syncStatus, ss.description AS syncDesc,
+    SELECT u.id AS id, u.github_login AS github_login, u.github_name AS github_name, u.email AS email, u.avatarUrl, ss.name AS syncStatus, ss.description AS syncDesc,
     COUNT(commits.id) AS totalCommits, COUNT(DISTINCT commits.repoId) AS totalRepos
     FROM users AS u
     JOIN commits
     ON u.id = commits.userId
     LEFT JOIN syncStatuses AS ss
     ON u.syncStatusId = ss.id
-    WHERE u.name = :userName;
+    WHERE u.github_login = :userName;
   `;
   const user = await sequelize.query(
     query,
@@ -168,7 +168,7 @@ router.get('/:userName/repos', async (ctx) => {
     }, {
       model: User,
       where: {
-        name: userName,
+        github_login: userName,
       },
     }],
     group: ['repoId'],

@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon dist/subscriber.bundle.js",
+    "dev": "nodemon --inspect dist/subscriber.bundle.js",
     "build": "webpack --mode production --config webpack.config.js",
     "build:watch": "webpack --watch --mode development --config webpack.config.js"
   },
@@ -28,9 +28,12 @@
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/runtime": "^7.3.1",
-    "babel-loader": "^8.0.5"
+    "babel-loader": "^8.0.5",
+    "source-map-loader": "^0.2.4"
   },
   "nodemonConfig": {
-    "ignore": ["repos/*"]
+    "ignore": [
+      "repos/*"
+    ]
   }
 }

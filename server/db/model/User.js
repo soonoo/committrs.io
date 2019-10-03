@@ -8,10 +8,14 @@ const User = sequelize.define('user', {
     autoIncrement: true,
     allowNull: false,
   },
-  name: {
+  github_login: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
+  },
+  github_name: {
+    type: Sequelize.STRING,
+    allowNull: false,
   },
   email: {
     type: Sequelize.STRING,
