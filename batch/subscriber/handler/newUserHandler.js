@@ -8,6 +8,8 @@ import { delimiters } from '../../constants';
 import { pull, clone, log, splitCommits, rmGitDirectory } from '../../utils';
 import fs from 'fs';
 
+const maxRepoSizeInMegaBytes = 500;
+
 const getUserRepos = async (username) => {
   let page = 1;
   let repoData = [];
@@ -59,9 +61,7 @@ const getValidRepos = async (repos, minimumStarCount) => {
     try {
       if(repo.stargazers_count >= minimumStarCount) {
         const rr = await octokit.repos.get({ owner: repo.owner.login, repo: repo.name });
-        console.log((rr.data.size / 1024) + 'MB');
-        if((rr.data.size / 1024) > 3000) {
-          console.log(repo.owner.login, repo.name)
+        if((rr.data.size / 1024) > maxRepoSizeInMegaBytes) {
           continue;
         }
         repoList.push({ owner: repo.owner.login, name: repo.name, starsCount: repo.stargazers_count, description: repo.description });
@@ -69,9 +69,7 @@ const getValidRepos = async (repos, minimumStarCount) => {
       if(repo.fork) {
         const r = await octokit.repos.get({ owner: repo.owner.login, repo: repo.name });
         const rrr = await octokit.repos.get({ owner: r.data.parent.owner.login, repo: r.data.parent.name });
-        console.log((rrr.data.size / 1024) + 'MB');
-        if((rrr.data.size / 1024) > 3000) {
-          console.log(r.data.parent.owner.login, repo.name)
+        if((rrr.data.size / 1024) > maxRepoSizeInMegaBytes) {
           continue;
         }
         if(r.data.parent.stargazers_count >= minimumStarCount) {
