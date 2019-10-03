@@ -121,7 +121,8 @@ router.get('/:userId/:repoId', async (ctx) => {
   }
 
   const data = await Commit.findAll({
-    where: { repoId, userId }
+    where: { repoId, userId },
+    limit: 20,
   });
   // console.log(data)
   // const data = await Repo.findOne({
