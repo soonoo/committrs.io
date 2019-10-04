@@ -25,6 +25,9 @@ const Repo = sequelize.define('repo', {
   description: {
     type: Sequelize.STRING,
   },
+  languages: {
+    type: Sequelize.STRING,
+  },
 });
 
 export default Repo;

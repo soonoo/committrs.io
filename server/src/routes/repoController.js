@@ -129,7 +129,7 @@ router.get('/:userId', async (ctx) => {
     attributes: [[sequelize.fn('COUNT', sequelize.col('commit.id')), 'totalCommits']],
     include: [{
       model: Repo,
-      attributes: ['id', 'name', 'owner', 'starsCount', 'description'],
+      attributes: ['id', 'name', 'owner', 'starsCount', 'description', 'languages'],
     }],
     group: ['repoId'],
   });
@@ -142,6 +142,7 @@ router.get('/:userId', async (ctx) => {
       starsCount: commit['repo.starsCount'],
       description: commit['repo.description'],
       totalCommits: commit['totalCommits'],
+      languages: commit['repo.languages'],
     };
   });
 });

@@ -119,7 +119,10 @@ const newUserHandler = async ({ message, token }) => {
 
   for(const repo of validRepos) {
     try {
-      const { data: { id: repoId }} = await instance.put(`/v1/repos`, { ...repo });
+      let languages = await octokit.repos.listLanguages({ owner: repo.owner, repo: repo.name });
+      languages = Object.keys(languages.data).join(',');
+
+      const { data: { id: repoId }} = await instance.put(`/v1/repos`, { ...repo, languages });
       await instance.put(`/v1/repos/${repoId}/${userId}`);
 
       const path = `${repo.owner}/${repo.name}`;

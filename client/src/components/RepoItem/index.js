@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CommitItem from 'components/CommitItem';
 import OwnerBadge from 'components/OwnerBadge';
+import colors from 'constants/githubLanguageColors';
 
 import './RepoItem.css';
 
@@ -10,7 +11,7 @@ const getShortCount = (number) => {
   else return `${parseInt(number/1000)}k`;
 };
 
-const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits, userId, userName, starsCount, description }) => {
+const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits, userId, userName, starsCount, description, languages }) => {
   const [listVisibility, setListVisibility] = useState(false);
   const repoPath = `${owner}/${name}`;
   const dataKey = `${userId}/${repoId}`;
@@ -26,6 +27,13 @@ const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits
   return (
     <div className={repoClassName}>
       <div className='repo-title' onClick={onRepoClick}>{repoPath}</div>
+      <div>
+        {languages.split(',').slice(0, 4).map((lang) => {
+          if(!lang) return null;
+          const background = colors[lang] ? colors[lang]['color'] : '';
+          return <span className='langCircleWrap'><span className='langCircle' style={{ background }}></span>{lang}</span>
+        })}
+      </div>
       <div className='repo-desc'>{getShortCount(starsCount)}⭐ | {description}</div>
       <div>{isOwner && <OwnerBadge />}</div>
       <div className='repo-commits-count'>{`${totalCommits} commits`}</div>
