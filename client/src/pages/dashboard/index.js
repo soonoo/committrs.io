@@ -53,15 +53,15 @@ const DashboardPage = ({ profileInfo, repos, commits, match, fetchReposRequest, 
           profileInfo={profileInfo}
         />
         <DashboardSeparator
-          name={profileInfo.name}
+          name={profileInfo.github_login}
         />
-          <RepoList
-            repos={repos}
-            userId={profileInfo.id}
-            commits={commits}
-            fetchCommits={fetchCommitsRequest}
-            userName={profileInfo.name}
-          />
+        <RepoList
+          repos={repos}
+          userId={profileInfo.id}
+          commits={commits}
+          fetchCommits={fetchCommitsRequest}
+          userName={profileInfo.name}
+        />
       </div>
     </div>
   );

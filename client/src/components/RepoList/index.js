@@ -9,7 +9,7 @@ const RepoList = React.memo(({ repos, fetchCommits, userId, commits, userName })
 
   return repos ? 
     <div className={className}>
-      <div>Found total {commitsCount} commits in {reposCount} repositories</div>
+      <div>Found total <strong>{commitsCount}</strong> commits in <strong>{reposCount}</strong> GitHub repositories</div>
       <div className='repo-container'>
         {repos.map((repo) => (
           <RepoItem

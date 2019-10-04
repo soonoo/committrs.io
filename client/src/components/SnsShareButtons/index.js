@@ -2,6 +2,7 @@ import React from 'react';
 import {
   FacebookShareButton, FacebookIcon,
   TwitterShareButton, TwitterIcon,
+  LinkedinShareButton, LinkedinIcon,
   RedditShareButton, RedditIcon,
 } from 'react-share';
 
@@ -13,16 +14,22 @@ const SnsShareButtons = ({ url }) => {
   if(!url) return null;
 
   return (
-    <div className='shareButtonsContainer'>
-      <FacebookShareButton url={url}>
-        <FacebookIcon size={iconSize} round />
-      </FacebookShareButton>
-      <TwitterShareButton url={url}>
-        <TwitterIcon size={iconSize} round />
-      </TwitterShareButton>
-      <RedditShareButton url={url}>
-        <RedditIcon size={iconSize} round />
-      </RedditShareButton>
+    <div>
+      Share your profile on: 
+      <div className='shareButtonsContainer'>
+        <FacebookShareButton url={url}>
+          <FacebookIcon size={iconSize} round />
+        </FacebookShareButton>
+        <TwitterShareButton url={url}>
+          <TwitterIcon size={iconSize} round />
+        </TwitterShareButton>
+        <LinkedinShareButton url={url}>
+          <LinkedinIcon size={iconSize} round />
+        </LinkedinShareButton>
+        <RedditShareButton url={url}>
+          <RedditIcon size={iconSize} round />
+        </RedditShareButton>
+      </div>
     </div>
   );
 };

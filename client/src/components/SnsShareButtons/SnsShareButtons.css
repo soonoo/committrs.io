@@ -1,5 +1,6 @@
 .shareButtonsContainer {
   display: flex;
+  margin-top: 5px;
 }
 .shareButtonsContainer div {
   margin-right: 3px;

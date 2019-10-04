@@ -2,7 +2,8 @@ import { FETCH_USER_SUCCESS, USER_INITIAL, FETCH_USER_NOT_FOUND } from 'store/ac
 
 const initialState = {
   id: USER_INITIAL,
-  name: '',
+  github_login: '',
+  github_name: '',
   email: '',
   token: '',
   avatarUrl: '',
