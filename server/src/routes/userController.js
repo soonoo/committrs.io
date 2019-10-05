@@ -13,7 +13,7 @@ const router = new Router();
 
 /**
  * @swagger
- * /user:
+ * /users:
  *   put:
  *     summary: Add a new user
  *     tags:
@@ -117,7 +117,7 @@ router.post('/:id/syncStatus', async (ctx) => {
 
 /**
  * @swagger
- * /user/{userName}:
+ * /users/{userName}:
  *   get:
  *     summary: Get a user
  *     tags:
