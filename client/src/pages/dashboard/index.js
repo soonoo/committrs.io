@@ -32,9 +32,9 @@ const DashboardPage = ({ profileInfo, repos, commits, match, fetchReposRequest, 
 
   return (
     <div>
-        {profileInfo.name && 
+        {profileInfo.github_login &&
       <Helmet>
-            <title>{`${profileInfo.name} - committrs.io`}</title>
+            <title>{`${profileInfo.github_login}`}</title>
             <meta
               name='description'
               content={`Check out ${profileInfo.name}'s open source contributions!`}

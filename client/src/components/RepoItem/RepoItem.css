@@ -36,6 +36,11 @@
   border-radius: 4px;
 }
 
+.repo-commits-count {
+  font-size: 0.9em;
+  color: #333;
+}
+
 .langCircle {
   display: inline-block;
   width: 12px;
@@ -55,6 +60,20 @@
   .repo {
     font-size: 18px;
     margin: 18px 0 18px;
+  }
+  .langCircle {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    margin-right: 3px;
+    opacity: 0.9;
+  }
+
+  .langCircleWrap {
+    margin-right: 16px;
+    font-size: 14px;
+    color: #222;
   }
 }
 
