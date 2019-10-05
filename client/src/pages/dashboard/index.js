@@ -39,12 +39,11 @@ const DashboardPage = ({ profileInfo, repos, commits, match, fetchReposRequest, 
               name='description'
               content={`Check out ${profileInfo.name}'s open source contributions!`}
             />
-            <meta property='og:title' content={`${profileInfo.name} - committrs.io`} />
+            <meta property='og:title' content={`${profileInfo.github_login}`} />
             <meta property='og:site_name' content='committrs.io' />
             <meta property='og:type' content='profile' />
             <meta property='og:image' content={profileInfo.avatarUrl} />
-            <meta property='og:url' content={`https://committrs.io/${profileInfo.name}`} />
-            <meta property='og:description' content={`Check out ${profileInfo.name}'s open source contributions!`} />
+            <meta property='og:description' content={`Check out ${profileInfo.github_login}'s open source contributions!`} />
       </Helmet>
         }
       <Header />
