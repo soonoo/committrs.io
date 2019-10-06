@@ -21,7 +21,7 @@ export const sqsNewUser = ({ github_login, github_name }) => {
 
   producer.send([
     {
-      id: username + Date.now().toString(),
+      id: github_login + Date.now().toString(),
       body: 'body',
       messageAttributes: {
         type: { DataType: 'String', StringValue: 'NEW_USER' },

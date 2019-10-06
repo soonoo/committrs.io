@@ -15,12 +15,12 @@ export const createUser = async (body) => {
   });
 };
 
-export const findUser = async (name) => {
-  if(typeof name !== 'string') return null;
+export const findUser = async (github_login) => {
+  if(typeof github_login !== 'string') return null;
 
   return await User.findOne({
     where: {
-      name,
+      github_login,
     },
   });
 }

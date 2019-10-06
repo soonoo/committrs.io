@@ -22,7 +22,7 @@ export const repoRequestSchema = object().shape({
 
 export const userPutRequestSchema = object().shape({
   github_login: string().required(),
-  github_name: string().required(),
+  github_name: string(),
   email: string(),
   avatarUrl: string(),
 });
