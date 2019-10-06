@@ -5,6 +5,26 @@ PRs and issues are always welcome. Please feel free to open PRs and issues! Make
 ## Development setup
 
 I recommend you to use [Yarn](https://yarnpkg.com) as a package manager. You can use npm if you want.
+You should rename (/batch/.env.sample)[../batch/.env.sample] file and (/server/.env.sample) to `.env`. There files have metadata about database connection, GitHub OAuth and AWS access key/secret key etc.
+```sh
+# To start a client:
+cd client
+yarn
+yarn start
+
+
+# To start a api server:
+cd server
+yarn
+yarn build:watch
+
+# To start a batch server:
+cd server
+yarn
+yarn build:watch
+```
+
+`yarn build:watch` command starts a server and watches file changes. Server automatically restarts whenever file changes.
 
 
 ## Reporting bugs
@@ -33,7 +53,7 @@ cd committrs.io
 # install dependencies
 cd server && yarn
 cd client && yarn
-cd batch&& yarn
+cd batch && yarn
 ```
 
 
