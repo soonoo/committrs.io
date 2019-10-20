@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import CommitItem from 'components/CommitItem';
 import OwnerBadge from 'components/OwnerBadge';
 import colors from 'constants/githubLanguageColors';
+import { fetchCommitsRequest } from 'store/actions/commits';
 
 import './RepoItem.css';
 
@@ -11,15 +12,19 @@ const getShortCount = (number) => {
   else return `${parseInt(number/1000)}k`;
 };
 
-const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits, userId, userName, starsCount, description, languages }) => {
+const RepoItem = ({ owner, name, id: repoId, totalCommits, starsCount, description, languages }) => {
+  const dispatch = useDispatch();
   const [listVisibility, setListVisibility] = useState(false);
+  const { id: userId, github_login: userName } = useSelector(state => state.user);
   const repoPath = `${owner}/${name}`;
   const dataKey = `${userId}/${repoId}`;
-  const data = commits[dataKey] || [];
+  const data = useSelector(state => state.commits[dataKey]) || [];
   const isOwner = owner === userName;
 
   const onRepoClick = () => {
-    if(!listVisibility) fetchCommits(userId, repoId);
+    if(!listVisibility) {
+      dispatch(fetchCommitsRequest(userId, repoId));
+    }
     setListVisibility(!listVisibility)
   };
 
@@ -50,17 +55,6 @@ const RepoItem = ({ owner, name, id: repoId, totalCommits, commits, fetchCommits
     </div>
   );
 };
-
-const { number, string } = PropTypes;
-export const repoShape = {
-  owner: string.isRequired,
-  name: string.isRequired,
-  id: number.isRequired,
-  totalCommits: number.isRequired,
-  userId: number.isRequired,
-};
-
-RepoItem.propTypes = repoShape;
 
 export default RepoItem;
 

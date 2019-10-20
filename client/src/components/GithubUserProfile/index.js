@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { shape, string } from 'prop-types';
 import ContentLoader from 'react-content-loader';
 import SnsShareButtons from 'components/SnsShareButtons';
@@ -6,8 +7,8 @@ import { CLIENT_HOST } from '../../constants';
 
 import './GithubUserProfile.css';
 
-const GithubUserProfile = React.memo(({ profileInfo }) => {
-  const { avatarUrl, github_login, syncDesc } = profileInfo;
+const GithubUserProfile = () => {
+  const { avatarUrl, github_login, syncDesc } = useSelector(state => state.user);
   const url = `${CLIENT_HOST}/${github_login}`;
 
   return github_login ?
@@ -30,7 +31,7 @@ const GithubUserProfile = React.memo(({ profileInfo }) => {
       <rect x='220' width='400' height='30' />
       <rect x='220' y='45' width='350' height='20' />
     </ContentLoader>;
-});
+};
 
 GithubUserProfile.propTypes = {
   profileInfo: shape({

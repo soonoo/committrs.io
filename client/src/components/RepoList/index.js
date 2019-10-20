@@ -1,8 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import RepoItem from 'components/RepoItem';
 import ContentLoader from 'react-content-loader';
 
-const RepoList = React.memo(({ repos, fetchCommits, userId, commits, userName }) => {
+const RepoList = () => {
+  const repos = useSelector(state => state.repos);
   const reposCount = repos ? repos.length : 0;
   const commitsCount = repos ? repos.reduce(((acc, cur) => acc + cur.totalCommits), 0) : 0;
   const className = 'contributions';
@@ -14,10 +16,6 @@ const RepoList = React.memo(({ repos, fetchCommits, userId, commits, userName })
         {repos.map((repo) => (
           <RepoItem
             key={repo.id}
-            fetchCommits={fetchCommits}
-            userId={userId}
-            commits={commits}
-            userName={userName}
             {...repo} 
           />
         ))} 
@@ -31,7 +29,7 @@ const RepoList = React.memo(({ repos, fetchCommits, userId, commits, userName })
       <rect y='310' width='900' height='25' />
       <rect y='345' width='650' height='25' />
     </ContentLoader>;
-});
+};
 
 export default RepoList;
 
