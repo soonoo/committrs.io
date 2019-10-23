@@ -17,7 +17,7 @@ const SettingsPage = ({ staticContext = {} }) => {
   const { authorized } = useSelector(state => state.auth);
 
   if(authorized === AUTH_STATUS.NOT_LOGGED_IN) {
-    dispatch(addNoti('Sign in first please 😄  Click me to sign in!', login, 1000000));
+    dispatch(addNoti('Click me to sign in first! 😄', login, 1000000));
   }
 
   return (

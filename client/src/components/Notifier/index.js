@@ -34,11 +34,13 @@ const Item = React.memo(({ message, top, id, onClick, timeout = 3000 }) => {
   });
 
   return visibility ? (
-    <div {...props} style={{ top: '-20px', opacity, position: 'fixed', transform }} className='NotiItemContainer'>
-      <div className='NotiItemContent' onClick={onClick}>
-        <span className='NotiItemMessage'>{message}</span>
-        <span className='NotiItemCloseButton' onClick={(e) => remove(e, id)}>x</span>
-      </div>
+    <div {...props} style={{ left: '50%', top: '-10px', opacity, position: 'fixed', transform }} className='NotiItemContainer'>
+      <div style={{ transform: 'translate(-50%, 0)', width: '100%' }}>
+        <div className='NotiItemContent' onClick={onClick}>
+          <span className='NotiItemMessage'>{message}</span>
+          <span className='NotiItemCloseButton' onClick={(e) => remove(e, id)}>x</span>
+        </div>
+          </div>
     </div>
   ) : null;
 });

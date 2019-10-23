@@ -1,16 +1,16 @@
 .NotiItemContainer {
   transition: ease-out all 0.3s;
   color: black;
-  width: 100%;
   display: flex;
   justify-content: center;
+  width: 90vw;
+  max-width: 600px;
 }
 
 .NotiItemContent {
   background-color:#eeeeee;
   box-shadow: 3px 3px 8px #444;
-  width: 90%;
-  max-width: 600px;
+  width: 100%;
   border-radius: 2px;
   padding: 10px;
   padding-left: 20px;
