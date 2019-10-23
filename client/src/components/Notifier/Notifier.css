@@ -1,0 +1,45 @@
+.NotiItemContainer {
+  transition: ease-out all 0.3s;
+  color: black;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.NotiItemContent {
+  background-color:#eeeeee;
+  box-shadow: 3px 3px 8px #444;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 2px;
+  padding: 10px;
+  padding-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+}
+
+.NotiItemMessage {
+  color: black;
+  font-size: 20px;
+  white-space: nowrap;
+  flex-grow: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.NotiItemCloseButton {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0 10px;
+  font-size: 24px;
+}
+
+.Notifier div:nth-child(n+5) {
+  visibility: hidden;
+}
+
+.moved {
+}
+
