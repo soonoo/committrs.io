@@ -1,11 +1,16 @@
 import LandingPage from 'pages/landing';
 import DashboardPage from 'pages/dashboard';
+import SettingsPage from 'pages/settings';
 import { fetchUserRequestServer } from 'store/actions/user';
 
 export default [
   {
     path: '/',
     component: LandingPage,
+  },
+  {
+    path: '/settings',
+    component: SettingsPage,
   },
   // {
   //   path: '/rank',
