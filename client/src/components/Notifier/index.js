@@ -30,11 +30,11 @@ const Item = React.memo(({ message, top, id, onClick, timeout = 3000 }) => {
   }, []);
 
   useEffect(() => {
-    setTransform(`translate(0, ${top}px)`);
+    setTimeout(() => setTransform(`translate(0, ${top + 30}px)`), 50);
   });
 
   return visibility ? (
-    <div {...props} style={{ left: '50%', top: '-10px', opacity, position: 'fixed', transform }} className='NotiItemContainer'>
+    <div {...props} style={{ left: '50%', top: '-50px', opacity, position: 'fixed', transform }} className='NotiItemContainer'>
       <div style={{ transform: 'translate(-50%, 0)', width: '100%' }}>
         <div className='NotiItemContent' onClick={onClick}>
           <span className='NotiItemMessage'>{message}</span>
