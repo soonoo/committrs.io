@@ -5,21 +5,55 @@
 
 .github-profile .img {
   height: 100px;
+  flex-shrink: 0;
+}
+
+.github-profile .desc {
+  overflow: hidden;
+  flex-grow: 1;
 }
 
 .github-profile .container {
   padding: 0 10px 0 10px;
 }
 
+.github-profile .githubLogin {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .github-profile .name {
+  display: flex;
+  align-items: flex-end;
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.github-profile .name .edit {
+  font-size: 14px;
+  font-weight: normal;
+  text-decoration: underline;
+  padding: 4px;
+  color: #555;
+}
+
+.github-profile .name .edit a{
+  color: #555;
+}
+
+.github-profile .name .edit a:visited {
+  color: #555;
+}
+
+.github-profile .name .edit:hover {
+  cursor: pointer;
 }
 
 @media only screen and (min-width : 600px) {
   .github-profile {
-    width: 600px;
     height: 130px;
   }
   .github-profile .img { 
@@ -36,7 +70,6 @@
 
 @media only screen and (min-width : 1280px) {
   .github-profile {
-    width: 900px;
     height: 190px;
   }
   .github-profile .img {

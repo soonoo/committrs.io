@@ -1,12 +1,11 @@
 import React from 'react';
-import { SERVER_HOST, GITHUB_ID } from 'constants/index';
+import { GITHUB_LOGIN_URL } from 'constants/index';
 import GoMarkGithub from 'react-icons/lib/go/mark-github';
 
 const GithubLoginButton = () => {
-  const url = `https://github.com/login/oauth/authorize?client_id=${GITHUB_ID}&redirect_uri=${SERVER_HOST}/v1/auth/github/token`;
   const login = () => {
-    window.location.href = url;
-  }
+    window.location.href = GITHUB_LOGIN_URL;
+  };
 
   return (
     <button onClick={login} className='github-login'>

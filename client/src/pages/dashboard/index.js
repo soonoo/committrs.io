@@ -1,25 +1,25 @@
-import React, { useEffect, Fragment } from 'react';
-import { compose } from 'redux';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import useUserProfile from  'hooks/useUserProfile';
+import { useParams } from 'react-router-dom';
 import GithubUserProfile from 'components/GithubUserProfile';
 import DashboardSeparator from 'components/DashboardSeparator';
 import RepoList from 'components/RepoList';
 import Header from 'components/Header';
 import { fetchUserRequest } from 'store/actions/user';
 import NotFound from 'pages/notFound';
-import { USER_NOT_FOUND, USER_INITIAL } from 'store/actions/user';
+import { USER_NOT_FOUND } from 'store/actions/user';
 import { Helmet } from 'react-helmet';
 
 import './dashboard.css';
 
-const DashboardPage = ({ match, staticContext = {} }) => {
+const DashboardPage = ({ staticContext = {} }) => {
   const dispatch = useDispatch();
-  const { github_login, avatarUrl, id }= useSelector(state => state.user);
+  const { userName } = useParams();
+  const { github_login, avatarUrl, id } = useUserProfile();
 
   useEffect(() => {
-    if(id !== USER_INITIAL) return;
-    dispatch(fetchUserRequest(match.params.userName));
+    if(!github_login) dispatch(fetchUserRequest(userName));
   }, []);
 
   if(id === USER_NOT_FOUND) {
@@ -44,13 +44,15 @@ const DashboardPage = ({ match, staticContext = {} }) => {
         }
       <Header />
       <div className='dashboard'>
-        <GithubUserProfile />
-        <DashboardSeparator />
-        <RepoList />
+        <div className='wrapper'>
+          <GithubUserProfile />
+          <DashboardSeparator />
+          <RepoList />
+        </div>
       </div>
     </div>
   );
 };
 
-export default withRouter(DashboardPage);
+export default DashboardPage;
 

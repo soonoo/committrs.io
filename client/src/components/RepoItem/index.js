@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useUserProfile from  'hooks/useUserProfile';
 import { useSelector, useDispatch } from 'react-redux';
 import CommitItem from 'components/CommitItem';
 import OwnerBadge from 'components/OwnerBadge';
@@ -15,7 +16,7 @@ const getShortCount = (number) => {
 const RepoItem = ({ owner, name, id: repoId, totalCommits, starsCount, description, languages }) => {
   const dispatch = useDispatch();
   const [listVisibility, setListVisibility] = useState(false);
-  const { id: userId, github_login: userName } = useSelector(state => state.user);
+  const { id: userId, github_login: userName } = useUserProfile();
   const repoPath = `${owner}/${name}`;
   const dataKey = `${userId}/${repoId}`;
   const data = useSelector(state => state.commits[dataKey]) || [];
@@ -23,9 +24,7 @@ const RepoItem = ({ owner, name, id: repoId, totalCommits, starsCount, descripti
 
   const onRepoClick = () => {
     if(!listVisibility) {
-      dispatch(fetchCommitsRequest(userId, repoId));
-    }
-    setListVisibility(!listVisibility)
+      dispatch(fetchCommitsRequest(userId, repoId)); } setListVisibility(!listVisibility)
   };
 
   const repoClassName = 'repo ' + (listVisibility ? 'visible' : '');
