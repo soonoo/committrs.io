@@ -1,7 +1,7 @@
 ![soonoo's profile](soonoo-profile.png)
 <br />
 # committrs.io - A profile page for open source project developers
-[![Build Status](https://travis-ci.com/soonoo/committrs.svg?branch=master)](https://travis-ci.com/soonoo/committrs)  
+[![Build Status](https://travis-ci.com/soonoo/committrs.io.svg?branch=master)](https://travis-ci.com/soonoo/committrs)  
 * [한국어](README-kr.md)  
 
 <br />
