@@ -1,34 +1,36 @@
 import React from 'react';
 import { render, fireEvent } from 'react-testing-library';
+import { Provider } from 'react-redux';
+import { store } from 'store';
 import RepoItem from './';
 
+jest.mock('react-router-dom', () => {
+  return {
+    ...jest.requireActual('react-router-dom'),
+    useParams: () => ({
+    })
+  };
+});
+
+// const RepoItem = ({ owner, name, id: repoId, totalCommits, starsCount, description, languages }) => {
 const props = {
   owner: 'soonoo',
   name: 'committrs',
   commitsCount: 12133,
-  commits: [
-    {
-      hash: 'c509aaced86fc120a2521b40303a88692dee8104',
-      message: 'fix: this is test commit!!!!',
-      stat: {
-        addition: 123,
-        deletion: 234,
-      },
-    },
-    {
-      hash: 'c23rwerlkgjndfl4n4534534303a88692dee8104',
-      message: 'fix: this is test commit!!!!',
-      stat: {
-        addition: 123,
-        deletion: 234,
-      },
-    },
-  ],
+  id: 91,
+  totalCommits: 456,
+  starsCount: 100,
+  description: 'hello world',
+  languages: 'javascript,java,c,c++',
 }
 
 describe('RepoItem.js', () => {
-  const { getByText, container, queryByText } = render(<RepoItem {...props} />);
+  const { getByText, container, queryByText } = render(<Provider store={store}><RepoItem {...props} /></Provider>);
   const { owner, name, commitsCount } = props;
+
+  it('renders without crash', () => {
+    expect(getByText(`${owner}/${name}`)).toBeDefined();
+  });
 
   it('renders repo owner and name in `owner/name` form', () => {
     expect(getByText(`${owner}/${name}`)).toBeDefined();

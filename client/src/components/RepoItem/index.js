@@ -24,7 +24,9 @@ const RepoItem = ({ owner, name, id: repoId, totalCommits, starsCount, descripti
 
   const onRepoClick = () => {
     if(!listVisibility) {
-      dispatch(fetchCommitsRequest(userId, repoId)); } setListVisibility(!listVisibility)
+      dispatch(fetchCommitsRequest(userId, repoId));
+    }
+    setListVisibility(!listVisibility)
   };
 
   const repoClassName = 'repo ' + (listVisibility ? 'visible' : '');
