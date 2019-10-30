@@ -3,3 +3,40 @@
   flex-direction: column;
   align-items: center;
 }
+
+.SettingsMenu {
+  margin-top: 30px;
+}
+
+.AccountWrapper {
+  max-width: 100%;
+  display: flex;
+  background-color: #ddd;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.Account {
+  display: flex;
+  justify-content: center;
+  min-width: 70px;
+  padding: 4px;
+}
+
+.AccountInput {
+  flex-grow: 1;
+  border-radius: 0 4px 4px 0;
+  border: none;
+  padding: 0 6px 0 6px;
+}
+
+.AccountChangeButton {
+  border: none;
+  border-radius: 0 4px 4px 0;
+  background-color: #999;
+}
+
+.AccountChangeButton:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}

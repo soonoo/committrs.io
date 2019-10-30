@@ -17,7 +17,7 @@ router.get('/github/token', async (ctx) => {
   const client_secret = process.env[`GITHUB_SECRET${postfix}`];
   const client_host = process.env[`CLIENT_HOST${postfix}`];
   const { JWT_SECRET } = process.env;
-  const { code } = ctx.query;
+  const { code, redirect_to } = ctx.query;
   let options = {
     headers: {
       'Accept': 'application/json',
@@ -35,7 +35,7 @@ router.get('/github/token', async (ctx) => {
   if(!user) {
     await createUser({
       github_login: login,
-      github_name: name,
+      github_name: name || '',
       token: access_token,
       email,
       avatarUrl: avatar_url,
@@ -44,9 +44,14 @@ router.get('/github/token', async (ctx) => {
     sqsNewUser({ github_login: login, github_name: name });
   }
 
-  const token = jwt.sign({ github_login: login, github_name: github_name, avatarUrl: avatar_url, roles: ['user'] }, JWT_SECRET);
-  ctx.cookies.set('cmtrs-token', token, { domain: client_host });
-  ctx.redirect(`${client_host}/${login}`);
+  const token = jwt.sign({ github_login: login, github_name: name, avatarUrl: avatar_url, roles: ['user'] }, JWT_SECRET);
+  ctx.cookies.set('cmtrs-token', token);
+
+  if(redirect_to) {
+    ctx.redirect(redirect_to);
+  } else {
+    ctx.redirect(`${client_host}/${login}`);
+  }
 });
 
 router.post('/admin/token', async (ctx) => {

@@ -6,7 +6,6 @@ import { SERVER_HOST } from 'constants/index';
 export function* fetchAuthStatus(action) {
   try {
     const { data } = yield call(() => axios.get(`${SERVER_HOST}/v1/users/authStatus`, { withCredentials: true }));
-    console.log(data)
     yield put(fetchAuthStatusSuccess(data));
   } catch(e) {
     console.error('fetcuUserAuthStatus failed: ' + e);

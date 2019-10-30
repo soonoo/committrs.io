@@ -27,11 +27,12 @@ export const fetchUserRequestServer = (userName) => ({
   },
 });
 
-export const fetchUserNotFound = () => ({
+export const fetchUserNotFound = (userName) => ({
   type: FETCH_USER_NOT_FOUND,
   payload: {
     user: {
       id: USER_NOT_FOUND,
+      github_login: userName,
     },
   },
 });

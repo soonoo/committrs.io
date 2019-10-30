@@ -14,7 +14,7 @@ const login = () => {
 
 const SettingsPage = ({ staticContext = {} }) => {
   const dispatch = useDispatch();
-  const { github_login, avatarUrl, id } = useSelector(state => state.user);
+  const { github_login, avatarUrl, id } = useSelector(state => state.auth);
   const { authorized } = useSelector(state => state.auth);
 
   useEffect(() => {
@@ -31,6 +31,17 @@ const SettingsPage = ({ staticContext = {} }) => {
       <div className='settings'>
         <div className='wrapper'>
           <h1>Settings</h1>
+          <h2 className='SettingsMenu'>Connected accounts</h2>
+            <hr />
+            <div className='AccountWrapper'>
+              <span className='Account'>GitHub</span>
+              <input className='AccountInput' value={github_login} disabled />
+            </div>
+            <div className='AccountWrapper'>
+              <span className='Account'>MDN</span>
+              <input className='AccountInput' value='' disabled />
+              <button className='AccountChangeButton'>change</button>
+            </div>
         </div>
       </div>
     </div>

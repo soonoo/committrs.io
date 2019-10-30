@@ -10,13 +10,15 @@ import { SERVER_HOST } from 'constants/index';
 import { END } from 'redux-saga';
 
 export function* fetchUser(action) {
+  const { userName } = action.payload;
+
   try {
-    const { data } = yield call(() => axios.get(`${SERVER_HOST}/v1/users/${action.payload.userName}`));
+    const { data } = yield call(() => axios.get(`${SERVER_HOST}/v1/users/${userName}`));
     yield put(fetchUserSuccess(data));
-    yield put(fetchReposByNameRequest(action.payload.userName));
+    yield put(fetchReposByNameRequest(userName));
   } catch(e) {
     console.error('fetchUser fail: ' + e);
-    yield put(fetchUserNotFound());
+    yield put(fetchUserNotFound(userName));
   }
 };
 

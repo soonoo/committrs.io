@@ -57,6 +57,12 @@ router.put('/', async (ctx) => {
   ctx.body = await createUser(body);
 });
 
+router.get('/authStatus', async (ctx) => {
+  ctx.body = {
+    ...ctx.token,
+  };
+});
+
 // update user
 router.post('/:id', roles('admin'));
 router.post('/:id', async (ctx) => {
@@ -134,7 +140,7 @@ router.post('/:id/syncStatus', async (ctx) => {
  *           type: string
  */
 router.get('/:userName', async (ctx) => {
-  const { userName } = ctx.params;
+  const { userName } = ctx.params
   const query = `
     SELECT u.id AS id, u.github_login AS github_login, u.github_name AS github_name, u.email AS email, u.avatarUrl, ss.name AS syncStatus, ss.description AS syncDesc,
     COUNT(commits.id) AS totalCommits, COUNT(DISTINCT commits.repoId) AS totalRepos
@@ -153,8 +159,11 @@ router.get('/:userName', async (ctx) => {
     },
   );
 
-  if(user[0].id) ctx.body = user[0];
-  else ctx.status = 404;
+  if(user[0].id) {
+    ctx.body = user[0];
+  } else {
+    ctx.status = 404;
+  }
 });
 
 router.get('/:userName/repos', async (ctx) => {
