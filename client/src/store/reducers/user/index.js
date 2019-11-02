@@ -1,4 +1,5 @@
-import { FETCH_USER_SUCCESS, USER_INITIAL, FETCH_USER_NOT_FOUND } from 'store/actions/user';
+import { FETCH_USER_SUCCESS, USER_INITIAL,
+  FETCH_USER_NOT_FOUND, USER_NOT_FOUND } from 'store/actions/user';
 
 const profileTemplate = {
   id: USER_INITIAL,
@@ -16,9 +17,15 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_USER_NOT_FOUND:
+      const userNotFound = {
+        ...action.payload.user,
+        id: USER_NOT_FOUND,
+      };
+
       return {
         ...state,
         ...action.payload.user,
+        profiles: [...state.profiles, userNotFound],
       };
     case FETCH_USER_SUCCESS:
       return {
