@@ -109,7 +109,7 @@ const newUserHandler = async ({ message, token }) => {
   const instance = axios.create({
     baseURL: BACKEND_HOST,
     headers: {
-      Authorization: `Bearer ${token}`,
+      Cookie: `cmtrs-token=${token};`,
     },
   });
 
