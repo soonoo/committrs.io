@@ -32,6 +32,7 @@ export const userPostRequestSchema = object().shape({
   github_name: string(),
   email: string(),
   avatarUrl: string(),
+  mdn_name: string(),
 });
 
 export const userSyncStatusSchema = object().shape({

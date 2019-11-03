@@ -15,7 +15,9 @@ const User = sequelize.define('user', {
   },
   github_name: {
     type: Sequelize.STRING,
-    allowNull: false,
+  },
+  mdn_name: {
+    type: Sequelize.STRING,
   },
   email: {
     type: Sequelize.STRING,

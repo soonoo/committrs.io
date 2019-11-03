@@ -8,6 +8,7 @@ import { userPutRequestSchema, userPostRequestSchema, userSyncStatusSchema } fro
 import { createUser, updateUser } from '../service/userService';
 import mc, { body } from '../service/mail';
 import roles from '../middlewares/roles';
+import jwt from 'jsonwebtoken';
 
 const router = new Router();
 
@@ -64,10 +65,12 @@ router.get('/authStatus', async (ctx) => {
 });
 
 // update user
-router.post('/:id', roles('admin'));
+router.post('/:id', roles(['admin', 'user']));
 router.post('/:id', async (ctx) => {
   const { id } = ctx.params;
   const { body } = ctx.request;
+  const { token } = ctx;
+  const { JWT_SECRET } = process.env;
 
   const isValid = await userPostRequestSchema.isValid(body);
   if(!isValid) {
@@ -75,12 +78,24 @@ router.post('/:id', async (ctx) => {
     return;
   }
 
-  // const syncStatus = await SyncStatus.findOne({ where: { name: 'ADDED' } });
-  // const syncStatusId = syncStatus ? syncStatus.dataValues.id : null;
+  if(!token.roles.includes('admin') && token.id !== Number(id)) {
+    ctx.status = 403;
+    return;
+  }
+
   const affected  = await updateUser({ id, ...body });
   if(affected[0] === 0) {
     ctx.status = 404;
   } else {
+    const user = await User.findByPk(id);
+    const token = jwt.sign({
+      ...user.get(),
+      token: null,
+      email: null,
+      roles: ctx.token.roles,
+    }, JWT_SECRET);
+
+    ctx.cookies.set('cmtrs-token', token);
     ctx.status = 200;
   }
 });

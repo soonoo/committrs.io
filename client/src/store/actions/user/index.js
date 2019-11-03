@@ -5,6 +5,7 @@ export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
 export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST';
 export const FETCH_USER_REQUEST_SERVER = 'FETCH_USER_REQUEST_SERVER';
 export const FETCH_USER_NOT_FOUND = 'FETCH_USER_NOT_FOUND';
+export const MODIFY_USER_REQUEST = 'MODIFY_USER_REQUEST';
 
 export const fetchUserSuccess = (user) => ({
   type: FETCH_USER_SUCCESS,
@@ -34,6 +35,14 @@ export const fetchUserNotFound = (userName) => ({
       id: USER_NOT_FOUND,
       github_login: userName,
     },
+  },
+});
+
+export const modifyUserRequest = (id, data) => ({
+  type: MODIFY_USER_REQUEST,
+  payload: {
+    id,
+    data,
   },
 });
 

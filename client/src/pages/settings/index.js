@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from 'components/Header';
 import { addNoti, removeNotiAfterTimeout } from 'store/actions/noti';
+import { modifyUserRequest } from 'store/actions/user';
 import { AUTH_STATUS } from 'store/reducers/auth';
 import { GITHUB_LOGIN_URL } from 'constants/index';
 import uuid from 'uuid/v4';
@@ -14,8 +15,9 @@ const login = () => {
 
 const SettingsPage = ({ staticContext = {} }) => {
   const dispatch = useDispatch();
-  const { github_login, avatarUrl, id } = useSelector(state => state.auth);
+  const { github_login, avatarUrl, id, mdn_name } = useSelector(state => state.auth);
   const { authorized } = useSelector(state => state.auth);
+  const [mdnName, setMdnName] = useState(mdn_name);
 
   useEffect(() => {
     const messageId = uuid();
@@ -24,6 +26,19 @@ const SettingsPage = ({ staticContext = {} }) => {
     }
     return () => dispatch(removeNotiAfterTimeout(messageId));
   }, [authorized]);
+
+  useEffect(() => {
+    setMdnName(mdn_name);
+  }, [mdn_name]);
+
+  const onChange = (e) => {
+    setMdnName(e.target.value);
+  };
+
+  const changeMdnName = (id, mdnName) => () => {
+    if(mdn_name === mdnName) return;
+    dispatch(modifyUserRequest(id, { mdn_name: mdnName }));
+  };
 
   return (
     <div>
@@ -38,9 +53,14 @@ const SettingsPage = ({ staticContext = {} }) => {
               <input className='AccountInput' value={github_login} disabled />
             </div>
             <div className='AccountWrapper'>
-              <span className='Account'>MDN</span>
-              <input className='AccountInput' value='' disabled />
-              <button className='AccountChangeButton'>change</button>
+              <span className='Account'>MDN username</span>
+              <input size={1} className='AccountInput' value={mdnName} onChange={onChange} />
+              <button className='AccountChangeButton' onClick={changeMdnName(id, mdnName)}>change</button>
+            </div>
+            <div>
+              <span className='MdnAccountGuide'>IMPORTANT</span>
+              : Please display your GitHub profile in MDN profile settings to verify ownership.<br />
+                (You can find the opiton in 'Edit Profile' > 'My Profiles' menu after signing in <a href='https://developer.mozilla.org/en-US/' target='_blank'>MDN</a>.)
             </div>
         </div>
       </div>

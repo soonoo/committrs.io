@@ -19,21 +19,30 @@
 .Account {
   display: flex;
   justify-content: center;
-  min-width: 70px;
+  min-width: 140px;
   padding: 4px;
 }
 
 .AccountInput {
   flex-grow: 1;
-  border-radius: 0 4px 4px 0;
   border: none;
   padding: 0 6px 0 6px;
+  background-color: #eee;
+}
+
+.AccountInput:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .AccountChangeButton {
   border: none;
   border-radius: 0 4px 4px 0;
-  background-color: #999;
+}
+
+.MdnAccountGuide {
+  color: red;
+  font-weight: 700;
 }
 
 .AccountChangeButton:hover {

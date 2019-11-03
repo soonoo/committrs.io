@@ -31,9 +31,9 @@ router.get('/github/token', async (ctx) => {
 
   const { data: { access_token } } = await axios.post(githubLoginUrl, body, options);
   const { data: { avatar_url, login, email, name } } = await axios.get(`${githubTokenUrl}?access_token=${access_token}`);
-  const user = await findUser(login);
+  let user = await findUser(login);
   if(!user) {
-    await createUser({
+    user = await createUser({
       github_login: login,
       github_name: name || '',
       token: access_token,
@@ -44,7 +44,15 @@ router.get('/github/token', async (ctx) => {
     sqsNewUser({ github_login: login, github_name: name });
   }
 
-  const token = jwt.sign({ github_login: login, github_name: name, avatarUrl: avatar_url, roles: ['user'] }, JWT_SECRET);
+  const token = jwt.sign({
+    github_login: login,
+    github_name: name,
+    avatarUrl: avatar_url,
+    id: user.get('id'),
+    mdn_name: user.get('mdn_name'),
+    roles: ['user'],
+  }, JWT_SECRET);
+
   ctx.cookies.set('cmtrs-token', token);
 
   if(redirect_to) {
