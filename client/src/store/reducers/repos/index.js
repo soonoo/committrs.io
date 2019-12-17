@@ -1,6 +1,6 @@
 import { FETCH_REPOS_SUCCESS } from 'store/actions/repos';
 
-const initialState = null;
+export const initialState = null;
 
 const reposReducer = (state = initialState, action) => {
   switch(action.type) {
