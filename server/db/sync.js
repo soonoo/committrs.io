@@ -19,7 +19,7 @@ const sync = async (ctx, next, force = false) => {
   SyncStatus.hasMany(User);
   User.belongsTo(SyncStatus);
 
-  // await sequelize.sync({ force: true });
+  await sequelize.sync({ force: false });
   // await SyncStatus.findOrCreate({ where: { name: 'ADDED', description: 'User is created and information will be synchronized soon.' }});
   // await SyncStatus.findOrCreate({ where: { name: 'SYNCING', description: 'User is waiting for update. Contributions will be synchonized soon.' }});
   // await SyncStatus.findOrCreate({ where: { name: 'DEFAULT' }});

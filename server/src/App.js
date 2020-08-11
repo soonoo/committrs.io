@@ -27,9 +27,9 @@ app.use(userInfoMiddleware());
 app.use(customCorsMiddleware())
 app.use(router.routes());
 
-if(isProduction) {
-  app = serverless(app);
-}
+// if(isProduction) {
+//   app = serverless(app);
+// }
 
 export { app };
 
